@@ -1,0 +1,11707 @@
+%\documentclass[a5j]{jarticle}
+\documentclass[12pt,a4j]{jarticle}
+\usepackage[dvipdfmx]{graphicx}
+\usepackage{multicol}
+\usepackage{times}
+\usepackage{fancybox}
+%\usepackage{ulem}
+
+\usepackage{longtable}
+
+
+
+\makeatletter
+
+
+%%
+%% my myanswer def
+%%
+\newif\if@myansweropen
+\global\@myansweropenfalse
+\newwrite\@filemyanswer
+
+\def\@openmyanswer{%
+%\immediate\openout\@filemyanswer=\jobname.\thesection.kai\relax%ファイルのオープン
+\immediate\openout\@filemyanswer=\jobname.kai\relax%ファイルのオープン
+\global\@myansweropentrue}%ファイルをオープンしたフラグを立てる
+
+\def\themyanswer{%
+\immediate\closeout\@filemyanswer%ファイルをクローズ
+\global\@myansweropenfalse%ファイルをクローズしたフラグを立てる
+\pagebreak[4]
+\begin{multicols*}{2}\raggedright\parindent=1zw
+%\subsection*{この章の解答}%
+\section*{解答}%
+%\begingroup\small\input{\jobname.\thesection.kai}\endgroup%ファイルを読み込む
+\def\figsize{.6}
+\begingroup\small\input{\jobname.kai}\endgroup%ファイルを読み込む
+\end{multicols*}
+}
+
+\newcounter{myanser}
+\setcounter{myanser}{0}
+\long\def\@myanswer#1{%
+     \if@myansweropen%ファイルをオープンしたフラグが立っているか？
+     %立っていればなにもしない
+     \else%
+     \@openmyanswer%立っていなければファイルをオープン
+     \fi%
+     \addtocounter{myanser}{1}
+     \immediate\write\@filemyanswer{\par\noindent 問\themyanser\ :\par }%
+     \def\next{#1}
+     \immediate\write\@filemyanswer{\expandafter\strip@prefix\meaning\next}
+}% ファイルに書き込む
+
+\long\def\myanswer{\@myanswer}
+
+\def\verbb +{\verb+}% \verb+ が \verb +に書き換えられてしまうので、代わりに\verbbを使う。
+
+
+
+
+\makeatother
+
+
+\raggedbottom
+
+% a4
+%\addtolength{\textwidth}{4cm}
+\addtolength{\textwidth}{2cm}
+\addtolength{\textheight}{3.5cm}
+\addtolength{\topmargin}{-2.5cm}
+%\addtolength{\evensidemargin}{-2cm}
+%\addtolength{\oddsidemargin}{-2cm}
+\addtolength{\evensidemargin}{-1cm}
+\addtolength{\oddsidemargin}{-1cm}
+\setlength{\columnseprule}{.5pt}
+\setlength{\columnsep}{4zw}
+
+% a5
+% \addtolength{\textwidth}{2cm}
+% \addtolength{\textheight}{1cm}
+% \addtolength{\topmargin}{-2cm}
+% \addtolength{\evensidemargin}{-1cm}
+% \addtolength{\oddsidemargin}{-1cm}
+% \setlength{\columnseprule}{0pt}
+% \setlength{\columnsep}{4zw}
+
+
+
+\makeatletter
+\def\verbatim@font{%\small%\bfseries
+\ttfamily}
+\makeatother
+
+%\topsep=0pt
+
+
+%\def\an#1{#1}
+\def\an#1{}
+
+%\def\ex#1{\noindent\hfill{\small #1}}
+\long\def\ex#1{
+\begin{center}
+ \ovalbox{
+ \hspace{1ex}
+  \begin{minipage}{.8\linewidth}
+   #1
+  \end{minipage}
+ \hspace{1ex}
+ }
+\end{center}
+}
+
+\def\ds{\displaystyle}
+
+\def\subst#1#2{$\ds #1$
+ \ $\longrightarrow$\ 
+ \underline{\hbox to 5cm{\ttfamily #2}}}
+
+
+\makeatletter
+\setcounter{section}{1}
+\def\mysection#1{
+%\ifnum \thesection > 1 \themyanswer \par \fi
+\pagebreak[4]
+\vspace{10ex}\noindent{\vbox{\noindent\rule{\linewidth}{1.5ex}\\
+\hbox to .95\linewidth{\hfill \bfseries\Huge%\Large
+\thesection.\  #1\hfill}\\
+\rule{\linewidth}{1.5ex}
+}}
+\addcontentsline{toc}{section}{\thesection. #1}
+\addtocounter{section}{1}
+}
+\makeatother
+
+
+\newcounter{toi}
+\setcounter{toi}{0}
+\makeatletter\def\@currentlabel{\thetoi}\makeatother
+\def\toi{%
+%\subsubsection*{問\thetoi}
+\bigskip\bigskip\noindent
+\addtocounter{toi}{1}
+\shadowbox{\bfseries\large 問\thetoi}
+%\addcontentsline{toc}{subsubsection}{問\thetoi}
+\nopagebreak[4]\bigskip\nopagebreak[4]
+}
+%\def\tois{%
+%%\subsubsection*{問\thetoi}
+%\bigskip\bigskip\noindent
+%\addtocounter{toi}{1}%
+%\shadowbox{\bfseries\large 問\thetoi} {\raisebox{1.5ex}{（スキップ可）}}
+%%\addcontentsline{toc}{subsubsection}{問\thetoi}
+%\nopagebreak[4]\bigskip\nopagebreak[4]
+%}
+
+\def\figsize{.85}
+\def\flow#1{\bigskip\begin{center}\includegraphics[scale=\figsize]{flowchart/#1}\end{center}\bigskip}
+\def\flowl#1{\bigskip\begin{flushleft}\includegraphics[scale=\figsize]{flowchart/#1}\end{flushleft}\bigskip}
+%\def\pad#1{\bigskip\begin{center}\includegraphics[scale=\figsize]{pad/#1}\end{center}\bigskip}
+\def\pad#1{\bigskip\begin{flushleft}\includegraphics[scale=\figsize]{pad/#1}\end{flushleft}\bigskip}
+%\def\spd#1{\bigskip\begin{center}\includegraphics[scale=\figsize]{spd/#1}\end{center}\bigskip}
+\def\spd#1{\bigskip\begin{flushleft}\includegraphics[scale=\figsize]{spd/#1}\end{flushleft}\bigskip}
+
+
+
+
+
+\begin{document}
+%\thispagestyle{empty}
+
+\begin{titlepage}
+\mbox{}
+
+\vfill
+
+ \Huge\bfseries
+ \hfill C言語
+
+ \hfill 問題集
+ 
+ \bigskip
+
+ \Large
+
+% \hfill\today
+
+
+
+\vfill
+
+\mbox{}
+
+\end{titlepage}
+
+\thispagestyle{empty}
+\newpage
+%\mbox{}
+%\newpage
+
+\pagenumbering{roman}
+
+
+
+%\begin{multicols}{2}\small
+%\tableofcontents
+%\end{multicols}
+
+%\newpage
+
+\subsubsection*{単語英日対訳}
+
+{\setlength{\columnsep}{.5zw}
+\begin{multicols}{3}
+{\scriptsize
+\begin{verbatim}
+ANSI standard        ANSI規格
+ASCII code           アスキーコード
+I/O                  入出力
+addition             加算
+address              アドレス
+address-of operator  アドレス演算子
+administrator        管理者
+allocate             割り当て
+angle brackets       <>括弧
+argument             （実）引数
+arithmetic operator  算術演算子 
+array                配列
+assign               代入
+assignment operator  代入演算子 
+binary               二進数
+binary file          バイナリファイル
+binary operator      二項演算子
+bit                  ビット
+bitwise operator     ビット演算子
+block                ブロック
+body                 本体
+braces               {}括弧
+brackets             []括弧
+byte                 バイト
+calculate            計算
+carriage return      改行
+cast                 キャスト
+character            文字
+class                クラス
+code                 プログラムコード
+colon                :コロン
+comarison operator   比較演算子
+comma                ,コンマ
+comment              注釈 コメント
+compatible           互換性
+compiler             コンパイラ
+complement           補数
+compute              計算
+constant             定数
+data type            型
+debug                デバッグ
+decimal              10進数
+declaration          宣言
+decrement            デクリメント
+default              デフォルト
+definition           定義
+dereference operator 間接参照演算子
+device               デバイス
+digit                数字
+dimension            次元
+directive            命令
+display              表示
+division             除算
+double quote         "ダブルクオート
+dynamic              動的
+element              要素
+empty statement      空文
+enumerate            列挙
+equivalent           等価
+error                エラー
+evaluation           評価
+executable           実行可能な
+execute              実行
+expression           式
+field                フィールド
+floating number      浮動小数点数
+free                 解放
+function             関数
+function call        関数呼び出し
+global               大域
+header file          ヘッダファイル
+hexadecimal          16進数
+high level language  高級言語
+implementation       実装
+increment            インクリメント
+index                添字
+indirection operator 間接参照演算子
+initialize           初期化
+instruction          命令
+integer              整数
+invoke               関数呼び出し
+iteration            反復
+keywords reserved    予約語
+left value           左辺値
+library              ライブラリ
+line feed            改行
+link                 リンク
+list                 プログラムリスト
+local                局所
+logical operator     論理演算子
+loop                 ループ 繰り返し
+low level language   低級言語
+machine language     機械語
+macro                マクロ
+member               メンバ
+memory               メモリ
+mode                 モード
+modifier             修飾子
+modulus              法
+multiplication       乗算
+negative             負
+nest                 ネスト 入れ子
+newline              改行
+null                 ヌル
+null character       null文字
+null statement       null文
+number               数字
+numeric number       数値
+object               オブジェクト
+object file          オブジェクトファイル
+octal                8進数
+operation            演算
+operator             演算子
+parameter            （仮）引数
+parenthes            ()括弧
+pass                 渡す
+pointer              ポインタ
+positive             正
+preprocessor         プリプロセッサ
+print                表示
+program              プログラム
+programming language プログラミング言語
+prototype            プロトタイプ
+quote                'クオート
+random access        ランダムアクセス
+real number          実数
+recursion            再帰
+recursive function   再帰関数
+reference            参照
+relational operator  関係演算子
+release              解放
+remainder            剰余
+return value         返値
+right value          右辺値
+run                  実行
+runtime              実行時
+scalar               スカラー
+scope                スコープ 有効範囲
+screen               画面
+semicolon            ;セミコロン
+sort                 ソート
+specifier            指定子
+standard input       標準入力
+standard output      標準出力
+statement            文
+static               静的
+storage              記憶
+stream               ストリーム
+string               文字列
+structure            構造体
+structured programming 構造化プログラミング
+subscript            添字
+substitution         代入
+subtraction          減算
+syntax               構文
+terminal             画面
+text                 テキスト
+unary operator       単項演算子
+union                共用体
+user                 ユーザー
+value                値
+variable             変数
+vector               ベクトル
+void                 void
+warning              警告
+word                 ワード
+\end{verbatim}
+}
+\end{multicols}
+%"
+
+}
+
+\clearpage
+
+\tableofcontents
+
+
+\pagenumbering{arabic}
+\setcounter{page}{1}
+
+
+
+\mysection{式の評価}
+
+
+
+\toi
+
+「評価」とは ○\hspace{-1.1zw} 1 {\bfseries 計算すること}である。
+
+\ex{例：{\ttfamily 1+1}の評価結果は{\ttfamily 2}}
+
+次のC言語の式を評価せよ。
+
+\begin{multicols}{2}
+\begin{verbatim}
+1 + 2
+2 - 1
+2 * 3
+10 / 5
+1
+2.5
+22 * 3.3
+15 - 21
+33.3 / 3
+10.2 + 5.1
+1000
+-12.5
+\end{verbatim}
+\end{multicols}
+
+
+ここで「{\ttfamily *}」「{\ttfamily /}」は
+それぞれ乗算（×）、除算（÷）を表す演算子である。
+（注：C言語の式の中では×や÷の文字は使えない）
+
+
+\myanswer{
+3, 1, 6, 2, 1, 2.5, 72.6, -6, 11.1, 15.3, 1000, -12.5
+}
+
+
+
+
+
+\toi
+
+「評価」とは ○\hspace{-1.1zw} 2 {\bfseries 判定すること}
+（大小や同異などを）である。
+判定結果は、正しい（真）ならば1、間違っている（偽）ならば0
+で表す。
+
+\ex{例：1は0より大きく{\ttfamily 1>0}は正しいので、
+{\ttfamily 1>0}の評価結果は{\ttfamily 1}（真）である。
+また{\ttfamily 1!=0}の評価結果は{\ttfamily 1}（真）、
+{\ttfamily 1!=1}の評価結果は{\ttfamily 0}（偽）である。
+}
+
+次の式を評価せよ。
+
+\begin{multicols}{2}
+\begin{verbatim}
+0 < 1
+3 > -1.5
+-3 >= -10
+-1 <= -3
+3.4 == 3.4
+1.0 != 10
+0 < -1
+1.0 != 10.0
+-3 >= 10
+0.34 == 3.4
+3 < -1.5
+-11.1 <= -33.3
+\end{verbatim}
+\end{multicols}
+
+
+ここで「{\ttfamily ==}」「{\ttfamily >=}」「{\ttfamily <=}」
+はそれぞれ等号（＝）、以下（≧）、以上（≦）を表す演算子である。
+また「{\ttfamily !=}」は非等号（≠）を表す演算子である。
+（注：C言語の式の中では＝≧≦≠等の文字は使えない）
+
+
+\myanswer{
+1, 1, 1, 0, 1,
+1, 0, 1, 0, 0,
+0, 0
+}
+
+
+
+\toi
+
+「評価」は基本的に左から行う。
+
+\ex{例：{\ttfamily 1+2+4}の評価の場合。
+まず{\ttfamily 1+2}を評価すると{\ttfamily 3}になる。
+次に{\ttfamily 3+4}を評価し、{\ttfamily 7}になる。}
+
+次のC言語の式を評価せよ。
+
+\begin{multicols}{2}
+\begin{verbatim}
+-2 + 4 - 3.5
+3 - 4 + 18
+3 * 8 / 4
+10 / 2
+10 / 2 / 5
+10 / 2 * 5
+1.1 + 2 > 0.1
+5 * 2 <= 10.2
+3 - 4 == 1
+2 - 3 != 1
+-3.5 - 2 + 4
+3-4+18
+3 * 8/4
+100 / 20
+10 / 2/5
+10/2 >= 5
+1.1 + 0.1 < 1.1
+55 * 2 <= 110.2
+3-4 != 1
+2-3 == 1
+\end{verbatim}
+\end{multicols}
+
+
+\myanswer{
+-1.5, 17, 6, 5, 1, 25,
+1, 1, 0, 1, -1.5, 
+17, 6, 5, 1, 1,
+0, 1, 1, 0
+}
+
+
+
+\toi
+
+「評価」には優先順位がある。
+優先順位が高いものから評価を行う。
+優先順位が同じ場合、左から評価する。
+
+\ex{例：{\ttfamily 1+2*4}の評価の場合。
+まず{\ttfamily 2*4}を評価すると{\ttfamily 8}になる。
+次に{\ttfamily 1+8}を評価し、{\ttfamily 9}になる。}
+
+演算子の優先順位を調べて、次のC言語の式を評価せよ。
+
+\begin{multicols}{2}
+\begin{verbatim}
+-2 + 4 * 3
+10 / 2 - 5
+2 + 8 * 4 - 2
+2 * 4 - 3 + 18 / 2 + 1
+0 < 1 + 2 
+10 - 2 > 5 * 2
+2 - 3.5 <= 3 + 1.2
+10 - 2 == 5 * 2 - 2
+10 + 2 != 5 * 2 + 2
+-2*4 + 3
+10-20 /  5
+2*8 - 4*2
+2*4-3+18 / 2+1
+0     +1 < 2 
+10 - 2>5 * 2
+2  - 3.5<=3+  1.2
+5 * 2-2 == 10 - 2
+10 + 2 != 5 * 2+2
+\end{verbatim}
+\end{multicols}
+
+
+
+\myanswer{
+10, 0, 32, 15, 1, 0, 1, 1, 0, -5,
+6, 8, 15, 1, 0, 1, 1, 0
+}
+
+
+
+
+\toi
+
+
+「評価」には優先順位がある。
+式中の括弧「{\ttfamily (}」と「{\ttfamily )}」で括られた部分は先に評価する。
+大括弧、中括弧は使えないので、すべて小括弧のみで表す。
+
+\ex{例：{\ttfamily (1+2)*4}の評価の場合。
+まず{\ttfamily (1+2)}を評価すると{\ttfamily 3}になる。
+次に{\ttfamily 3*4}を評価し、{\ttfamily 12}になる。}
+
+
+演算子の優先順位を調べて、次のC言語の式を評価せよ。
+
+%\newpage
+
+\begin{multicols}{2}
+\begin{verbatim}
+-2 * (4 - 3)
+24 / ((2 - 5) * 4)
+-(8 + (3 * 8)) / 4
+10 / (2 * 5)
+40 / (-(20 / 5))
+2 * (4 - 3 + 17) / (2 + 1)
+(1 + (1 + (1 + (1 + (2 * 3)))))
+10 < (1 + 2) * 3
+
+
+(5 > 2)
+(5 > 2) + 1
+(5 > 2) + (3 - 2 != 1)
+2 == 5 - 3
+4 * (2 == 5 - 3) - 1
+(4 < 5)
+(4 < 5) < 6
+4 < (5 < 6)
+4 < 5 < 6
+2 < 3 > 1
+\end{verbatim}
+\end{multicols}
+
+\myanswer{
+-2, -2, -8, 1, -10, 12, 10, 0,
+1, 2, 1, 1, 3, 1, 1, 0, 1, 0
+}
+
+
+
+
+\toi
+
+「評価」できるC言語の式の形は、数学の数式とは異なる。
+
+\ex{例：分数は、分母と分子を括弧()で括り、
+除算演算子/で表す。
+%√やlogや冪乗などはC言語の数学関数を使う。
+}
+
+次のC言語の式を数学の数式に（除算は分数で）書き直せ。
+また、数学の数式をC言語の式に書き直せ。
+\begin{eqnarray*}
+ \mbox{C言語の式} && 数学の数式\\
+ \mbox{\ttfamily -2 + 15 / 3} &\rightarrow& -2 + \frac{15}{3}\\
+ \rule[-3ex]{0pt}{8ex}\mbox{\ttfamily 10 / 3 + 1} &\rightarrow& \\
+ \rule[-3ex]{0pt}{8ex}\mbox{\ttfamily 2 * 5 / 2 * 5} &\rightarrow& \\
+ \rule[-3ex]{0pt}{8ex}\mbox{\ttfamily 9 / 3 / 3 - 1} &\rightarrow& \\
+ \rule[-3ex]{0pt}{8ex}\mbox{\ttfamily 9 / (3 / 3) - 1} &\rightarrow& \\
+ \rule[-3ex]{0pt}{8ex}\mbox{\ttfamily 1 + 3 * 4 / 2 - 10} &\rightarrow& \\
+ \rule[-3ex]{0pt}{8ex}\mbox{\ttfamily (1 + 3) * (4 / 2) - 10} &\rightarrow& \\
+ \rule[-3ex]{0pt}{8ex}\mbox{\ttfamily (1 + 3) / (4 * 2) - 10} &\rightarrow& \\
+ \rule[-3ex]{0pt}{8ex}\mbox{\ttfamily } &\rightarrow& 1 \div 2 \times 4\\
+ \rule[-3ex]{0pt}{8ex}\mbox{\ttfamily } &\rightarrow& 1 - 2 \div 2 \times 4 + 3\\
+ \rule[-3ex]{0pt}{8ex}\mbox{\ttfamily } &\rightarrow& (1 - 2) \div 2 \times (4 + 3)\\
+ \rule[-3ex]{0pt}{8ex}\mbox{\ttfamily } &\rightarrow& 1 + \frac{1 - 3}{\frac{2}{4} + 1} - 2 \\
+ \rule[-3ex]{0pt}{8ex}\mbox{\ttfamily } &\rightarrow& 1 + [1 + \{1 + (2 - 3)\}]\\[2ex]
+ \rule[-3ex]{0pt}{8ex}\mbox{\ttfamily } &\rightarrow& \frac{\frac{1}{4}-\frac{4}{2}}{-(1-\frac{3}{2})} + \frac{6}{2}
+\end{eqnarray*}
+
+
+\myanswer{
+$\frac{10}{3}+1$, $\frac{2\times5}{2}\times5$,
+$\ds\frac{\frac{9}{3}}{3}-1$, 
+$\ds\frac{9}{\frac{3}{3}}-1$, 
+$1+\frac{3\times4}{2}-10$,
+$(1+3)\times\frac{4}{2}-10$,
+$\frac{1+3}{4\times2}-10$,
+{\ttfamily
+1 / 2 * 4,
+1 - 2 / 2 * 4 + 3,
+(1-2) / 2 * (4+3),
+1 + (1-3)/(2/4 + 1) - 2,
+1 + (1 + (1 + (2 - 3))),
+-(1/4 - 4/2)/(1 - 3/2) + 6/2
+}
+}
+
+
+
+
+
+
+\toi
+
+演算子{\ttfamily +,-,*,==,!=}は可換である。
+
+\ex{例：{\ttfamily 1+2}は{\ttfamily 2+1}と等しい。}
+
+
+次の二つのC言語の式の評価結果は同じか違うか。
+同じなら○、違うなら×で答えよ。\\
+
+\begin{center}
+ \noindent{\ttfamily
+ \begin{tabular}{|l|l|c|}\hline
+  式1 & 式2 & ○,×\\ \hline\hline
+  1 + 3 & 3 + 1 & \hbox to 1cm{}\\ \hline
+  3 * 5 & 5 * 3 & \\ \hline
+  3 + 3 * 5 & 5 * 3 + 3 & \\ \hline
+  3 * 7 / 3 & 7 / 3 * 3 & \\ \hline
+  8 / 3 / 3 & 8 / (3 * 3) & \\ \hline
+  (3 + 3) / 7 & 3 + 3 / 7 & \\ \hline
+  3 + 3 / 7 & 3 + (3 / 7) & \\ \hline
+  8 / 3 * 3 & 8 / (3 * 3) & \\ \hline
+  (5 + 3) / (7 + 3) & 5 + 3 / 7 + 3 & \\ \hline
+  5 + 3 * 7 + 3 & (5 + 3) * 7 + 3 & \\ \hline
+  2 / 1.12 == 4 & 4 == 2 / 1.12 & \\ \hline
+  4 != 1.12 + 2& 2 + 1.12 != 4 & \\ \hline
+  3 * 5 & 5*3 & \\ \hline
+  1+2 * 3 & 1 + 2*3 & \\ \hline
+  3+3 / 7 & 3 + 3/7 & \\ \hline
+  12 / 2 / 3 &  12 / 3 / 2& \\ \hline
+  1 - 2 &  -2 + 1& \\ \hline
+  2 * (3 + 4) & 2 * 3 + 4 & \\ \hline
+ \end{tabular}
+ }
+\end{center}
+
+
+\myanswer{
+○○○
+×○×○×××
+○○○○○○○×
+}
+
+
+
+
+
+
+
+\mysection{論理式の評価}
+
+
+二つの真偽の論理関係には
+論理積（AND）と論理和（OR）がある。
+それぞれの真偽値表は次の通り。
+
+\begin{center}
+ \begin{tabular}{c@{ AND }c|c}\hline
+  & & 結果 \\\hline
+  0 & 0 & 0 \\
+  0 & 1 & 0 \\
+  1 & 0 & 0 \\
+  1 & 1 & 1 \\\hline
+ \end{tabular}
+ \hspace{.1\linewidth}
+ \begin{tabular}{c@{ OR }c|c}\hline
+  & & 結果 \\\hline
+  0 & 0 & 0 \\
+  0 & 1 & 1 \\
+  1 & 0 & 1 \\
+  1 & 1 & 1 \\\hline
+ \end{tabular}
+\end{center}
+
+
+C言語において、
+ANDまたはORを表す論理演算子はそれぞれ {\ttfamily \&\&}, {\ttfamily ||}である。
+
+\ex{例：{\ttfamily (1>0)\&\&(3>0)}の場合、
+{\ttfamily 1>0} は{\ttfamily 1}（真）、
+{\ttfamily 3>0} は{\ttfamily 1}（真）なので、
+評価結果は{\ttfamily 1}（真）。
+{\ttfamily (1<0)\&\&(3>0)}の評価結果は{\ttfamily 0}（偽）。
+{\ttfamily (1<0)||(3>0)}の評価結果は{\ttfamily 1}（真）。
+{\ttfamily (1<0)||(3<0)}の評価結果は{\ttfamily 0}（偽）。}
+
+論理演算子の場合も、優先順位が同じなら左から評価する。
+
+\toi
+
+演算子の優先順位を調べて、次のC言語の式を評価せよ。
+
+\begin{verbatim}
+(0 < 1) && (0 > 1)
+3 > 2 - 1 && 5 <= 6 - 1
+3 == 2 - 1 || 5 != 6 - 1
+((0 < 1) && (0 > 1)) || (0 < 2)
+2 > 0 && 0
+1 && 3 <= 4
+1 && 1
+1 && 0
+1 || 0 && 1
+1 && (0 || 1)
+(0 && 0) || 1
+0 && (0 || 1)
+3 + ((0 > 1) || (0 < 3))
+(3 > 1 && 5 >= -1) * 5
+\end{verbatim}
+
+
+\myanswer{
+0, 1, 0, 1, 0, 1, 1, 0, 1, 1,
+1, 0, 4, 5
+}
+
+
+
+\toi
+
+否定（NOT）を表す演算子は {\ttfamily !} である。
+否定演算子は、式の前に置く。
+
+\ex{例：{\ttfamily !(1>0)}の場合、
+{\ttfamily 1>0}は{\ttfamily 1}（真）なので、評価結果は{\ttfamily 0}（偽）。
+
+{\ttfamily !(1>2)}の場合、
+{\ttfamily 1>2}は{\ttfamily 0}（偽）なので、評価結果は{\ttfamily 1}（真）。}
+
+演算子の優先順位を調べて、次のC言語の式を評価せよ。
+\begin{verbatim}
+(0 < 1) && !(0 > 1)
+!(3 > 2 && 5 <= 6)
+!(5 != 6 - 1)
+!(!(!(2 > 0)))
+!0
+!(1 && 1)
+!!!1
+1 && !1
+\end{verbatim}
+
+
+\myanswer{
+1, 0, 1, 0, 1, 0, 0, 0
+}
+
+
+
+
+
+\toi
+
+次の式「\verb+ a > 2 && a < 4 +」
+と等価な式を、\verb+&&+を使わずに書け。
+
+（ヒント：ド・モルガンの法則）
+
+%「\verb+!( +\fbox{\hbox to 13em{\rule[.5ex]{0pt}{1ex}}} \verb+ )+」
+%% !(a <= 2 || a >= 4)
+%がある。空欄を埋めよ。
+
+
+\myanswer{
+\verb !(a<=2||a>=4)
+
+}
+
+
+
+%\newpage
+
+\toi
+
+次の数学の条件式をC言語の式に書き直せ。
+また、C言語の式を数学の条件式に書き直せ。
+\begin{eqnarray*}
+ 数学の条件式 && \mbox{C言語の式}\\
+ 3 \le 2 かつ 4 \ge 5 &\rightarrow& \mbox{\ttfamily 3 <= 2 \&\& 4 >= 5}\\
+ 3 > 4 または -2 < 6&\rightarrow& \\
+  &\rightarrow& \mbox{\ttfamily  5 > 4 \&\& 4 > 3}\\
+ 3 \ge 2 \ge 1 &\rightarrow& \\
+\end{eqnarray*}
+
+
+\myanswer{
+{\ttfamily 3>4 || -2<6},\quad
+$5>4>3$,\quad
+{\ttfamily 3>=2 \&\& 2>=1}
+}
+
+
+
+\toi
+\label{toi:evaluation}
+
+「評価」において、「真」は1である（真$\longrightarrow$1）が、
+1だけではなく「0以外」はすべて「真」である（真$\longleftarrow$0以外）。
+また、0の時のみ偽である（偽$\longleftrightarrow$ 0）。
+
+\ex{例：{\ttfamily 2\&\&(3>0)}の評価結果は{\ttfamily 1}（真）。
+{\ttfamily !2}の評価結果は（2が真だからその逆となり）{\ttfamily 0}（偽）。
+}
+
+演算子の優先順位を調べて、次のC言語の式を評価せよ。
+
+\begin{verbatim}
+2 && 1
+-2 || !8
+3 + 4 * 2 || 4 - 3 - 1
+(3 + (0 > 1)) || (0 < 3)
+!0 + !2
+!(2 + 3) * 4
+1 + 2 + (3 < 4)
+1 + 2 + (3 < 4) < 2
+3 && 2 && -1 && 8 && 0
+(3 > 1) && 5
+3 > (1 && 5)
+\end{verbatim}
+
+
+\myanswer{1, 1, 1, 1, 1, 0, 4, 0, 0, 1, 1}
+
+
+
+\toi
+\label{toi:pmoperators}
+
+正負を表す演算子はそれぞれ {\ttfamily +, -} である。
+{\ttfamily -}を連続して適用する場合
+（または{\ttfamily +}を連続して適用する場合）
+には空白をあける（{\ttfamily --,++}等は不可、{\ttfamily +-,-+}等は可）。
+
+\ex{例：{\ttfamily (- -2)}の評価結果は{\ttfamily 2}}
+
+次のC言語の式を評価せよ。
+
+\begin{multicols}{2}
+\begin{verbatim}
+-(2)
+-(-2)
+- - 2
+- - -2
++2
++(-2)
++ - 3
+
++(-(+(-2)))
++-+-2
+3 + - 2
+-+-+3+-+-2
++ + - + 3
+4 / (-2)
+4 / -2
+4 / -(2 - 1)
+\end{verbatim}
+\end{multicols}
+
+
+
+\myanswer{-2, 2, 2, -2, 2, -2, -3, 2, 2, 1, 5, -3, -2, -2, -4}
+
+
+
+
+\toi
+
+次のC言語の式は正しくない。間違いを指摘せよ。
+
+\begin{verbatim}
+3 <> 2
+4 > = 2
+4 => 2
+3 !== 1 + 2
+4 - 1 = = 3
+2 =< 3
+4 \ 2
+--2
++--+2
+\end{verbatim}
+
+
+\myanswer{{\ttfamily 
+<>という演算子はない。
+>と=の間が空いている。
+=>,!==という演算子はない。
+=と=の間が空いている。
+=<という演算子はない。
+/の間違い。
+--が連続している。
+}
+}
+
+
+
+
+\mysection{変数、代入}
+
+
+
+「変数」とは評価結果を保持するために使う記号である。
+変数に評価結果の値を保持させることを「代入」と呼び、
+代入演算子「{\ttfamily =}」を使う。
+
+{\ttfamily =}の左辺に変数を書き、右辺に評価する式を書く。
+
+\ex{例：変数{\ttfamily x}に{\ttfamily 2}
+を代入するには{\ttfamily x=2}と書く。
+
+{\ttfamily y=3+4}と書くと、
+{\ttfamily 3+4}の評価結果{\ttfamily 7}が
+{\ttfamily y}に代入される。}
+
+
+{\ttfamily y=3+4}のような、
+変数に代入するように書いたものを「代入文」と呼ぶ。
+
+
+
+\toi
+
+それぞれ変数に式の評価結果を代入する代入文を書け。
+
+\noindent
+注意：{\bfseries C言語における「{\ttfamily =}」は代入を意味し、
+数学における等号記号「$=$」とは全く意味が異なる。}
+
+\begin{center}
+ \ttfamily%\small
+ \begin{tabular}{|c|l|l|}\hline
+ 変数 & 評価する式 & 代入文\\ \hline\hline
+ y & 3 + 4 & y = 3 + 4\\ \hline
+ x & -3 & \hbox to 4cm{}\\ \hline
+ x & 1 - 2 & \\ \hline
+ x & 1 + 2 + 3 + 4 * 5& \\ \hline
+ w & -2 * (4 - 2) & \\ \hline
+ x & 0 < 1 & \\ \hline
+ y & 3 > (1 \&\& 5) & \\ \hline
+ x & 1 - 2 == 4 & \\ \hline
+ \end{tabular}
+\end{center}
+
+
+\myanswer{{\ttfamily 
+
+ x = -3 ,
+ x = 1 - 2 ,
+ x = 1 + 2 + 3 + 4 * 5 ,
+ w = -2 * (4 - 2) ,
+ x = 0 < 1 ,
+ y = 3 > (1 \&\& 5) ,
+ x = 1 - 2 == 4 
+}}
+
+
+
+
+\toi
+
+ある代入文によって変数に値を実際に代入することを、
+代入文を「実行」する、または代入を「実行」すると言うことがある。
+
+代入は、なにより先にまず右辺を評価する。
+代入が実行された「後」の変数は、評価結果の値を保持している。
+次の代入文を実行した後に変数が保持している値を書け。
+
+\begin{center}
+ \ttfamily%\small
+ \begin{tabular}{|l|c|}\hline
+ 代入文 & 値 \\ \hline\hline
+ x = 1 + 2 & 3\\ \hline
+ y = 3 - 4 + 18 & \hbox to 1cm{}\\ \hline
+ y = 10 / 2 / 5 & \\ \hline
+ y = (2 - 3 != 1) & \\ \hline
+ y = 1 + 2 * (3 + 4) & \\ \hline
+ y = (1+(1+(1+(1+(2*4))))) & \\ \hline
+ y = 2*(4*(3*(1+2)+1)+1)+1 & \\ \hline
+ \end{tabular}
+\end{center}
+
+\myanswer{17, 1, 1, 15, 12, 83}
+
+
+\toi
+
+「変数」を「評価」すると、その変数が保持している
+値が評価結果となる。
+評価されるだけなので、変数が保持している値は変わらない。
+
+
+\ex{例：変数{\ttfamily x}の保持している値が{\ttfamily 3}
+のとき、{\ttfamily x}の評価結果は{\ttfamily 3}であり、
+{\ttfamily x+1}の評価結果は{\ttfamily 4}である。}
+
+
+代入文「{\ttfamily x = 1 + 2}」と
+「{\ttfamily y = 4 / 2}」によって
+変数{\ttfamily x}と{\ttfamily y}に値が
+代入されているとき、次のC言語の式を評価せよ。
+
+\begin{multicols}{2}
+\begin{verbatim}
+x
+y
+x + 2
+2 + x * 3
+x == 3
+6 / 2 != x
+(x > 1) && 5
+9 / x / x
+x + y
+x + y + y
+x * (y + y)
+2*(x*(y+1))
+y == x
+x * y > 0
+y - 1 > x && 0 < x
+\end{verbatim}
+\end{multicols}
+
+
+\myanswer{3, 2, 5, 11, 1, 0, 1, 1, 5, 7, 12, 18, 0, 1, 0}
+
+
+
+
+
+
+\toi
+
+\begin{multicols}{2}
+ 
+ 同じ変数に何度も代入を実行するたびに、保持している値は変わる。
+ 代入文が実行された時に、変数の値が書き換えられる。
+ {\bfseries 代入されたことのない変数の値は不定である。}
+ 代入文を連続して実行する場合には、
+ 代入文と代入文の間に区切り文字「{\ttfamily ;}」（セミコロン）が必要である。
+
+ 以下の代入文が上から順番に実行されるとき、
+ それぞれの代入文が実行された時点での
+ 変数{\ttfamily x}と{\ttfamily y}の値を書け。
+
+ \vfill
+
+ \bigskip\bigskip
+ 
+\noindent\rule{\linewidth}{.1pt}
+
+{\bfseries
+数学における「変数」は、ある決まった数を表すために用いるので、
+同じ変数の値は途中で勝手に変わること、変えることはできない。
+
+しかし、C言語における「変数」は、評価結果を保持するために
+用いる記号であり、同じ変数に何度も代入を実行するたびに、
+保持している値は変わる。
+}
+
+
+ \begin{center}
+ \ttfamily%\small
+ \begin{tabular}{|l|c|c|}\hline
+ 代入文 & xの値 & yの値\\ \hline\hline
+ x = 1 + 2; & 3 & 不定 \\ \cline{2-3}
+ y = x + 1; & 3 & 4 \\ \cline{2-3}
+ x = 4 / 2; & 2 & 4 \\ \cline{2-3}
+ y = x * 3; & 2 & 6 \\ \cline{2-3}
+ x = 10 / (2 * 5); & &  \\ \cline{2-3}
+ y = x > 2; & &  \\ \cline{2-3}
+ x = 1; & &  \\  \cline{2-3}
+ y = x + 1; & &  \\  \cline{2-3}
+ x = y + 1; & &  \\  \cline{2-3}
+ y = x + 1; & &  \\  \cline{2-3}
+ x = y + 1; & &  \\  \cline{2-3}
+ y = x + 1; & &  \\  \cline{2-3}
+ x = y + 2; & &  \\  \cline{2-3}
+ y = x + 2; & &  \\  \cline{2-3}
+ x = y + 3; & &  \\  \cline{2-3}
+ y = x + 4; & &  \\  \cline{2-3}
+ x = y - 10; & &  \\  \cline{2-3}
+ y = x + 1; & &  \\ \hline
+ \end{tabular}
+ \end{center}
+
+\end{multicols}
+
+
+\myanswer{{\ttfamily
+
+x: 
+3  
+2  
+2  
+1  
+1  
+1  
+1  
+3  
+3  
+5  
+5  
+8  
+8  
+13 
+13 
+7  
+7  
+
+y: 
+4 
+4 
+6 
+6 
+0 
+0 
+2 
+2 
+4 
+4 
+6 
+6 
+10
+10
+17
+17
+8 
+
+}}
+
+
+
+
+
+
+
+\toi
+\label{toi:substitution}
+
+「代入」も「評価」の一つである。
+代入文を評価すると、変数に代入された値が評価結果となる。
+通常の代入文と同じように、変数には値が代入されている。
+
+\ex{例：{\ttfamily x=2}の評価結果は{\ttfamily 2}である。}
+
+次のC言語の式を評価せよ。
+
+\begin{verbatim}
+x = 3
+x = 3 * 2 + 1
+y = 3 + 2
+y = (3 + 2)
+(y = 3) + 2
+6 / (x = 3) + 1
+(y = 3) + ((x = 4) > 1) + 2
+(y = (x = 2 * 3)) + 1
+\end{verbatim}
+
+\myanswer{3, 7, 5, 5, 5, 3, 6, 7}
+
+
+
+\toi
+\label{toi:substitution2}
+
+以下の代入文が上から順番に実行されるとき、
+それぞれの代入文が実行された時点での
+各変数の値を書け。不定であれば不定と書け。
+
+\begin{center}
+ \noindent{\ttfamily%\small
+ \begin{tabular}{|l|c|c|c|}\hline
+ 代入文 & xの値 & yの値 & zの値\\ \hline\hline
+ x = 1; & & & \\  \cline{2-4}
+ y = 2; & & & \\  \cline{2-4}
+ z = 3; & & & \\  \cline{2-4}
+ x = y + z * 2; & & & \\  \cline{2-4}
+ x = (y = (z = 7)); & & & \\  \cline{2-4}
+ x = y = z = 8; & & & \\  \cline{2-4}
+ x = y = z + 6; & & & \\  \cline{2-4}
+ z = (x == y); & & & \\  \cline{2-4}
+ z = (x = y); & & & \\  \cline{2-4}
+ z = (x = (y == 1)); & & & \\  \cline{2-4}
+ x = 3 + 2; & & & \\  \cline{2-4}
+ y = x = 3 + 2; & & & \\  \cline{2-4}
+ y = (x = 3) + 2; & & & \\  \hline
+ \end{tabular}
+ }
+\end{center}
+
+\myanswer{{\ttfamily
+
+\begin{tabular}{|c|c|c|}\hline
+ x & y & z\cr\hline\hline
+ 1 & 不定 & 不定\cr\hline
+ 1 & 2 & 不定\cr\hline
+ 1 & 2 & 3\cr\hline
+ 8 & 2 & 3\cr\hline
+ 7 & 7 & 7\cr\hline
+ 8 & 8 & 8\cr\hline
+14 &14 & 8\cr\hline
+14 &14 & 1\cr\hline
+14 &14 &14\cr\hline
+ 0 &14 & 0\cr\hline
+ 5 &14 & 0\cr\hline
+ 5 & 5 & 0\cr\hline
+ 3 & 5 & 0\cr\hline
+\end{tabular}
+}}
+
+
+
+
+\toi
+
+次のC言語の式は正しくない。間違いを指摘せよ。
+\begin{verbatim}
+x = y = 3 + 1 = z
+(x = y) = 3
+4 = z + 1
+\end{verbatim}
+
+
+\myanswer{{\ttfamily
+3 + 1 に代入することはできない。
+(x = y) に代入することはできない。
+4に代入することはできない。
+}}
+
+
+
+
+%\mysection{変数の値が不定：初期化}
+\mysection{変数の初期化}
+
+
+
+\toi
+
+
+何も代入されていない変数は値が不定であり、
+その変数は「初期化されていない」と言う。
+評価される式の中に、値が不定の変数が
+含まれている場合には、評価結果全体が不定となる。
+
+\ex{例：変数{\ttfamily x}の値が不定のとき、
+{\ttfamily x+2}の評価結果は不定。}
+
+以下の
+代入文が上から順番に実行されるとき、
+各代入文が実行された時点での各変数の値を書け。
+不定であれば不定と書け。
+
+\begin{center}
+ \noindent{\ttfamily%\small
+ \begin{tabular}{|l|c|c|c|}\hline
+ 代入文 & xの値 & yの値 & zの値\cr \hline\hline
+ y = 2; & & & \cr  \cline{2-4}
+ x = 3; & & & \cr  \cline{2-4}
+ y = x; & & & \cr  \cline{2-4}
+ x = y + 2 * z; & & & \cr  \cline{2-4}
+ y = x + 6; & & & \cr  \hline
+ \end{tabular}
+ }
+\end{center}
+
+
+以後の問題では「不定であれば不定と書け」という指示は省略するが、
+今後、変数の値が不定であれば「不定」と書くこと。
+
+
+\myanswer{{\ttfamily\noindent
+\begin{tabular}{|l|c|c|c|}\hline
+ 代入文 & xの値 & yの値 & zの値\cr \hline\hline
+ y = 2; & 不定& 2& 不定\cr  \cline{2-4}
+ x = 3; & 3& 2& 不定\cr  \cline{2-4}
+ y = x; & 3& 3& 不定\cr  \cline{2-4}
+ x = y + 2 * z; & 不定& 3& 不定\cr  \cline{2-4}
+ y = x + 6; & 不定& 不定& 不定\cr  \hline
+\end{tabular}
+}}
+
+
+
+
+\toi
+
+以下の
+代入文が上から順番に実行されるとき、
+各代入文が実行された時点での各変数の値を書け。
+
+\begin{center}
+ \noindent{\ttfamily%\small
+ \begin{tabular}{|l|c|c|c|}\hline
+ 代入文 & xの値 & yの値 & zの値\\ \hline\hline
+ z = -4; & & & \\  \cline{2-4}
+ x = z * 2 + y; & & & \\  \cline{2-4}
+ z = x / 6; & & & \\   \cline{2-4}
+ x = 2 ; & & & \\  \cline{2-4}
+ z = y + x * 6; & & & \\  \hline
+ \end{tabular}
+ }
+\end{center}
+
+
+\myanswer{{\ttfamily\noindent
+\begin{tabular}{|l|c|c|c|}\hline
+ 代入文 & xの値 & yの値 & zの値\cr \hline\hline
+ z = -4; & 不定&不定&-4 \cr  \cline{2-4}
+ x = z * 2 + y; & 不定& 不定& -4\cr  \cline{2-4}
+ z = x / 6; & 不定& 不定& 不定\cr   \cline{2-4}
+ x = 2 ; & 2& 不定& 不定\cr  \cline{2-4}
+ z = y + x * 6; & 2&不定 &不定 \cr  \hline
+\end{tabular}
+}}
+
+
+
+\toi
+
+
+代入文の実行順序は重要であり、
+順序が変わると変数の値も変わってしまう。
+
+以下の
+代入文が上から順番に実行されるとき、
+各代入文が実行された時点での各変数の値を書け。
+
+\begin{center}
+ \noindent{\ttfamily%\small
+ \begin{tabular}{|l|c|c|c|}\hline
+ 代入文 & xの値 & yの値 & zの値\\ \hline\hline
+ y = 2; & & & \\  \cline{2-4}
+ x = 3; & & & \\  \cline{2-4}
+ x = y; & & & \\  \cline{2-4}
+ z = x + 2; & & & \\  \cline{2-4}
+ y = x; & & & \\  \hline
+ \end{tabular}
+ }
+\end{center}
+
+次に、
+以下の
+代入文が上から順番に実行されるとき、
+各代入文が実行された時点での各変数の値を書け。
+
+\begin{center}
+ \noindent{\ttfamily%\small
+ \begin{tabular}{|l|c|c|c|}\hline
+ 代入文 & xの値 & yの値 & zの値\\ \hline\hline
+ y = 2; & & & \\  \cline{2-4}
+ x = 3; & & & \\  \cline{2-4}
+ y = x; & & & \\  \cline{2-4}
+ z = x + 2; & & & \\  \cline{2-4}
+ x = y; & & & \\  \hline
+ \end{tabular}
+ }
+\end{center}
+
+上の二つの例は、どの代入文の順序が
+違うのか。
+
+
+\myanswer{{\ttfamily
+
+\begin{tabular}{|l|c|c|c|}\hline
+ 代入文 & xの値 & yの値 & zの値\cr \hline\hline
+ y = 2; & 不定& 2& 不定\cr  \cline{2-4}
+ x = 3; & 3& 2& 不定\cr  \cline{2-4}
+ x = y; & 2& 2& 不定\cr  \cline{2-4}
+ z = x + 2; & 2& 2& 4\cr  \cline{2-4}
+ y = x; & 2& 2& 4\cr  \hline
+\end{tabular}
+
+\begin{tabular}{|l|c|c|c|}\hline
+ 代入文 & xの値 & yの値 & zの値\cr \hline\hline
+ y = 2; & 不定& 2& 不定\cr  \cline{2-4}
+ x = 3; & 3& 2& 不定\cr  \cline{2-4}
+ y = x; & 3& 3& 不定\cr  \cline{2-4}
+ z = x + 2; & 3& 3& 5\cr \cline{2-4}
+ x = y; & 3& 3& 5\cr \hline
+\end{tabular}
+
+代入文 y=x と x=y の順序が異なる。
+
+}}
+
+
+
+
+
+
+
+\toi
+
+変数{\ttfamily x}と{\ttfamily y}の値を
+「入れ換える」ことができる。
+そのためには、別の変数を仲介に使う。
+
+以下の代入文が上から順番に実行されるとき、
+それぞれの代入文が実行された時点での各変数の値を書け。
+
+\begin{center}
+ \hfil
+ \begin{minipage}{.4\linewidth}
+ \begin{center}
+ \noindent{\ttfamily%\small
+ \begin{tabular}{|l|c|c|c|}\hline
+ 代入文 & xの値 & yの値 & zの値\\ \hline\hline
+ y = 2; & & & \\  \cline{2-4}
+ x = 3; & & & \\  \cline{2-4}
+ z = x; & & & \\  \cline{2-4}
+ x = y; & & & \\  \cline{2-4}
+ y = z; & & & \\  \hline
+ \end{tabular}
+ }
+ \end{center}
+ \end{minipage}
+ \hfil
+ \begin{minipage}{.4\linewidth}
+ \noindent
+ 入れ換える前の\\
+ {\ttfamily x}の値：＿＿＿＿, {\ttfamily y}の値：＿＿＿＿\\
+
+ 入れ換えた後の\\
+ {\ttfamily x}の値：＿＿＿＿, {\ttfamily y}の値：＿＿＿＿
+ \end{minipage}
+ \hfill
+\end{center}
+
+
+\myanswer{{\ttfamily
+
+ \begin{tabular}{|l|c|c|c|}\hline
+ 代入文 & xの値 & yの値 & zの値\cr \hline\hline
+ y = 2; & 不定& 2& 不定\cr  \cline{2-4}
+ x = 3; & 3& 2& 不定\cr  \cline{2-4}
+ z = x; & 3& 2& 3\cr  \cline{2-4}
+ x = y; & 2& 2& 3\cr  \cline{2-4}
+ y = z; & 2& 3& 3\cr  \hline
+ \end{tabular}
+
+
+ 入れ換える前の\par
+ { x}の値：3, { y}の値：2
+
+ 入れ換えた後の\par
+ { x}の値：2, { y}の値：3
+
+}}
+
+
+
+
+\toi
+
+
+変数{\ttfamily z}と{\ttfamily y}の値を
+入れ換えるように下線部を埋めよ。
+また、
+それぞれの代入文が実行された時点での各変数の値を書け。
+
+\begin{center}
+ \noindent{\ttfamily%\small
+ \begin{tabular}{|l|c|c|c|}\hline
+  代入文 & xの値 & yの値 & zの値\\ \hline\hline
+  z = 1; & & & \\  \cline{2-4}
+  y = 3; & & & \\  \cline{2-4}
+  ＿＿＿; & & & \\  \cline{2-4}
+  ＿＿＿; & & & \\  \cline{2-4}
+  ＿＿＿; & & & \\  \hline
+ \end{tabular}
+ }
+\end{center}
+
+
+
+
+
+\myanswer{{\ttfamily
+ \begin{tabular}{|l|c|c|c|}\hline
+ 代入文 & xの値 & yの値 & zの値\cr \hline\hline
+ z = 1; & 不定& 不定& 1\cr  \cline{2-4}
+ y = 3; & 不定& 3& 1\cr  \cline{2-4}
+ x = z; & 1& 3& 1\cr  \cline{2-4}
+ z = y; & 1& 3& 3\cr  \cline{2-4}
+ y = x; & 1& 1& 3\cr  \hline
+ \end{tabular}
+}}
+
+
+
+
+
+
+\toi
+
+変数{\ttfamily x,y,z}の値がそれぞれ{\ttfamily 2,15,87}のとき、
+この値を順に入れ換える。
+
+以下の代入文が上から順番に実行されるとき、
+それぞれの代入文が実行された時点での各変数の値を書け。
+
+\begin{center}
+ \hfil
+ \begin{minipage}{.4\linewidth}
+ \begin{center}
+ \noindent{\ttfamily%\small
+ \begin{tabular}{|l|c|c|c|}\hline
+ 代入文 & xの値 & yの値 & zの値\\ \hline\hline
+% x = 2; & & & \\  \cline{2-4}
+% y = 15; & & & \\  \cline{2-4}
+% z = 87; & & & \\  \cline{2-4}
+ w = x; & & & \\  \cline{2-4}
+ x = y; & & & \\  \cline{2-4}
+ y = z; & & & \\  \cline{2-4}
+ z = w; & & & \\  \hline
+ \end{tabular}
+ }
+ \end{center}
+ \end{minipage}
+ \hfil
+ \begin{minipage}{.4\linewidth}
+ \noindent
+ 入れ換える前の\\
+  {\ttfamily x}の値：＿＿＿＿,
+  {\ttfamily y}の値：＿＿＿＿,\\
+  {\ttfamily z}の値：＿＿＿＿\\
+
+  入れ換えた後の\\
+  {\ttfamily x}の値：＿＿＿＿,
+  {\ttfamily y}の値：＿＿＿＿,\\ 
+  {\ttfamily z}の値：＿＿＿＿
+ \end{minipage}
+ \hfill
+\end{center}
+
+
+\myanswer{{\ttfamily
+
+
+ \begin{tabular}{|l|c|c|c|}\hline
+ 代入文 & xの値 & yの値 & zの値\cr \hline\hline
+% x = 2; & & & \cr  \cline{2-4}
+% y = 15; & & & \cr  \cline{2-4}
+% z = 87; & & & \cr  \cline{2-4}
+ w = x; & 2& 15& 87\cr  \cline{2-4}
+ x = y; & 15& 15& 87\cr  \cline{2-4}
+ y = z; & 15& 87& 87\cr  \cline{2-4}
+ z = w; & 15& 87& 2\cr  \hline
+ \end{tabular}
+
+ 入れ換える前の\par
+  { x}の値：2,
+  { y}の値：15,
+  { z}の値：87\par
+
+  入れ換えた後の\par
+  { x}の値：15,
+  { y}の値：87,
+  { z}の値：2
+
+}}
+
+
+
+\toi
+
+代入演算子「{\ttfamily =}」による、
+左辺の変数への代入は、右辺の評価が全て終わってから
+行われる。
+したがって、左辺の変数と同じものが右辺に登場していても、
+その変数の値が右辺の評価に使われてから、
+左辺の変数として値が代入される。
+
+\ex{例：{\ttfamily x}の値が{\ttfamily 2}のとき、
+代入文{\ttfamily x=x+2}の実行後の
+{\ttfamily x}の値は{\ttfamily 4}である。
+C言語での代入演算子「{\ttfamily =}」は
+数学での等号「$=$」とは全く意味が異なること
+に注意。}
+
+
+以下の代入文が上から順番に実行されるとき、
+それぞれの「代入文が実行された後の」各変数の値を書け。
+
+\begin{center}
+ \noindent{\ttfamily%\small
+ \begin{tabular}{|l|c|c|}\hline
+ 代入文 & xの値 & yの値 \\ \hline\hline
+ y = 2; & &  \\  \cline{2-3}
+ x = 3; & &  \\  \cline{2-3}
+ x = y + x;  & & \\  \cline{2-3}
+ y = 2; & &  \\  \cline{2-3}
+ y = y + 1;  & & \\  \cline{2-3}
+ y = y + 1;  & & \\  \cline{2-3}
+ y = y + 1;  & & \\  \cline{2-3}
+ y = y + 1;  & & \\  \cline{2-3}
+ x = 1; & &  \\  \cline{2-3}
+ x = x + 2; & &  \\  \cline{2-3}
+ x = x + 2; & &  \\  \cline{2-3}
+ x = x + 2; & &  \\  \cline{2-3}
+ x = x + 2; & &  \\  \cline{2-3}
+ x = 2; & &  \\  \cline{2-3}
+ x = x + 2; & &  \\  \cline{2-3}
+ x = x + 2; & &  \\  \cline{2-3}
+ x = x + 2; & &  \\  \cline{2-3}
+ x = x * 4; & &  \\  \cline{2-3}
+ y = 1; & &  \\  \cline{2-3}
+ y = y * 2; & &  \\  \cline{2-3}
+ y = y * 3; & &  \\  \cline{2-3}
+ y = y * 4; & &  \\  \cline{2-3}
+ y = 1000; & &  \\  \cline{2-3}
+ y = y / 10; & &  \\  \cline{2-3}
+ y = y / 10; & &  \\  \cline{2-3}
+ y = y / 10; & &  \\  \cline{2-3}
+ x = x / 2; & &  \\  \cline{2-3}
+ x = x / 2; & &  \\  \cline{2-3}
+ x = x / 2; & &  \\  \cline{2-3}
+ x = x / 2; & &  \\  \hline
+ \end{tabular}
+ }
+\end{center}
+
+
+\myanswer{{\ttfamily
+
+x:
+不定
+3
+5
+5
+5
+5
+5
+5
+1
+3
+5
+7
+9
+2
+4
+6
+8
+32
+32
+32
+32
+32
+32
+32
+32
+32
+16
+8
+4
+2
+
+y:
+2
+2
+2
+2
+3
+4
+5
+6
+6
+6
+6
+6
+6
+6
+6
+6
+6
+6
+1
+2
+6
+24
+1000
+100
+10
+1
+1
+1
+1
+1
+
+}}
+
+
+\mysection{数学の数式とC言語の式・関数}
+
+
+
+\toi
+
+数学において、変数と数の積は、通常は乗算の記号「×」を書かない。
+しかしC言語では、必ず乗算の演算子「{\ttfamily *}」が必要である。
+
+\ex{例：数式$2x+1$を表すC言語の式は{\ttfamily 2*x+1}。}
+
+
+次のC言語の式を数学の数式に（除算は分数で）書き直せ。
+また、数学の数式をC言語の式に書き直せ。
+\begin{eqnarray*}
+ \mbox{C言語の式} && 数学の数式\\
+ \mbox{\ttfamily -2 + 3 * x / 3} &\rightarrow& -2 + \frac{3x}{3}\quad （ -2+x も可）\\
+ \rule[-3ex]{0pt}{8ex}\mbox{\ttfamily y * 5 / z * 5} &\rightarrow& \\
+ \rule[-3ex]{0pt}{8ex}\mbox{\ttfamily x * x / 3 * y + y} &\rightarrow& \\
+ \rule[-3ex]{0pt}{8ex}\mbox{\ttfamily 9 / x / y - 1} &\rightarrow& \\
+ \rule[-3ex]{0pt}{8ex}\mbox{\ttfamily 9 / (z * z) - 1} &\rightarrow& \\
+ \rule[-3ex]{0pt}{8ex}\mbox{\ttfamily x + y * z / w - u} &\rightarrow& \\
+ \rule[-3ex]{0pt}{8ex}\mbox{\ttfamily (1 + v) * (u / 2) - 10} &\rightarrow& \\
+ \rule[-3ex]{0pt}{8ex}\mbox{\ttfamily 7 * x * y * z * a * b} &\rightarrow& \\
+ \rule[-3ex]{0pt}{8ex}\mbox{\ttfamily } &\rightarrow& 2x + 1\\
+ \rule[-3ex]{0pt}{8ex}\mbox{\ttfamily } &\rightarrow& ax^2 + bx + c\\
+ \rule[-3ex]{0pt}{8ex}\mbox{\ttfamily } &\rightarrow& \frac{vt^2}{2}\\
+ \rule[-3ex]{0pt}{8ex}\mbox{\ttfamily } &\rightarrow& h - g\frac{t^2}{2}\\
+ \rule[-3ex]{0pt}{8ex}\mbox{\ttfamily } &\rightarrow& 1 + \frac{2x - m}{\frac{3a}{2} + b} - 2c \\
+ \rule[-3ex]{0pt}{8ex}\mbox{\ttfamily } &\rightarrow& 1 + [x + \{y + (2 - z)\}]\\
+ \rule[-3ex]{0pt}{8ex}\mbox{\ttfamily } &\rightarrow& \frac{4x-2u}{-(1-3w)} + \frac{6}{2}
+\end{eqnarray*}
+
+\myanswer{
+$\frac{25y}{z}$,
+$\frac{x^2y}{3}+y$,
+$\frac{9}{xy}-1$,
+$\frac{9}{z^2}-1$,
+$x+\frac{yz}{w}-u$,
+$\frac{(1+v)u}{2}-10$,
+$7abxyz$,
+{\ttfamily
+2*x + 1,
+a*x*x + b*x + c,
+v * t * t / 2,
+h - g * t * t / 2,
+1 + (2*x - m) / ((3*a)/2 + b) - 2*c,
+1 + (x + (y + (2 - z))),
+-(4*x - 2*u) / (1 - 3*w) + 6/2
+}}
+
+\toi
+
+
+数学における初等関数（例えばsin, expなど）や
+演算（例えば微分積分）や定数（例えば$\pi, e$など）は、
+C言語の式中で使えるものもあれば使えないものもある。
+
+C言語の式中で使えるものの大部分は、{\bfseries C言語の「関数」}として
+用意されている。関数には関数名と{\bfseries 引数（ひきすう）}があり、
+関数名の後に引数を括弧「{\ttfamily ()}」で括る。
+
+関数$f(x)$があるとき、数学では
+「$x$の関数$f$」と呼び、C言語では
+{\ttfamily f(x)}を「引数{\ttfamily x}をとる関数{\ttfamily f}」と呼ぶ。
+
+\ex{例：数式$\sin x$を表すC言語の式は{\ttfamily sin(x)}、
+$\sqrt{x}$は{\ttfamily sqrt(x)}、$\sqrt[3]{x}$は{\ttfamily cbrt(x)}。
+ここで{\ttfamily sin,sqrt}等はC言語の関数名、{\ttfamily x}は引数である。
+}
+
+
+C言語で用意されている数学関数を調べて、
+次のC言語の式を数学の数式に書き直せ。
+また、数学の数式をC言語の式に書き直せ。
+
+\begin{eqnarray*}
+ \mbox{C言語の式} && 数学の数式\\
+ \rule[-3ex]{0pt}{8ex}\mbox{\ttfamily x + log(2)} &\rightarrow& x + \log_e 2\\
+ \rule[-3ex]{0pt}{8ex}\mbox{\ttfamily x + log10(20)} &\rightarrow& \\
+ \rule[-3ex]{0pt}{8ex}\mbox{\ttfamily 2 * exp(3 * x) / (2 * a)} &\rightarrow& \\
+ \rule[-3ex]{0pt}{8ex}\mbox{\ttfamily 2 * a * fabs(x) + b} &\rightarrow& \\
+ \rule[-3ex]{0pt}{8ex}\mbox{\ttfamily sqrt(b * b - 4 * a * c)} &\rightarrow& \\
+ \rule[-3ex]{0pt}{8ex}\mbox{\ttfamily sqrt(x * x + y * y)} &\rightarrow& \\
+ \rule[-3ex]{0pt}{8ex}\mbox{\ttfamily 2 * cbrt(2 * c)} &\rightarrow& \\
+ \rule[-3ex]{0pt}{8ex}\mbox{\ttfamily sin(x) * sin(x) / 2 - 4} &\rightarrow& \\
+ \rule[-3ex]{0pt}{8ex}\mbox{\ttfamily cos(x / 2) / 2 * y} &\rightarrow& \\
+ \rule[-3ex]{0pt}{8ex}\mbox{\ttfamily pow(x + 2 * y, 3)} &\rightarrow& \\
+ \rule[-3ex]{0pt}{8ex}\mbox{\ttfamily floor(z) + ceil(y)} &\rightarrow& \\
+ \rule[-3ex]{0pt}{8ex}\mbox{\ttfamily } &\rightarrow& 2|x| + \sin x\\
+ \rule[-3ex]{0pt}{8ex}\mbox{\ttfamily } &\rightarrow& 1+(y+3x)^{15} + 4y\\
+ \rule[-3ex]{0pt}{8ex}\mbox{\ttfamily } &\rightarrow& 4\sqrt{\frac{k}{m}-1}\\
+ \rule[-3ex]{0pt}{8ex}\mbox{\ttfamily } &\rightarrow& \sin^{-1}(x) - 1\\
+ \rule[-3ex]{0pt}{8ex}\mbox{\ttfamily } &\rightarrow& \log_e x^3\\
+ \rule[-3ex]{0pt}{8ex}\mbox{\ttfamily } &\rightarrow& 1-e^{-\frac{t}{2r}}\\
+ \rule[-3ex]{0pt}{8ex}\mbox{\ttfamily } &\rightarrow& \frac{\tan a + \tan b}{1-\tan a}\\
+ \rule[-3ex]{0pt}{8ex}\mbox{\ttfamily } &\rightarrow& \tan^{-1}\frac{2a}{b}\\
+\end{eqnarray*}
+
+%関数の詳細はここでは説明しない。
+
+\myanswer{
+$x+\log_{10}20$,
+$\ds\frac{2e^{3x}}{2a}$,
+$2a|x|+b$,
+$\sqrt{b^2-4ac}$,
+$\sqrt{x^2+y^2}$,
+$2\sqrt[3]{2c}$,
+$\ds\frac{\sin^2 x}{2}-4$,
+$\ds\frac{y}{2}\cos\frac{x}{2}$,
+$(x + 2y)^3$,
+$\lfloor z\rfloor + \lceil y\rceil$,
+{\ttfamily
+
+2 * fabs(x) + sin(x),
+1 + pow(y + 3 * x, 15) + 4 * y,
+4 * sqrt(k/m - 1),
+asin(x) - 1,
+log(x*x*x),
+1 - exp(-t/(2*r)),
+(tan(a)+tan(b)) / (1-tan(a)),
+atan(2*a / b)
+}}
+
+
+
+
+\toi
+
+数学では変数を$a_n$や$v'$や$I_R$などと書くことができる。
+しかしC言語では変数の書き方に制約がある。
+
+C言語の変数の変数名は、
+\begin{itemize}
+ \itemsep=-3pt
+ \item 一文字目が必ずアルファベットで始まる（
+      大文字小文字どちらでもよい。つまり{\ttfamily a}$\sim${\ttfamily
+      z}、{\ttfamily A}$\sim${\ttfamily Z}）。
+     
+ \item 二文字目以降はアルファベット、数字、アンダーバー（{\ttfamily \_}）
+      を組合せる。それ以外は使用不可。
+\end{itemize}
+
+\ex{例：{\ttfamily X0, x0, x\_1, An, an, bn, c\_1000th, I\_R, 
+test\_variable\_name,
+theta, angle, Omega, Lambda, delta, epsilon,
+distance, c, C, E, CE} などは
+変数名にできる。}
+
+
+変数名の制約に注意して、自分で分かりやすい変数名を考えながら、
+次の数学の数式をC言語の式で表せ。
+\begin{eqnarray*}
+ \mbox{C言語の式} && 数学の数式\\
+ \rule[-3ex]{0pt}{8ex}
+  \mbox{\ttfamily a0 + a1 + a2 + delta\_x} 
+  &\rightarrow& a_0 + a_1 + a_2 + \delta x\\
+ \rule[-3ex]{0pt}{8ex}\mbox{\ttfamily } &\rightarrow& 2gx_0\cos\frac{\theta}{2}\\
+ \rule[-3ex]{0pt}{8ex}\mbox{\ttfamily } &\rightarrow& \frac{4}{3}\Omega^2+\frac{k_0qQ}{\Lambda}\\
+ \rule[-3ex]{0pt}{8ex}\mbox{\ttfamily } &\rightarrow& \mu(v_{20}-v_{21})\\
+ \rule[-3ex]{0pt}{8ex}\mbox{\ttfamily } &\rightarrow& \sqrt{\frac{Gm|M|}{R\ell_1\varepsilon_0}}\\
+\end{eqnarray*}
+
+
+\myanswer{（例）
+{\ttfamily
+2 * g * x\_0 * cos(theta / 2),
+4 * Omega * Omega / 3 + k\_0 * q * Q / Lambda,
+mu * (v\_20 - v21),
+sqrt(G * m * fabs(M) / (R * l\_1 * eps\_0))
+}}
+
+
+
+
+\toi
+
+数学で使用する様々な記号（$「\pm」「'」「\widehat{　}」「\bar{　}」$ など）は、
+C言語で使えないものが多い。
+そのため、数学の記号の意味を解釈して、
+その数式を表現するための
+新たな変数名を考えなければならない。
+例えば、$|x|$はC言語において絶対値関数を使って{\ttfamily fabs(x)}
+で絶対値が計算できる。しかし、微分を意味する$x'$は対応するC言語の関数はないため、
+{\ttfamily x\_dash}などと書く（ただし微分計算はできない）。
+
+変数名の制約に注意して、自分で分かりやすい変数名を考えながら、
+次の数学の数式をC言語の式で表せ。
+\begin{eqnarray*}
+ \mbox{C言語の式} && 数学の数式\\
+ \rule[-3ex]{0pt}{8ex}
+  \parbox{3cm}{
+ \mbox{\ttfamily 2 * a + b\_dash}\\
+  \mbox{\ttfamily 2 * a - b\_dash}}
+   &\rightarrow&  2a \pm b'\\[3ex]
+ \rule[-3ex]{0pt}{8ex}\mbox{\ttfamily } &\rightarrow& -b\pm\sqrt{b^2-4ac}\\[3ex]
+ \rule[-3ex]{0pt}{8ex}\mbox{\ttfamily } &\rightarrow& y - x'\sin x \\[2ex]
+ \rule[-3ex]{0pt}{8ex}\mbox{\ttfamily } &\rightarrow& v'' + 2\dot{u} - 3\hat{z}\\[2ex]
+ \rule[-3ex]{0pt}{8ex}\mbox{\ttfamily } &\rightarrow& \frac{1}{2}\overline{V}^2Gm + |\overline{V}|
+\end{eqnarray*}
+
+
+\myanswer{（例）
+{\ttfamily
+-b + sqrt(b*b - 4*a*c) と -b - sqrt(b*b - 4*a*c),
+y - x\_dash * sin(x),
+v\_ddash + 2 * u\_dot - 3 * z\_hat,
+V\_bar * V\_bar * G * m / 2 + fabs(V\_bar)
+}}
+
+
+
+
+
+\toi
+
+数学における方程式は、そのままではC言語では使えない。
+
+
+そのため、数学の数式の意味を解釈して、その数式を表現するためのC言語での
+式と変数を考え、「式の評価結果を変数に代入する」形式にしなければならない。
+
+
+\ex{例：方程式$2x+3y=1$を解く場合、$y$の値がわかっているときには、方程式
+を$x$について解き、$x=\frac{1-3y}{2}$と変形すると$x$を求めることができる。
+これに相当する代入文は{\ttfamily x=(1-3*y)/2;}である。}
+
+
+変数{\ttfamily y, b, c}に値がすでに代入されているとき、
+次の数学の方程式を解き$x$を求めるための、C言語の代入文を書け。
+\begin{eqnarray*}
+ \mbox{C言語の代入文} && 数学での方程式\\
+ \rule[-3ex]{0pt}{8ex}\mbox{\ttfamily x=(1-3*y)/2;} &\leftrightarrow& 2x+3y=1\\
+ \rule[-3ex]{0pt}{8ex}\mbox{\ttfamily } &\leftrightarrow& 4x - y^2 + 8 = 0\\[2ex]
+ \rule[-3ex]{0pt}{8ex}\mbox{\ttfamily } &\leftrightarrow&
+ \frac{1}{2}x + 2\sin\frac{\theta}{2} = b\\[2ex]
+ \rule[-3ex]{0pt}{8ex}\mbox{\ttfamily } &\leftrightarrow& \frac{1}{2}x^2 + bx + c = 0
+\end{eqnarray*}
+
+
+%連立方程式はこのやり方では解けない。何故か？\
+%次の例をC言語の代入文の形に変形できるか？
+%\begin{eqnarray*}
+% x + y &=& 2\\
+% x - y &=& 3\\
+%\end{eqnarray*}
+
+
+\myanswer{{\ttfamily
+
+x = (y*y - 8) / 4;\par
+x = 2 * b - 4 * sin(theta/2);\par
+x1 = -b + sqrt(b*b - 2*c);
+x2 = -b - sqrt(b*b - 2*c);
+}}
+
+
+
+
+\toi
+\label{toi:quadricsolution}
+
+方程式 $x^2 - x - 6 = 0$ を解の公式を用いて解く。
+この解を計算するC言語の代入文の組を考える。
+
+次の代入文が上から順番に実行されるとき、
+それぞれの代入文が実行された後での各変数の値を書け。
+
+\begin{center}
+ \ttfamily%\small
+ \begin{tabular}{|l|c|c|}\hline
+ 代入文 & x1 & x2\\ \hline\hline
+ x1 = (-(-1) + sqrt((-1)*(-1) - 4*(-6))) / 2; & & \\  \cline{2-3}
+ x2 = (-(-1) - sqrt((-1)*(-1) - 4*(-6))) / 2; & & \\  \hline
+ \end{tabular}
+\end{center}
+
+\myanswer{{\ttfamily
+
+x1: 3 3\par
+x2: 不定 -2
+}}
+
+
+
+\toi
+
+方程式 $x^2 - x - 6 = 0$ を解く。
+この解を計算するC言語の代入文の組を考える。
+
+次の代入文が上から順番に実行されるとき、
+それぞれの代入文が実行された後での各変数の値を書け。
+
+\begin{center}
+\ttfamily%\small
+ \begin{tabular}{|l|c|c|c|}\hline
+ 代入文 & D & x1 & x2\\ \hline\hline
+ D = sqrt((-1) * (-1) - 4 * (-6)); &  & & \\  \cline{2-4}
+ x1 = (-(-1) + D) / 2; & &  & \\  \cline{2-4}
+ x2 = (-(-1) - D) / 2; & &  & \\  \hline
+ \end{tabular}
+\end{center}
+
+\myanswer{{\ttfamily
+
+D: 5 5 5\par
+x1: 不定 3 3\par
+x2: 不定 不定 -2
+}}
+
+
+
+
+
+\toi
+
+方程式 $x^2 - x - 6 = 0$ を解く。
+$x^2 + bx + c = 0,\ b = -1,\ c = -6$ として、
+この解を計算するC言語の代入文の組を考える。
+
+次の代入文が上から順番に実行されるとき、
+それぞれの代入文が実行された後での各変数の値を書け。
+
+\begin{center}
+ \ttfamily%\small
+ \begin{tabular}{|l|c|c|c|c|c|}\hline
+ 代入文 & b & c & D & x1 & x2\\ \hline\hline
+ c = -6; & & && & \\  \cline{2-6}
+ b = -1; & & && & \\  \cline{2-6}
+ D = sqrt(b * b - 4 * c); &&&  & & \\  \cline{2-6}
+ x1 = (-b + D) / 2; & & && & \\  \cline{2-6}
+ x2 = (-b - D) / 2; & & && & \\  \hline
+ \end{tabular}
+\end{center}
+
+
+\myanswer{{\ttfamily
+
+b: 不定 -1 -1 -1 -1\par
+c: -6 -6 -6 -6 -6\par
+D: 不定 不定 5 5 5\par
+x1: 不定 不定 不定 3 3\par
+x2: 不定 不定 不定 不定 -2
+}}
+
+
+
+
+
+
+\toi
+
+方程式 $x^2 - x - 6 = 0$ を解く。
+$x^2 + bx + c = 0,\ b = -1,\ c = -6$ として、
+この解を計算するC言語の代入文の組を考える。
+
+次の代入文が上から順番に実行されるとき、
+それぞれの代入文が実行された後での各変数の値を書け。
+
+\begin{center}
+ \noindent{\ttfamily%\small
+ \begin{tabular}{|l|c|c|c|c|c|}\hline
+ 代入文 & b & c & D & x1 & x2\\ \hline\hline
+ b = -1; & & && & \\  \cline{2-6}
+ c = -6; & & && & \\  \cline{2-6}
+ D = b * b - 4 * c; &&&  & & \\  \cline{2-6}
+ D = sqrt(D); &&&  & & \\  \cline{2-6}
+ x1 = -b + D; & & && & \\  \cline{2-6}
+ x1 = x1 / 2; & & && & \\  \cline{2-6}
+ x2 = -b - D; & & && & \\  \cline{2-6}
+ x2 = x2 / 2; & & && & \\  \hline
+ \end{tabular}
+ }
+\end{center}
+
+\myanswer{{\ttfamily
+
+b: -1 -1 -1 -1 -1 -1 -1 -1\par
+c: 不定 -6 -6 -6 -6 -6 -6 -6\par
+D: 不定 不定 25 5 5 5 5 5\par
+x1: 不定 不定 不定 不定 6 3 3 3\par
+x2: 不定 不定 不定 不定 不定 不定 -4 -2
+}}
+
+
+
+
+\mysection{型}
+
+
+
+数学における「数」には自然数/整数/有理数/実数/複素数があるが、
+通常は変数$x$が実数なのか整数なのかということは気にしない。
+
+しかし、{\bfseries C言語では}全ての変数や数字がどの種類の「数」なのかを常に考えなけ
+ればならない。この種類のことを「型」と呼ぶ。変数の型は、一度決めたら変更できない。
+
+重要な型には次の二つがある。
+\begin{itemize}
+ \itemsep=-3pt
+ \item 整数型 {\ttfamily int} （整数integerの頭文字をとったもの）
+ \item 実数型 {\ttfamily float} （浮動小数点floating pointの一単語をとっ
+       たもの。実数はreal numberであるが）
+\end{itemize}
+整数型を{\ttfamily int}型、実数型を{\ttfamily float}型
+と呼ぶこともある。\\
+
+
+\noindent
+{\bfseries 注意：}前章までの解説や問題では、
+説明を簡単にするために、変数の型の概念を無視しているため、
+実際の計算とは多少異なることがある。
+
+
+\toi
+\begin{multicols}{2}
+ 
+ 整数型の変数{\ttfamily x}に整数{\ttfamily 2}を代入する（{\ttfamily x=2}）
+ と、{\ttfamily x}の値は{\ttfamily 2}であるが、
+ 実数{\ttfamily 2.1}や{\ttfamily 2.8}を代入すると、小数部分は切捨てられて、
+ 代入後の{\ttfamily x}の値はやはり{\ttfamily 2}である。
+
+ 変数{\ttfamily x,y,z}が整数型（int型）で、
+ 以下の代入文が上から順番に実行されるとき、
+ それぞれの代入文が実行された時点での各変数の値を書け。
+
+ \vspace{2cm}
+
+ \begin{center}
+ \noindent{\ttfamily%\small
+ \begin{tabular}{|l|c|c|c|}\hline
+ 代入文 & xの値 & yの値 & zの値\\ \hline\hline
+ y = 2; & & & \\  \cline{2-4}
+ x = 3.2; & & & \\  \cline{2-4}
+ z = x; & & & \\  \cline{2-4}
+ z = -1.9; & & & \\  \hline
+ \end{tabular}
+ }
+ \end{center}
+
+\end{multicols}
+
+
+\myanswer{{\ttfamily
+
+x: 不定 3 3 3\par
+y: 2 2 2 2\par
+z: 不定 不定 3 -1
+}}
+
+
+
+
+
+
+\toi
+\begin{multicols}{2}
+ 
+ 実数型の変数{\ttfamily x}に実数{\ttfamily 2.1}を代入する（{\ttfamily x=2.1}）
+ と、{\ttfamily x}の値は{\ttfamily 2.1}であるが、
+ 整数{\ttfamily 2}を代入すると、
+ 代入後の{\ttfamily x}の値は{\ttfamily 2.0}である。
+
+ 変数{\ttfamily x,y,z}が実数型（float型）で、
+ 以下の代入文が上から順番に実行されるとき、
+ それぞれの代入文が実行された時点での各変数の値を書け。
+
+ \vspace{2cm}
+
+
+ \begin{center}
+ \noindent{\ttfamily%\small
+ \begin{tabular}{|l|c|c|c|}\hline
+ 代入文 & xの値 & yの値 & zの値\\ \hline\hline
+ y = 2; & & & \\  \cline{2-4}
+ x = 3.2; & & & \\  \cline{2-4}
+ z = x; & & & \\  \cline{2-4}
+ z = -1.9; & & & \\  \hline
+ \end{tabular}
+ }
+ \end{center}
+
+\end{multicols}
+
+{%\small 
+以後は「評価結果が実数型であれば小数点を付けること」
+とは明記しないが、付けること。}
+
+
+\myanswer{{\ttfamily
+
+x: 不定 3.2 3.2 3.2\par
+y: 2.0 2.0 2.0 2.0\par
+z: 不定 不定 3.2 -1.9
+
+}}
+
+
+
+
+
+
+
+\toi
+
+C言語の式中の数字（{\ttfamily 2.1, -9}など）は、
+すべて整数型か実数型である。数字に小数点が含まれる場合は
+実数型、小数点がなければ整数型である。
+
+実数型の数を書く場合、
+左端や右端の{\ttfamily 0}は省略することができる。
+
+
+\ex{例：{\ttfamily 2}や{\ttfamily -9}や{\ttfamily 1}は整数型、
+{\ttfamily 1.9}や{\ttfamily 0.9}や{\ttfamily .9}や{\ttfamily -.9}
+や{\ttfamily 2.0}や{\ttfamily -2.}は実数型である。}
+
+
+変数{\ttfamily x,y}が整数型（int型）、
+変数{\ttfamily z}が実数型（float型）で、
+以下の代入文が上から順番に実行されるとき、
+それぞれの代入文が実行された時点での各変数の値を書け。
+\begin{center}
+ \noindent{\ttfamily%\small
+ \begin{tabular}{|l|c|c|c|}\hline
+ 代入文 & xの値 & yの値 & zの値\\ \hline\hline
+ y = 2.; & & & \\  \cline{2-4}
+ x = 1.2; & & & \\  \cline{2-4}
+ x = .2; & & & \\  \cline{2-4}
+ z = 1.9; & & & \\  \cline{2-4}
+ x = z; & & & \\  \cline{2-4}
+ z = 0.9; & & & \\  \cline{2-4}
+ x = z; & & & \\  \cline{2-4}
+ z = .9; & & & \\  \cline{2-4}
+ z = -.9; & & & \\  \cline{2-4}
+ z = x; & & & \\  \hline
+ \end{tabular}
+ }
+\end{center}
+
+\myanswer{{\ttfamily
+
+x: 不定 1 0 0 1 1 0 0 0 0\par
+y:    2 2 2 2 2 2 2 2 2 2\par
+z: 不定 不定 不定 1.9 1.9 0.9 0.9 0.9 -0.9 0.0
+}}
+
+
+
+
+
+\toi
+
+ 
+ 
+ 評価結果の値にも型がある。
+
+ 式の中が整数型（の数や変数）のみであれば、
+ 評価結果は整数型である。
+
+ 式中に実数型（の数や変数）が一つでもあれば、
+ その部分の評価結果は実数型になる。
+
+ \ex{例：
+{\ttfamily 1+2*3.0}は、
+{\ttfamily 2*3.0}の部分が先に評価されるので、
+この部分の評価結果が{\ttfamily 6.0}になる。
+そして{\ttfamily 1+6.0}が評価されるので、
+式全体の評価結果は実数型の{\ttfamily 7.0}である。} 
+
+
+ 除算演算子{\ttfamily /}は特殊である。
+ 整数型同士の割算の評価結果は、整数である「商」である。
+ 実数型を含む割算の評価結果は、通常の割算の結果である小数で、
+ 実数型である。
+
+ \ex{例：{\ttfamily 5/2}の評価結果は整数型の{\ttfamily 2}である。}
+
+ \ex{例：{\ttfamily 5.0/2.0}の評価結果は実数型の{\ttfamily 2.5}である。}
+
+\pagebreak[4]
+
+ 次のC言語の式の評価結果とその型を書け。
+
+\begin{multicols}{2}
+
+% \vspace{2cm}
+
+ \begin{verbatim}
+ -2
+ -2+4
+ -2+4-3.5
+ -2+4-3.
+ 5 / 2
+ 5. / 2
+ 5 / 2.0
+ 5. / 2.
+ 1.5 * 2
+ 1.5 * 2 / 3
+ 1.5 * (2 / 3)
+ 1.5 * (2 / 3.)
+ 2/5
+ 10*2/5
+ 2/5*10
+ \end{verbatim}
+
+\end{multicols}
+
+
+\myanswer{{\ttfamily
+
+以下の数字で、小数点の付いているものは実数型、
+付いていないものは整数型である。
+
+-2, 2, -1.5, -1.0,
+2, 2.5, 2.5, 2.5,
+3.0, 1.0, 0.0, 1.0,
+0, 4, 0
+}}
+
+
+
+
+%\newpage
+
+
+\toi
+
+
+
+変数{\ttfamily x,y}が整数型（int型）、
+変数{\ttfamily z}が実数型（float型）で、
+以下の代入文が上から順番に実行されるとき、
+それぞれの代入文が実行された時点での各変数の値を書け。
+\begin{center}
+ \noindent{\ttfamily%\small
+ \begin{tabular}{|l|c|c|c|}\hline
+ 代入文 & xの値 & yの値 & zの値\\ \hline\hline
+ y = 1 / 2; & & & \\  \cline{2-4}
+ y = 4 / 3; & & & \\  \cline{2-4}
+ x = 3 * 2.5 + 5 / (2 - 1.); & & & \\  \cline{2-4}
+ z = x + 1; & & & \\  \cline{2-4}
+ z = x + 1.; & & & \\  \cline{2-4}
+ z = z + .1; & & & \\  \cline{2-4}
+ z = z + .1; & & & \\  \cline{2-4}
+ z = z + .1; & & & \\  \cline{2-4}
+ y = z * 2 + x; & & & \\  \cline{2-4}
+ y = (z + 1) / 2; & & & \\  \cline{2-4}
+ y = 1 / 2 * (z + 1); & & & \\  \cline{2-4}
+ y = 1 / 2. * (z + 1); & & & \\  \hline
+ \end{tabular}
+ }
+\end{center}
+
+
+\myanswer{{\ttfamily
+
+x:
+不定 不定 12
+  12
+  12
+  12
+  12
+  12
+  12
+  12
+  12
+  12
+
+y:
+ 0 
+ 1 
+ 1 
+ 1 
+ 1 
+ 1 
+ 1 
+ 1 
+ 38
+ 7 
+ 0 
+ 7 
+
+z:
+ 不定 不定 不定 
+13.0 
+13.0 
+13.1 
+13.2 
+13.3 
+13.3
+13.3 
+13.3 
+13.3 
+
+}}
+
+
+\mysection{変数宣言と型変換}
+
+
+C言語では、式中で使う変数は全て前もって「使う」ことを宣言しておかなければならない。
+これを「変数宣言」と呼ぶ。変数宣言でそれぞれの変数の型を決める。
+
+\begin{itemize}
+ \item 整数型（int型）の変数{\ttfamily x}を宣言するには、
+ {\ttfamily int x;}と書く。
+ 変数{\ttfamily x}と{\ttfamily y}と{\ttfamily z}を同時に宣言するには、
+ {\ttfamily int x, y, z;}と書く。
+
+ \item 実数型（float型）の変数{\ttfamily x}を宣言するには、
+ {\ttfamily float x;}と書く。
+ 変数{\ttfamily a}と{\ttfamily b}と{\ttfamily c}を一度に宣言するには
+ {\ttfamily float a, b, c;}と書く。
+\end{itemize}
+
+前章までは、説明を簡単にするために
+変数宣言を省略していた。今後は必ず宣言を行うこと。
+
+
+\toi
+
+\begin{multicols}{2}
+ 
+ 全ての変数宣言は、{\bfseries 代入文の前で}行う。
+
+ 以下の変数宣言と代入文が上から順番に実行されるとき、
+ それぞれの代入文が実行された時点での各変数の値を書け。
+ その時点で宣言されていなければ、未定義と書け。
+
+ \vfill
+
+ \begin{center}
+ \ttfamily%\small
+ \begin{tabular}{|l|c|c|c|}\hline
+ 代入文 & xの値 & yの値 & zの値\\ \hline\hline
+ int x; &  &  & \\  \cline{2-4}
+ float y, z; & & & \\  \cline{2-4}
+ y = 2.; & & & \\  \cline{2-4}
+ x = 1.2; & & & \\  \cline{2-4}
+ x = .2; & & & \\  \cline{2-4}
+ z = 1.8; & & & \\  \cline{2-4}
+ x = z * 2; & & & \\  \cline{2-4}
+ z = z * 0.5; & & & \\  \cline{2-4}
+ x = x + y; & & & \\  \hline
+ \end{tabular}
+ \end{center}
+
+\end{multicols}
+
+今後は「その時点で宣言されていなければ未定義と書け」という指示は
+省略するが、今後、変数が宣言されていない場合は「未定義」と書け。
+
+
+\myanswer{{\ttfamily
+
+x: 不定 不定 不定 1 0 0 3 3 5\par
+y: 未定義 不定 2.0 2.0 2.0 2.0 2.0 2.0 2.0\par
+z: 未定義 不定 不定 不定 不定 1.8 1.8 0.9 0.9
+}}
+
+
+\toi
+
+全ての変数宣言は、代入文の前で行う。
+
+
+以下の変数宣言と代入文が上から順番に実行されるとき、
+それぞれの代入文が実行された時点での各変数の値を書け。
+
+また前問とどう値が変わるのかに注目せよ。
+
+\begin{center}
+ \noindent{\ttfamily%\small
+ \begin{tabular}{|l|c|c|c|}\hline
+ 代入文 & xの値 & yの値 & zの値\\ \hline\hline
+ int z; & & & \\  \cline{2-4}
+ float y; & & & \\  \cline{2-4}
+ int x; & & & \\  \cline{2-4}
+ y = 2.; & & & \\  \cline{2-4}
+ x = 1.2; & & & \\  \cline{2-4}
+ x = .2; & & & \\  \cline{2-4}
+ z = 1.8; & & & \\  \cline{2-4}
+ x = z * 2; & & & \\  \cline{2-4}
+ z = z * 0.5; & & & \\  \cline{2-4}
+ x = x + y; & & & \\  \hline
+ \end{tabular}
+ }
+\end{center}
+
+
+\myanswer{{\ttfamily
+
+x: 未定義 未定義 不定 不定 1 0 0 2 2 4\par
+y: 未定義 不定   不定 2.0  2.0 2.0 2.0 2.0 2.0 2.0\par
+z: 不定   不定   不定 不定 不定 不定 1 1 0 0
+}}
+
+
+
+
+%\newpage
+
+\toi
+
+
+
+次のプログラム
+には間違いがある。訂正せよ。
+
+\begin{verbatim}
+int a, b;
+a = 2;
+b = a + 2;
+int c;
+c = a + b;
+\end{verbatim}
+
+%答 : int c; -> int a=2,b,c
+
+\myanswer{{\ttfamily
+
+int c; の変数宣言位置が代入文の後になっている。
+}}
+
+
+
+
+\toi
+
+\begin{multicols}{2}
+ 
+ C言語には、第二の実数型（double型）がある。double型はfloat型とほぼ
+ 同じである。int型やfloat型を含む式中にdouble型が一つでもあれば、
+ その部分の評価結果はdouble型になる。
+
+
+ 変数{\ttfamily x,y}がint型、{\ttfamily z}がfloat型、
+ {\ttfamily a,b}がdouble型の時、
+ 次のC言語の式の評価結果の「型」を書け。
+
+ \vfill
+
+ \begin{verbatim}
+ x - 2
+ x - 2 * y
+ 5 / a
+ x + 1 + 5 / z * 2.
+ x + 1 + 5 / a * 2.
+ x + y + z + a + b
+ \end{verbatim}
+\end{multicols}
+
+float型とdouble型の違いは
+表現できる数値の範囲が異なる（次章を参照）。
+
+
+\myanswer{{\ttfamily
+
+int, int, double, float, double, double
+}}
+
+
+
+
+
+\newpage
+
+\toi
+
+\begin{multicols}{2}
+ 
+ C言語では、関数にも型がある。
+ 関数{\ttfamily f(x)}の引数も関数の型も実数の場合、
+ 「実数引数{\ttfamily x}をとる実数関数{\ttfamily f}」と呼ぶ。
+
+
+ 変数{\ttfamily x,y}がint型、{\ttfamily z}がfloat型、
+ {\ttfamily a,b}がdouble型の時、
+ C言語の数学関数の型を調べて、
+ 次のC言語の式の評価結果の型を書け。
+
+ \vfill
+
+ \begin{verbatim}
+ x - log(2)
+ x - 2 / fabs(z) * y
+ sin(z) * cos(x)
+ 1 / 2. * exp(a * b)
+ floor(z) + ceil(a)
+ \end{verbatim}
+\end{multicols}
+
+\myanswer{{\ttfamily
+
+double, double, double, double, double
+}}
+
+
+
+\toi
+
+C言語では、評価の型を変換することができる（ただし変数の型は変更できない）。
+型名を括弧「{\ttfamily ()}」で括り、
+式の直前に書くと、評価結果の型を変換する。
+
+整数型を実数型に変換する場合は、整数の値はそのまま実数になる。
+実数型を整数型に変換する場合は、実数の値の小数点以下は
+切捨てられて、整数部分だけが整数型として残る。
+
+また、単に{\ttfamily 2.0}や{\ttfamily 1.5}のように
+小数点を付けた実数を書くと、double型になる。
+{\ttfamily 2}と書くだけではint型である。
+
+
+\ex{例：
+{\ttfamily 2.0+1.2}の評価結果は{\ttfamily 3.2}で型はdoubleである。\\
+{\ttfamily (int)(2.0+1.2)}の評価結果は{\ttfamily 3}で型はintである。\\
+{\ttfamily 2.0+(int)1.2}の評価結果は{\ttfamily 3.0}で型はdoubleである。
+}
+
+
+変数{\ttfamily x,y}がint型、{\ttfamily z}がfloat型、
+{\ttfamily a}がdouble型の時、
+次のC言語の式の評価結果の型を書け。
+\begin{verbatim}
+(float)(x - 2) * a
+(float)x - 2 * a
+(float)x - 2 * (float)a
+(float)x - 2 * (double)a
+(float)(x - 2 * a)
+5 / 2
+5 / 2.
+5 / (float)(exp(x))
+5 / (float)exp(x)
+(float)1 / (float)2
+(float)(1 / 2)
+(float)1.0 / 2.0
+(float)x / (float)y
+(float)x / (double)y
+(int)floor(z) + (int)ceil(a)
+\end{verbatim}
+
+
+\myanswer{{\ttfamily
+
+double, double, float, double, float,
+int, double, float, float, float, float, double,
+float, double, int
+}}
+
+
+
+\newpage
+
+
+\toi
+
+変数{\ttfamily x,y}がint型、{\ttfamily z}がfloat型、
+{\ttfamily a}がdouble型とする。
+
+次のC言語の式を、評価結果の値とその型が同じになるように、最も簡単な
+形式に書き換えよ。すでにもっとも簡単な形式になっているならばそのままでよい。
+
+\ex{例：{\ttfamily 5.0/(float)2}は{\ttfamily 5./2}と等価である。}
+
+\begin{verbatim}
+(float)(x - 2) * a
+(float)x - 2 * a
+(float)x - 2 * (float)a
+(float)x - 2 * (double)a
+(float)(x - 2 * a)
+5 / 2
+5 / 2.
+5 / (float)(exp(x))
+5 / (float)exp(x)
+(float)1 / (float)2
+(float)(1 / 2)
+(float)1.0 / 2.0
+(float)x / (float)y
+(float)x / (double)y
+(int)floor(z) + (int)ceil(a)
+\end{verbatim}
+
+\myanswer{{\ttfamily
+
+例：
+(x - 2) * a,
+x - 2 * a,
+(float)(x - 2 * a),
+x - 2 * a,
+(float)(x - 2 * a),
+5 / 2,
+5 / 2. ,
+5 / (float)exp(x),
+5 / (float)exp(x),
+(float)(1 / 2.),
+(float)(1 / 2),
+1. / 2. ,
+x / (float)y,
+x / (double)y,
+
+\noindent
+(int)floor(z) + (int)ceil(a)
+}}
+
+
+
+%\newpage
+
+
+\toi
+
+以下の変数宣言と代入文が上から順番に実行されるとき、
+それぞれの代入文が実行された時点での各変数の値を書け。
+\begin{center}
+ \ttfamily%\small
+ \begin{tabular}{|l|c|c|c|}\hline
+ 代入文 & xの値 & yの値 & zの値\\ \hline\hline
+ int x; &  &  & \\  \cline{2-4}
+ float y, z; & & & \\  \cline{2-4}
+ y = (int)2.2; & & & \\  \cline{2-4}
+ x = 1.2 * y; & & & \\  \cline{2-4}
+ z = (float)1 / 2 + y; & & & \\  \cline{2-4}
+ z = (float)(1 / 2) + y; & & & \\  \cline{2-4}
+ z = (float)(1 / 2 + y); & & & \\  \cline{2-4}
+ z = z + (float)1 / 10; & & & \\  \cline{2-4}
+ z = z + (float)1 / 10; & & & \\  \cline{2-4}
+ z = z + (float)1 / 10; & & & \\  \cline{2-4}
+ x = (int)((float)1 / 2 + y); & & & \\  \cline{2-4}
+ x = x + y; & & & \\  \hline
+ \end{tabular}
+\end{center}
+
+\myanswer{{\ttfamily
+
+x: 不定 不定 不定 2
+2    
+2    
+2    
+2    
+2    
+2    
+2    
+4    
+
+y: 未定義 不定 2.0
+2.0
+2.0
+2.0
+2.0
+2.0
+2.0
+2.0
+2.0
+2.0
+
+z: 未定義 不定 不定 不定 2.5
+2.0
+2.0
+2.1
+2.2
+2.3
+2.3
+2.3
+
+}}
+
+
+\mysection{型の表現できる範囲}
+
+
+数学では、実数とは無限大から無限小まで任意の精度の数を指す。
+
+しかしプログラムでの実数型(float,double)は、
+無限大や無限小や非常に大きい数や非常に小さい数を
+表すことはできない。
+
+float型は整数部分1桁と小数部分6桁を合計して7桁まで、
+double型は整数部分1桁と小数部分14桁の合計15桁までの実数を表現する。
+これを{\bfseries 仮数部}と呼ぶ。
+
+これに、10の冪乗をかけ、実数を表現する。
+floatなら$10^{-38}\sim10^{38}$、doubleなら$10^{-308}\sim10^{308}$を
+の範囲の数値（{\bfseries 指数部}と呼ぶ）を仮数部にかける。
+
+普通の実数は、仮数部と指数部をかけた形で表現する。
+仮数部と指数部はともに負の数も表現できる。
+
+\ex{例：$0.002234 (2.234\times10^{-3})$や$22340 (2.2340\times10^{4})$
+はfloatでもdoubleでも表現できる。
+
+$0.123456789 (1.23456789\times10^{-1})$はdoubleでは表現できるが、
+floatではすべてを表すことができず、有効数字以下は切捨てられて
+$0.1234567 (1.234567\times10^{-1})$となる。
+}
+
+double型は、float型よりほぼ倍の精度で実数を表現できるため、
+倍精度（double precision）と呼ぶ。double型の名前の由来である。
+
+
+\begin{multicols}{2}
+
+\toi
+
+ 
+ 次の実数はfloat型とdouble型で表現できるか。
+ できれば○を、できなければ×を書け。
+
+ \begin{center}
+ \begin{tabular}{|l|c|c|} \hline
+ & float & double \\ \hline\hline
+ 1.2345 & & \\ \hline
+ 0.001245 & & \\ \hline
+ 123.45 & & \\ \hline
+ 123.45$\times10^{42}$ & & \\ \hline
+ 0.000000002468 & & \\ \hline
+ 0.00000000246802468 & & \\ \hline
+ 0.000000002468$\times10^{-35}$ & & \\ \hline
+ 1234.56$\times10^{-20}$ & & \\ \hline
+ 123456789012345678.90 & & \\ \hline
+ 12345678.90$\times10^{-200}$ & & \\ \hline
+ \end{tabular}
+ \end{center}
+
+\myanswer{
+
+float: ○○○×○××○××
+
+double:○○○○○○○○×○
+}
+
+
+
+%\vspace*{3cm}
+
+%\mbox{}
+
+
+\toi
+
+
+ 
+ プログラム中で実数を書く場合、
+ 10の冪乗を$e$で表し、$10^{7}=1\times 10^7$を{\ttfamily 1e+7}と書く。
+
+ \ex{例：$0.00223=2.23\times10^{-3}$は{\ttfamily 2.23e-3}、
+ $20\times 10^{7}$を{\ttfamily 20e7}または{\ttfamily 20e+7}と書く。}
+
+
+ 次の実数はfloat型とdouble型で表現できるか。
+ できれば○を、できなければ×を書け。
+
+% \vfill
+
+ \begin{center}\ttfamily
+ \begin{tabular}{|l|c|c|} \hline
+ & \textrm{float} & \textrm{double} \\ \hline\hline
+ 1.2345 & & \\ \hline
+ 0.001245 & & \\ \hline
+ 123.45 & & \\ \hline
+ 123.45e42 & & \\ \hline
+ 0.000000002468 & & \\ \hline
+ 0.00000000246802468 & & \\ \hline
+ 0.000000002468e-35 & & \\ \hline
+ 1234.56e-20 & & \\ \hline
+ 123456789012345678.90 & & \\ \hline
+ 12345678.90e-200 & & \\ \hline
+ \end{tabular}
+ \end{center}
+\end{multicols}
+
+
+\myanswer{
+
+float: ○○○×○××○××
+
+double:○○○○○○○○×○
+}
+
+
+
+%\newpage
+
+
+\toi
+\begin{multicols}{2}
+ 
+ float型で表せない範囲のdouble型の数値を
+ float型の変数に代入したり、float型に変換したりすると、
+ その値は不定になる。表せる範囲であれば、
+ 値は変わらない。
+
+ 以下の代入文が上から順番に実行されるとき、
+ それぞれの代入文が実行された時点での各変数の値を書け。
+
+ \vfill
+
+ \begin{center}
+ \noindent{\ttfamily%\small
+ \begin{tabular}{|l|c|c|c|}\hline
+ 代入文 & xの値 & yの値 & zの値\\ \hline\hline
+ float x; & & & \\  \cline{2-4} 
+ double y, z; & & & \\  \cline{2-4}
+ y = 1.23e20; & & & \\  \cline{2-4}
+ z = 1.0e+20; & & & \\  \cline{2-4}
+ x = y + z; & & & \\  \cline{2-4}
+ y = x * 2; & & & \\  \cline{2-4}
+ x = y * z; & & & \\  \cline{2-4}
+ y = x / 2; & & & \\  \hline
+ \end{tabular}
+ }
+ \end{center}
+\end{multicols}
+
+一般に、代入や型の変換で、
+代入先の変数の型や変換後の型が表せない数値
+の場合、値は不定になる。
+
+
+\myanswer{{\ttfamily
+
+x: 不定   不定    不定    不定 2.23e20 2.23e20    不定 不定\par
+y: 未定義 不定 1.23e20 1.23e20 1.23e20 4.46e20 4.46e20 不定\par
+z: 未定義 不定    不定 1.0e20  1.0e20  1.0e20  1.0e20  1.0e20
+}}
+
+
+
+\toi
+
+
+ float型とfloat型の演算の評価結果が
+ float型で表せない範囲の数値である場合、
+ その値は不定になる。表せる範囲であれば、値は変わらない。
+
+ double型も同様である。
+
+ 以下の代入文が上から順番に実行されるとき、
+ それぞれの代入文が実行された時点での各変数の値を書け。
+
+
+ \begin{center}
+ \noindent{\ttfamily%\small
+ \begin{tabular}{|l|c|c|c|}\hline
+ 代入文 & xの値 & yの値 & zの値\\ \hline\hline
+ float x, y; & & & \\  \cline{2-4} 
+ double z; & & & \\  \cline{2-4}
+ x = 1.2e20; & & & \\  \cline{2-4}
+ y = 2.0e20; & & & \\  \cline{2-4}
+ z = x * y; & & & \\  \cline{2-4}
+ z = 1.2e200; & & & \\  \cline{2-4}
+ z = z * 2.0e+200 + x; & & & \\  \cline{2-4}
+ x = x + 2.3; & & & \\  \hline
+ \end{tabular}
+ }
+ \end{center}
+
+以後も、変数の値が不定であれば「不定」と書け。
+
+
+\myanswer{{\ttfamily
+
+x: 不定   不定 1.2e20 1.2e20 1.2e20 1.2e20 1.2e20 1.2e20\par
+y: 不定   不定   不定 2.0e20 2.0e20 2.0e20 2.0e20 2.0e20\par
+z: 未定義 不定   不定   不定 2.4e40 1.2e200  不定   不定
+}}
+
+
+
+\toi
+
+int型も表現できる整数の範囲に限りがある。
+通常は$-$2147483648から2147483647までの整数である。
+
+int型で表せない範囲のfloat型やdouble型の実数値を
+int型の変数に代入したり、int型に変換したりすると、
+その値は不定になる。表せる範囲であれば、
+小数部分が切り捨てられた整数になる。
+int型とint型の演算の評価結果が
+int型で表せない範囲の数値である場合、その値は不定になる。
+
+以下の代入文が上から順番に実行されるとき、
+それぞれの代入文が実行された時点での各変数の値を書け。
+
+
+\begin{center}
+ \noindent{\ttfamily%\small
+ \begin{tabular}{|l|c|c|c|}\hline
+ 代入文 & xの値 & yの値 & zの値\\ \hline\hline
+ float x; &  & \hspace*{5em}& \hspace*{5em}\\  \cline{2-4} 
+ double y; & & & \\  \cline{2-4}
+ int z; & & & \\  \cline{2-4}
+ y = 1000000000.2; & & & \\  \cline{2-4}
+ z = y; & & & \\  \cline{2-4}
+ z = y * 3; & & & \\  \cline{2-4}
+ x = -1.23e+10; & & & \\  \cline{2-4}
+ z = x * 2 + 10; & & & \\  \cline{2-4}
+ z = (int)(y * 4); & & & \\  \hline
+ \end{tabular}
+ }
+\end{center}
+
+\myanswer{{\ttfamily
+
+x: 不定   不定   不定 不定           不定           不定           -1.23e+10      -1.23e+10         -1.23e+10      \par
+y: 未定義 不定   不定 1.0000000002e9 1.0000000002e9 1.0000000002e9 1.0000000002e9 1.0000000002e9    1.0000000002e9 \par
+z: 未定義 未定義 不定 不定           1000000000     不定           不定           不定              不定
+}}
+
+
+
+
+
+
+\toi
+
+正の整数だけを扱う場合には、専用の整数型がある。
+unsigned int型（符号無し unsigned）である。
+unsigned int も表現できる整数の範囲に限りがあり、
+0から4294967295までの整数である。
+
+unsigned int型で表せない範囲の実数値やint型の整数値（負の数なども含まれる）を
+unsigned int型の変数に代入したり、unsigned int型に変換したりした結果は、
+不定である。
+unsigned int型とunsigned int型の演算の評価結果が
+unsigned int型で表せない範囲の数値である場合、その値は不定になる。
+
+
+以下の代入文が上から順番に実行されるとき、
+それぞれの代入文が実行された時点での各変数の値を書け。
+
+
+
+\begin{center}
+ \noindent{\ttfamily%\small
+ \begin{tabular}{|l|c|c|c|}\hline
+ 代入文 & xの値 & yの値 & zの値\\ \hline\hline
+ int x; &  & \hspace*{5em}& \hspace*{5em}\\  \cline{2-4} 
+ double y; & & & \\  \cline{2-4}
+ unsigned int z; & & & \\  \cline{2-4}
+ y = 1000000000.2; & & & \\  \cline{2-4}
+ z = y * 3; & & & \\  \cline{2-4}
+ z = y * y; & & & \\  \cline{2-4}
+ x = 10; & & & \\  \cline{2-4}
+ z = x * 2 - 30; & & & \\  \cline{2-4}
+ z = (unsigned int)(x * 2 - 30); & & & \\  \hline
+ \end{tabular}
+ }
+\end{center}
+
+\myanswer{{\ttfamily
+
+x: 不定   不定   不定 不定           不定           不定           10             10                10\par
+y: 未定義 不定   不定 1.0000000002e9 1.0000000002e9 1.0000000002e9 1.0000000002e9 1.0000000002e9    1.0000000002e9 \par
+z: 未定義 未定義 不定 不定           3000000000     不定           不定           不定              不定           
+}}
+
+
+
+
+
+
+%\begin{multicols*}{2}
+
+
+
+\toi
+
+
+小さな整数だけを扱う場合には、専用の整数型がある。
+short int型とunsigned short int型である。
+short int型は$-$32768$\sim$32767、
+unsigned short int型は0$\sim$65535までの整数を表現できる。
+intやunsigned intと同様に、表現できない範囲の数値を代入された場合には不定になる。
+
+
+以下の代入文が上から順番に実行されるとき、
+それぞれの代入文が実行された時点での各変数の値を書け。
+
+\begin{center}
+ \noindent{\ttfamily%\small
+ \begin{tabular}{|l|c|c|c|}\hline
+ 代入文 & xの値 & yの値 & zの値\\ \hline\hline
+ short int x; & \hspace*{5em} & \hspace*{5em}& \hspace*{5em}\\  \cline{2-4} 
+ double y; & & & \\  \cline{2-4}
+ unsigned int z; & & & \\  \cline{2-4}
+ x = 100; & & & \\  \cline{2-4}
+ y = 1000.0; & & & \\  \cline{2-4}
+ x = y * 3000; & & & \\  \cline{2-4}
+ x = 100; & & & \\  \cline{2-4}
+ z = y * y; & & & \\  \cline{2-4}
+ x = z; & & & \\  \cline{2-4}
+ x = 100; & & & \\  \cline{2-4}
+ z = x - 200; & & & \\  \hline
+ \end{tabular}
+ }
+\end{center}
+
+
+\myanswer{{\ttfamily
+
+x: 不定   不定   不定 100  100    不定   100    100     不定    100     100\par
+y: 未定義 不定   不定 不定 1000.0 1000.0 1000.0 1000.0  1000.0  1000.0  1000.0 \par
+z: 未定義 未定義 不定 不定 不定   不定   不定   1000000 1000000 1000000 不定
+}}
+
+
+
+
+
+
+
+
+
+%\newpage
+
+\toi
+
+\begin{multicols}{2}
+ 
+ 整数型には次の三種類がある。
+
+\begin{description}
+ \item[int型]は実際にはsigned int型（符号付き signed）の省略形である。
+ signed型はsigned int型の省略形である。
+ unsigned型はunsigned int型の省略形である。
+
+ \item[short型]はshort int型の省略形である。
+ short int型はsigned short int型の省略形である。
+ unsigned short型はunsigned short int型の省略形である。
+
+ \item[long型]はlong int型の省略形である。
+ long int型はsigned long int型の省略形である。
+ unsigned long型はunsigned long int型の省略形である。
+\end{description}
+
+
+ \mbox{}
+
+% \vspace{3cm}
+
+
+ 次の表にある型名の省略形の正式な型名を書け。
+ また、正式な型名の最も短い省略形を書け。
+
+ \begin{center}
+ \noindent{\ttfamily%\small
+ \begin{tabular}{|l|c|} \hline
+ 型名の省略形 & 正式な型名\\ \hline\hline
+ short int & \hspace*{10em} \\ \hline
+ unsigned short & \\ \hline
+ int & \\ \hline
+ unsigned & \\ \hline
+ long & \\ \hline
+ unsigned long & \\ \hline
+ & signed short int\\ \hline
+ & signed long int\\ \hline
+ & unsigned short int\\ \hline
+ \end{tabular}
+ }
+ \end{center}
+\end{multicols}
+
+
+\myanswer{{\ttfamily
+
+signed short int,
+unsigned short int,
+signed int,
+unsigned int,
+signed long int,
+unsigned long int,
+short,
+long,
+unsigned short
+}}
+
+
+\toi
+
+全ての整数型の数値はdouble型で表現できる。
+しかし、すべての数値をdouble型にすることは適切ではない。
+
+その理由は、整数型の変数や数値が必要なときがあることと、
+その変数が何の数値を表しているのかが分からなくなるからである。
+
+\ex{例：物の個数は0個,1個,2個,...であるので、unsigned int型で表す。}
+
+次の数値を表現するのに最も適切な型を書け。
+\begin{center}
+ \noindent{\ttfamily%\small
+\begin{tabular}{|l|c|} \hline
+ 表す数値 & 型\\ \hline\hline
+ りんごの個数（個） & unsigned short int\\ \hline
+ 銀行口座の残金（円）& \\ \hline
+ 切手一枚の値段（円） & \\ \hline
+ 駅からの距離(km) & \\ \hline
+ 100m走のタイム(s) & \\ \hline
+ 気温(${}^\circ$C) & \\ \hline
+ 西暦（年）& \\ \hline
+ 身長(cm) & \\ \hline
+ 体重(kg) & \\ \hline
+ 先週と今週の体重の差(kg) & \\ \hline
+ 自然数 $n$& \\ \hline
+ 虚数の実部 & \\ \hline
+ 国家予算（約64兆円）& \\ \hline
+ 新潟市の人口（約50万人）& \\ \hline
+ 巻町の町税収入（約27億円）& \\ \hline
+\end{tabular}
+ }
+\end{center}
+
+\myanswer{{\ttfamily
+
+（例）
+signed int,
+unsigned short,
+float,
+float,
+float,
+signed short,
+float,
+float,
+float,
+unsigned int,
+float,
+double,
+unsigned int,
+
+unsigned int
+}}
+
+
+
+
+
+\mysection{文字型}
+
+
+
+C言語では、文字型という型がある（char型, ``character''の頭文字に由来）。
+これは半角文字のアルファベットや数字や記号などの
+一文字だけを表現する（全角の日本語文字は不可）。
+文字「a」を式の中で表すには、「{\ttfamily '}」（クォート quote, shift+7キー）で
+括って「{\ttfamily 'a'}」と書く。
+
+
+
+\toi
+
+\begin{multicols}{2}
+
+ 文字型を表している式には○を、間違っているものには×を書け。
+
+ \begin{center}%\small
+ \ttfamily%\bfseries
+ \begin{tabular}{|c|c|} \hline
+ 式 & 正誤\\ \hline\hline
+ 'b' & \\ \hline
+ 'h' & \\ \hline
+ 'zz' & \\ \hline
+ '\mbox{\bfseries Ｂ}' & \\ \hline
+ '\#' & \\ \hline
+ `d' & \\ \hline
+ "d"  & \\ \hline
+ '\&' & \\ \hline
+ 'B' & \\ \hline
+ ’B’ & \\ \hline
+ 'あ' & \\ \hline
+ \end{tabular}
+ \end{center}
+
+\end{multicols}
+
+
+\myanswer{
+○○×（二文字）×（Bが全角文字）○×（クォートではない）×（クォートではな
+い）○○×（クォートが全角文字）×（全角文字）
+}
+
+
+
+
+\toi
+
+\begin{multicols}{2}
+ 
+ {\ttfamily ''}で括られた文字の評価結果は、整数になる。
+ つまり、文字と整数が対応している。
+
+ \ex{例：{\ttfamily 'a'}の評価結果は整数で97である。}
+
+ この文字と整数の対応はあらかじめ決められており、変更できない。
+ ただし全くでたらめな整数と対応しているわけではなく、例えば
+ {\ttfamily a}$\sim${\ttfamily z}は通し番号、
+ {\ttfamily 0}$\sim${\ttfamily 9}は通し番号、
+ {\ttfamily A}$\sim${\ttfamily Z}は通し番号
+ になっている。
+
+ \ex{例：{\ttfamily 'b'}の評価結果は整数で98である。}
+
+
+ \noindent
+ {\bfseries 注意：{\ttfamily 'b'}が98であることを
+ 丸暗記するのではなく、「文字（数字）」と「数値」
+ の違いをはっきり理解すること。}
+
+
+
+ 次の式の評価結果を書け。
+
+ \begin{center}\ttfamily%\small
+ \begin{tabular}{|c|c|} \hline
+ 式 & 評価結果 \\ \hline\hline
+ 'a' & 97 \\ \hline
+ 'b' & \\ \hline
+ 'f' & \\ \hline
+ '0' & \\ \hline
+ '5' & 53 \\ \hline
+ '9' & \\ \hline
+ 'A' & \\ \hline
+ 'G' & \\ \hline
+ 'H' & 72\\ \hline
+ \end{tabular}
+ \end{center}
+
+\end{multicols}
+
+\myanswer{{\ttfamily
+
+98, 102, 48, 57, 65, 71
+}}
+
+
+
+\toi
+
+文字型（char型）の変数を宣言するには、
+「{\ttfamily char x;}」と書く。
+整数型や実数型の変数と同様に、評価結果を代入することができる。
+
+文字型の変数が保持する値は整数であり、
+その評価結果も整数である。
+
+
+以下の変数宣言と代入文が上から順番に実行されるとき、
+それぞれの代入文が実行された時点での各変数の値を書け。
+\begin{center}
+ \ttfamily%\small
+ \begin{tabular}{|l|c|}\hline
+ 代入文   & xの値 \\ \hline\hline
+ char x;  &       \\  \cline{2-2}
+ x = 'a'; &      \\  \cline{2-2}
+ x = 'b'; &       \\  \cline{2-2}
+ x = 97;  &       \\  \cline{2-2}
+ x = 'a' + 1;      & \\  \cline{2-2}
+ x = 'b' - 'a';    & \\  \cline{2-2}
+ x = 'b' / 2 + 1;  & \\ \hline
+ \end{tabular}
+\end{center}
+
+\myanswer{{\ttfamily
+
+x: 不定 97 98 97 98 1 50
+}}
+
+
+
+\toi
+
+
+文字型（char型）は、実際には整数を表す。
+char型にも符号付きと符号無しの型がある。
+signed char型は$-$127$\sim$128の整数を、
+unsigned char型は0$\sim$255の整数を表現する。
+
+整数型（int型）の整数や実数型の数値と
+代入や型変換をした場合、
+unsigned char型またはsigned char型で
+表せない範囲の数値である場合、その値は不定になる。
+
+
+以下の変数宣言と代入文が上から順番に実行されるとき、
+それぞれの代入文が実行された時点での各変数の値を書け。
+\begin{center}
+ \noindent{\ttfamily%\small
+ \begin{tabular}{|l|c|c|c|}\hline
+ 代入文 & xの値 & yの値 & zの値\\ \hline\hline
+ unsigned char x; &  &  & \\  \cline{2-4}
+ int y,z; &  &  & \\  \cline{2-4}
+ x = 'a'; &  & & \\  \cline{2-4}
+ y = 97; & & & \\  \cline{2-4}
+ x = y; & & & \\  \cline{2-4}
+ z = 1; & & & \\  \cline{2-4}
+ x = y + z; & & & \\  \cline{2-4}
+ x = x * 5; & & & \\  \cline{2-4}
+ x = y - 120; & & & \\  \cline{2-4}
+ x = 'b' - 100 + z * 10; & & & \\  \hline
+ \end{tabular}
+ }
+\end{center}
+
+\myanswer{{\ttfamily
+
+x: 不定   不定 97   97   97   97 98 不定 不定 8\par
+y: 未定義 不定 不定 97   97   97 97 97 97 97 \par
+z: 未定義 不定 不定 不定 不定 1  1  1  1  1  
+
+}}
+
+
+
+
+\toi
+\label{toi:charconvert}
+
+以下の変数宣言と代入文が上から順番に実行されるとき、
+それぞれの代入文が実行された時点での各変数の値と、
+その整数値が表す文字を書け。対応する文字がなければ横線─を書け。
+
+\begin{center}
+ \noindent{\ttfamily%\small
+ \begin{tabular}{|l|c|c|}\hline
+ 代入文 & xの値 & xの値が表す文字 \\ \hline\hline
+ unsigned char x; &   & ------\\  \cline{2-3}
+ int y; &   & ------\\  \cline{2-3}
+ x = 'a'; &  &   \\  \cline{2-3}
+ x = x + 1; &  &   \\  \cline{2-3}
+ x = x + 1; &  &   \\  \cline{2-3}
+ x = x + 1; &  &   \\  \cline{2-3}
+ x = 'a' + 3;  & & \\  \cline{2-3}
+ x = 'f' - 'b';  & & \\  \cline{2-3}
+ x = 'A';  & 65 & \\  \cline{2-3}
+ x = 'A' + 3;  &  & \\  \cline{2-3}
+ x = 'F' - 'B';  & & \\  \cline{2-3}
+ x = 'a' - 'A' + 'A'; &  & \\  \cline{2-3}
+ x = 'a' - 'A' + 'C'; &  & \\  \cline{2-3}
+ x = 'b' - 'B' + 'C'; &  & \\  \cline{2-3}
+ x = 'a' - ('a' - 'A'); &  & \\  \cline{2-3}
+ y = 'a' - 'A'; &  & \\  \cline{2-3}
+ x = 'c' - y; &  & \\  \cline{2-3}
+ x = 'C' + y; &  & \\  \hline
+ \end{tabular}
+ }
+\end{center}
+
+
+\myanswer{{\ttfamily
+
+xの値: 不定 不定 97  
+98  99  100 100 4   65  68  4   97  99  99  65  65  67  99  
+
+xの値が表す文字: -- -- a 
+b  c  d  d  -- A  D  -- a  c  c  A  A  C  c  
+}}
+
+
+
+\toi
+
+
+次の式の評価結果を書け。
+\begin{center}\ttfamily%\small
+\begin{tabular}{|l|c|} \hline
+ 式 & 評価結果 \\ \hline\hline
+ 'a' == 'a' &  \\ \hline
+ 'b' < 'a' & \\ \hline
+ '0' + 1 <= '0' & \\ \hline
+ '5' != 5 &  \\ \hline
+ '9' - 9 == '1' - 1& \\ \hline
+ 'a' > 100& \\ \hline
+\end{tabular}
+\end{center}
+
+\myanswer{{\ttfamily
+1, 0, 0, 1, 1, 0
+}}
+
+
+
+
+\toi
+
+代入文「{\ttfamily x = 'b'}」によって
+文字型変数xに値が代入されているとき、
+次の式を評価せよ。
+\begin{center}\ttfamily%\small
+\begin{tabular}{|l|c|} \hline
+ 式 & 評価結果 \\ \hline\hline
+ x == 'a' &  \\ \hline
+ 'a' == x - 1 & \\ \hline
+ x + 1 <= 'b' & \\ \hline
+ 'e' - 'd' != x - 'a' &  \\ \hline
+ 'B' == x - ('a' - 'A')  & \\ \hline
+ !('b' == x)  & \\ \hline
+\end{tabular}
+\end{center}
+
+
+\myanswer{{\ttfamily
+0, 1, 0, 0, 1, 0
+}}
+
+
+
+
+
+\mysection{表示するためのprintf関数}
+
+
+
+前章までは、式評価の結果は計算されるだけで、出力
+というものを考えていなかった。
+
+出力するためには、関数{\ttfamily printf}（表示関数 
+\underline{print f}unctionから）を使う。
+{\ttfamily printf}は評価結果を、指示された
+形式で画面上に表示（出力）する。
+
+{\ttfamily printf}関数は、
+引数の書き方によって何を出力するのかを
+指定する。
+
+
+\toi
+
+
+まず、引数を一つだけのとき、{\ttfamily printf}関数は
+文字列を表示する。
+この場合、引数には「{\ttfamily "}」（ダブルクォート double quote, shift+2キー）
+で括った文字列を与え、その中の部分（文字列）は画面にそのまま表示される。
+%"
+
+改行を表す記号{\ttfamily\verb+\+n}は、実際には表示されず、
+その部分で画面上の表示が改行される。
+{\ttfamily printf}で{\ttfamily\verb+\+n}を表示することを
+改行すると言う。改行せずに連続して{\ttfamily printf}で表示すると、
+一行で表示される。
+
+
+\begin{quote}
+例：
+\begin{verbatim}
+printf("How are \nyou?");
+printf("Fine, thank you.");
+\end{verbatim}
+を実行すると、
+\begin{verbatim}
+How are 
+you?Fine, thank you.
+\end{verbatim}
+と表示される。
+\end{quote}
+
+
+
+
+以下の{\ttfamily printf}が上から順番に実行されるとき、
+{\ttfamily printf}が実行された時点で表示される内容を書け。
+\begin{multicols}{2}
+\begin{verbatim}
+printf("This is");
+printf("a test.\n Next,");
+printf(" you say \n");
+printf("hello world\n");
+\end{verbatim}
+
+＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
+
+＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
+
+＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
+
+\end{multicols}
+
+
+
+\myanswer{{\ttfamily
+
+This isa test.\par
+ Next, you say \par
+hello world
+}}
+
+
+
+
+\toi
+
+
+以下の内容を出力する{\ttfamily printf}を書け。
+\begin{multicols}{2}
+\begin{verbatim}
+I am a student.
+This is a pen.
+\end{verbatim}
+\mbox{}
+
+
+\end{multicols}
+
+\myanswer{
+%\verbb+printf("I am a student.\nThis is a pen.\n");+
+
+%もしくは
+
+\verbb+printf("I am a student.\n");+\par
+\verbb+printf("This is a pen.\n");+\par
+}
+
+
+
+
+
+\toi
+
+
+
+char型の文字（例えば{\ttfamily 'a'}）の評価結果は全て整数
+（{\ttfamily 'a'}は97）になる。
+式の中では文字はいつも整数であるが、
+逆に、人間がその数値が表す文字を見るには、
+つまり数値を文字にするにはどうしたらよいのか。
+
+
+そのために、{\ttfamily printf}関数に引数を二つ与える。
+
+一つ目の引数は、どのような形式で（数字なのか文字なのか、実数なのか整数な
+のか、10進数なのか16進数なのか）表示するかを指定するための文字列である。
+二つ目の引数は、評価結果を表示する式である。
+
+char型の整数が表す文字を表示したい
+場合には、第一引数を{\ttfamily "\%c"}と書く（{\ttfamily c}はchar型のc）。
+char型の整数を数字として表示したい
+場合には、第一引数を{\ttfamily "\%d"}と書く（{\ttfamily d}は10進数decimalのd）。
+つまり {\ttfamily \%c} もしくは {\ttfamily \%d} を
+「{\ttfamily "}」（ダブルクォート, shit+2キー）で括る。
+%"
+
+
+
+\ex{例：
+{\ttfamily printf("\%c", 97);}は文字{\ttfamily a}を表示し、
+{\ttfamily printf("\%d", 97);}は数字{\ttfamily 97}を表示する。
+}
+
+
+以下の変数宣言と代入文と{\ttfamily printf}が上から順番に実行されるとき、
+{\ttfamily printf}が実行された時点で表示される内容を書け。
+\begin{center}
+ \noindent{\ttfamily%\small
+ \begin{tabular}{|l|c|c|}\hline
+ 代入文 & xの値 & 表示される内容 \\ \hline\hline
+ unsigned char x; &   & ─── \\  \cline{2-3}
+ x = 'a'; & 97 & ───  \\  \cline{2-3}
+ printf("\%c", x);  & & \\  \cline{2-3}
+ printf("\%c", 'b');  & & \\  \cline{2-3}
+ printf("\%c", 98);  & & \\  \cline{2-3}
+ x = x + 2; &  &  ─── \\  \cline{2-3}
+ printf("\%d", 'b');  & & \\  \cline{2-3}
+ printf("\%d", x + 2);  & & \\  \cline{2-3}
+ printf("\%c", x + 2);  & & \\  \cline{2-3}
+ printf("\%c", x - 'A' + 'B');  & & \\\cline{2-3}
+ x = '0'; & 48 & ───  \\  \cline{2-3}
+ printf("\%c", '0');  & & \\  \cline{2-3}
+ printf("\%d", '0');  & & \\  \cline{2-3}
+ printf("\%d", '0' - 48);  & & \\  \cline{2-3}
+ printf("\%d", '1' - 48);  & & \\  \cline{2-3}
+ printf("\%d", x - 48);  & & \\  \cline{2-3}
+ x = x + 1; &  &  ─── \\  \cline{2-3}
+ printf("\%d", x - 48);  & & \\ \cline{2-3}
+ printf("\%c", x);  & & \\  \hline
+ \end{tabular}
+ }
+\end{center}
+
+
+\myanswer{{\ttfamily
+
+xの値: 
+不定
+97
+97
+97
+97
+99
+99
+99
+99
+99
+48
+48
+48
+48
+48
+48
+49
+49
+49
+
+表示される内容：
+--
+--
+a
+b
+b
+--
+98
+101
+e
+d
+--
+0
+48
+0
+1
+0
+--
+1
+1
+
+
+}}
+
+
+
+\toi
+
+変数{\ttfamily aとd}の値を表示したい。
+以下のプログラムの間違いを指摘せよ。
+
+\begin{verbatim}
+char a, d;
+printf("%d, a");
+printf("d");
+\end{verbatim}
+
+\myanswer{{\ttfamily
+printf("\%d, a"); ではなく
+
+printf("\%d", a);\\
+
+printf("d"); ではなく
+
+printf("\%d", d); か printf("\%c", d);
+}}
+
+
+
+\toi
+
+
+{\ttfamily printf}関数の第一引数に{\ttfamily \%c}などを
+含む文字列を書き、第二引数に表示する式を書くと、
+{\ttfamily \%c}の部分は、
+式の評価結果に置き換えられて文字として表示され、それ以外の部分は
+文字列がそのまま表示される。
+{\ttfamily \%d}の部分は、
+式の評価結果に置き換えられて数値として表示さる。
+
+
+\begin{quote}
+例：
+\begin{verbatim}
+printf("How are %d you?\n", 10);
+printf("%c am fine, thank you.", 'I');
+\end{verbatim}
+を実行すると、
+\begin{verbatim}
+How are 10 you?
+I am fine, thank you.
+\end{verbatim}
+と表示される。
+\end{quote}
+
+
+
+以下の{\ttfamily printf}が上から順番に実行されるとき、
+{\ttfamily printf}が実行された時点で表示される内容を書け。
+\begin{center}
+ \noindent{\ttfamily%\small
+ \begin{tabular}{|l|c|}\hline
+  & 表示される内容 \\ \hline\hline
+ printf("a\%ccd\verb+\+n", 'b');&     \hbox to 13em{}  \\  \cline{2-2}
+ printf("123\%d456\verb+\+n", 87);&  \hbox to 13em{}  \\  \cline{2-2}
+ printf("a is \%d.\verb+\+n", 'a');&  \hbox to 13em{}  \\  \cline{2-2}
+ printf("a is \%c.\verb+\+n", 'a');&  \hbox to 13em{}  \\  \cline{2-2}
+ printf("0 is \%d.\verb+\+n", 48);&  \hbox to 13em{}  \\  \cline{2-2}
+ printf("0 is \%d.\verb+\+n", '0');&  \hbox to 13em{}  \\  \cline{2-2}
+ printf("0 is \%c.\verb+\+n", '0');&  \hbox to 13em{}  \\  \hline
+ \end{tabular}
+ }
+\end{center}
+
+
+\myanswer{{\ttfamily
+abcd
+
+12387456
+
+a is 97.
+
+a is a.
+
+0 is 48.
+
+0 is 48.
+
+0 is 0.
+}}
+
+
+\toi
+
+char型変数{\ttfamily a}の値を文字で表示するための
+{\ttfamily printf}を書け。
+
+\myanswer{{\ttfamily
+printf("\%c\verb \ n", a);
+}}
+
+
+\toi
+
+何が表示されるか。
+%\begin{verbatim}
+%   char c1 = 'a', c2 = 'A', c3;
+%   c3 = c2 - c1;
+%   printf("%c\n", 'b' + c3);
+%\end{verbatim}
+% B
+\begin{verbatim}
+char c1, c2, c3;
+c1 = 'a';
+c2 = 'c';
+c3 = c2 - c1;
+printf("c3 is %c\n", 'g' + c3);
+\end{verbatim}
+
+\myanswer{{\ttfamily
+c3 is i
+}}
+
+
+
+
+\toi
+
+
+{\ttfamily printf}関数の第一引数に{\ttfamily \%c}などを複数個
+含む文字列を書くと、複数の式を表示することができる。
+個数の分だけ第二引数、第三引数…に、式を書く。
+
+第一引数内の{\ttfamily \%c}などの順番と、
+第二引数以降の変数の順番は、対応している。
+
+\begin{quote}
+例：
+
+\verb+printf("%c b c d %c f g %d h\n", 'A', 'E', 88);+
+
+を実行すると、
+
+\verb+A b c d E f g 88 h+
+
+と表示される。つまり、
+{\ttfamily 最初の\%cは'A'に対応し、
+二番目の\%cは'E'に対応し、
+\%dは88に対応する。}
+
+\end{quote}
+
+
+以下の{\ttfamily printf}が上から順番に実行されるとき、
+{\ttfamily printf}が実行された時点で表示される内容を書け。
+\begin{center}
+ \noindent{\ttfamily%\small
+ \begin{tabular}{|l|c|}\hline
+  & 表示される内容 \\ \hline\hline
+  printf("\%c\%c\%c\verb+\+n", 'a', 'b', 'c');&     \hbox to 3em{}  \\  \cline{2-2}
+  printf("a is \%d and \%c.\verb+\+n", 'a', 'a');&  \hbox to 3em{}  \\  \hline
+ \end{tabular}
+ }
+\end{center}
+
+
+\myanswer{{\ttfamily
+abc
+
+a is 97 and a.
+}}
+
+
+
+
+\toi
+
+
+次のプログラムを実行すると何が表示されるか。
+\begin{verbatim}
+   char c = 'a';
+   printf("%c %d\n", c, c - 'a');
+\end{verbatim}
+
+\myanswer{{\ttfamily
+a 0
+}}
+
+
+
+
+\toi
+
+int型の整数や実数型を表示するためには、
+{\ttfamily printf}の第一引数の文字列に
+書く内容を変えなければならない。
+
+\begin{itemize}\itemsep=-1ex
+ \item signed int型の整数を表示したい場合には、{\ttfamily "\%d"}と書く。
+ \item unsigned int型の整数を表示したい場合には、{\ttfamily "\%u"}と書く。
+
+ \item float型またはdouble型の実数を表示したい場合には、
+ {\ttfamily "\%f"}と書き、（小数点第7桁を四捨五入して）小数点第6桁までが表示される。
+ また、例えば
+ {\ttfamily "\%.5f"}と書くと（小数点第6桁を四捨五入して）小数点第5桁までが表示される。
+\end{itemize}
+
+\begin{quote}
+ \ttfamily
+例:\\
+ printf("\%f\verb \ n", 123.45); の表示結果は 123.450000\\
+ printf("\%.1f\verb \ n", 123.45); の表示結果は 123.5
+\end{quote}
+
+
+
+{\bfseries 第一引数の指定と評価結果の型が異なる場合}には、出力内容は不定である。
+
+
+以下の{\ttfamily printf}が上から順番に実行されるとき、
+{\ttfamily printf}が実行された時点で表示される内容を書け。
+\begin{center}
+ \noindent{\ttfamily%\small
+ \begin{tabular}{|l|c|}\hline
+  & 表示される内容 \\ \hline\hline
+  printf("\%f cm\verb+\+n", 12.34);&     \hspace*{3cm}  \\  \cline{2-2}
+  printf("\%.1f cm\verb+\+n", 12.34);&       \\  \cline{2-2}
+  printf("\%.0f cm\verb+\+n", 12.34);&       \\  \cline{2-2}
+  printf("\%d\verb+\+n", 52 - 55);&    \\  \cline{2-2}
+  printf("\%d\verb+\+n", 55 - 52);&    \\  \cline{2-2}
+  printf("\%u\verb+\+n", 55 - 52);&    \\  \cline{2-2}
+  printf("\%u\verb+\+n", 52 - 55);&    \\  \cline{2-2}
+  printf("\%f\verb+\+n", 55 - 52);&    \\  \cline{2-2}
+  printf("\%f\verb+\+n", 55 - 52.);&    \\ \cline{2-2}
+  printf("\%d\verb+\+n", 55 - 52.);&    \\  \cline{2-2}
+  printf("\%.0f\verb+\+n", 55 - 52.);&    \\  \cline{2-2}
+  printf("\%d \%f \%d\verb+\+n", 1, 2., 3);&    \\  \cline{2-2}
+  printf("\%d \%f \%d\verb+\+n", 1, 2, 3);&    \\  \hline
+ \end{tabular}
+ }
+\end{center}
+
+
+\myanswer{{\ttfamily
+
+12.340000 cm
+
+12.3 cm
+
+12 cm
+
+-3
+
+3
+
+3
+
+不定
+
+不定
+
+3.000000
+
+不定
+
+3
+
+1 2.000000 3
+
+不定
+}}
+
+
+
+
+
+\toi
+
+以下の代入文と{\ttfamily printf}が上から順番に実行されるとき、
+{\ttfamily printf}が実行された時点で表示される内容を書け。
+\begin{verbatim}
+float w1, w2, h1, h2;
+int y1, y2;
+w1 = 52.2;
+w2 = 64.2;
+h1 = 172.5;
+h2 = 173.5;
+y1 = 1999;
+y2 = 2003;
+printf("year : weight, height\n");
+printf("%d : %.1fkg, %.1fcm\n", y1, w1, h1);
+printf("%d : %.1fkg, %.1fcm\n", y2, w2, h2);
+printf("grows : %.1fkg, %.1fcm total\n", w2-w1, h2-h1);
+printf("grows : %.2fkg, ", (w2-w1)/(y2-y1));
+printf("%.2fcm per year\n", (h2-h1)/(y2-y1));
+\end{verbatim}
+
+＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
+
+＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
+
+＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
+
+＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
+
+＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
+
+＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
+
+＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
+
+\myanswer{{\ttfamily
+
+year : weight, height
+
+1999 : 52.2kg, 172.5cm
+
+2003 : 64.2kg, 173.5cm
+
+grows : 12.0kg, 1.0cm total
+
+grows : 3.00kg, 0.25cm per year
+}}
+
+
+
+
+
+\toi
+
+
+何が表示されるか。
+\begin{verbatim}
+int a, b;
+a = 2;
+b = 4;
+a = b = 5;
+printf("%d %d\n", a, b);
+\end{verbatim}
+
+
+\myanswer{{\ttfamily
+5 5
+}}
+
+
+
+
+\toi
+
+
+何が表示されるか。
+\begin{verbatim}
+int a, b, c;
+a = 2;
+b = 3;
+c = 4;
+printf("%d %d %d\n", a, b, c);
+b = c;
+printf("%d %d %d\n", a, b, c);
+c = a;
+printf("%d %d %d\n", a, b, c);
+\end{verbatim}
+
+\myanswer{{\ttfamily
+
+2 3 4
+
+2 4 4
+
+2 4 2
+}}
+
+
+
+\toi
+
+次のプログラム
+\begin{verbatim}
+int a, b, c;
+a = 8;
+b = 12;
+c = 97;
+printf(＿＿＿＿＿＿＿＿＿＿, a, b, c);
+\end{verbatim}
+を実行すると
+\begin{verbatim}
+8 12 a
+\end{verbatim}
+と表示された。下線部を埋めよ。
+
+
+\myanswer{{\ttfamily
+
+"\%d \%d \%c\verb \ n"
+}}
+
+
+\toi
+
+次のプログラム
+\begin{verbatim}
+int a, b;
+a = 2;
+b = 3;
+printf('a+b= %d\n', a+b);
+\end{verbatim}
+には間違いがある。訂正せよ。
+%答：' -> ``
+
+\myanswer{{\ttfamily
+「'」ではなく「"」が正しい。
+つまり
+printf("a+b= \%d\verb \ n", a+b);
+}}
+
+
+\toi
+
+次のプログラム
+\begin{verbatim}
+int a, b;
+a = 2;
+b = 3;
+prinf("a+b= %d\n", a+b);
+\end{verbatim}
+には間違いがある。訂正せよ。
+%答：prinf -> printf
+
+\myanswer{{\ttfamily
+prinfではなくprintf（これはプログラミング中に非常によくある間違い）
+}}
+
+
+\toi
+
+
+次のプログラム終了後には何が表示されるか。
+\begin{verbatim}
+ int a, b;
+ a = 3;
+ b = 4;
+ printf("%d\n", a = b);
+ printf("%d\n", a);
+\end{verbatim}
+
+
+\myanswer{
+{\ttfamily
+4
+
+4
+}
+
+代入文の評価を忘れていたら問19へ。
+ただし、実際にこのようなまぎわらしい書き方をすることは
+好ましくない。
+}
+
+
+
+
+
+
+\mysection{配列}
+
+
+たくさんの変数が必要な場合、
+それらの変数を全て宣言するのは大変である。
+たとえば、数列$\{a_n\}$の100項目までを表すC言語の変数を宣言する場合、
+「{\ttfamily int a\_1,a\_2,a\_3,a\_4,（途中省略）,a\_100}」のように、
+必要な分だけ書かなければならず、面倒である。
+
+このような場合、
+ある名前の変数に番号（添字 index）を付けて、
+一度に宣言することができる。
+これを{\bfseries 配列(array)}と呼ぶ。
+たとえば、{\ttfamily a}という名前の100個の変数からなる配列を宣言するには
+{\ttfamily int a[100];}とする。こうすると、
+\underline{{\ttfamily a[0]}から{\ttfamily a[99]}までの
+100個}の変数を宣言したことになる。
+
+変数名の直後の括弧「{\ttfamily [}」と「{\ttfamily ]}」の間には、
+添字（番号を表す整数、または評価結果の型が整数になる式）を書く。
+
+
+
+
+
+\toi
+
+
+配列を構成する{\ttfamily a[0],a[1],a[2]}などの一つ一つの変数を、
+{\bfseries 要素}と呼ぶ。
+要素の数は宣言するときに{\ttfamily []}内に書く。
+
+\ex{注意：宣言のときの{\ttfamily [ ]}には要素の総数を書き、
+式の中で用いる{\ttfamily [ ]}には要素の番号を書く。
+場所によって{\ttfamily [ ]}の意味が違うことに注意。}
+
+通常の変数と同様、初期化していない要素の値は不定である。
+
+各変数の値を書け。
+\begin{center}
+ \ttfamily%\small
+ \begin{tabular}{|l|c|c|c|} \hline
+   & a[0]の値 & a[1]の値& a[2]の値\\ \hline\hline
+  int a[3];& & & \\ \cline{2-4}
+  a[0] = 3; & & & \\ \cline{2-4}
+  a[1] = -5;& & & \\ \cline{2-4}
+  a[2] = 10;& & & \\ \cline{2-4}
+  a[3-2] = 10;& & & \\ \cline{2-4}
+  a[8/4] = 10;& & & \\ \hline
+ \end{tabular}
+\end{center}
+
+
+\myanswer{{\ttfamily
+
+a[0]: 不定 3    3     3 3  3
+
+a[1]: 不定 不定 -5   -5 10 10
+
+a[2]: 不定 不定 不定 10 10 10
+}}
+
+
+
+\toi
+\label{toi:arrayelem}
+
+配列の{\bfseries 添字の範囲は、0から「要素の数-1」まで}である。
+この範囲内に添字がない場合には、評価結果は不定である。
+
+\ex{例：{\ttfamily int a[100];}と宣言してある場合、
+{\ttfamily a[200]}や{\ttfamily a[-2]}や{\ttfamily a[100]}の
+評価結果は不定である。
+}
+
+表示される内容を書け。値が不定の場合は──を書け。
+\begin{center}
+ \ttfamily%\small
+ \begin{tabular}{|l|c@{\hspace{3cm}}|} \hline
+   & 表示される内容\\ \hline\hline
+  int a[3]; & ──\\ 
+  float b[10]; & ──\\
+  a[0] = 1; & ──\\ 
+  a[2] = 2; & ──\\ \cline{2-2}
+  printf("\%d \%d\verb+\+n", a[0], a[2]);& \\ \cline{2-2}
+  printf("\%d \%d\verb+\+n", a[0], a[1]);& \\  \cline{2-2}
+  b[1] = a[0] + 1.5;& ──\\
+  b[2] = b[1] * 2;& ──\\  \cline{2-2}
+  printf("\%f \%f\verb+\+n", b[1], b[2] - 1);& \\ \cline{2-2}
+  b[1] = 10 - b[2];& ──\\ 
+  b[0] = 10 - b[3];& ──\\ \cline{2-2}
+  printf("\%f \%f\verb+\+n", b[0], b[1]);& \\ \hline
+ \end{tabular}
+\end{center}
+
+\myanswer{{\ttfamily
+
+1 2
+
+----
+
+2.500000 4.000000
+
+----
+}}
+
+
+
+
+
+
+
+\toi
+
+1年生から4年生までの各学年の学生の人数を
+格納するための配列{\ttfamily studentNumber}を
+定義せよ。
+
+また、毎日の1時間毎の平均気温を格納するための
+配列{\ttfamily temperature}を定義せよ。
+
+
+\myanswer{{\ttfamily
+要素数が4の整数型の配列を定義すればよい。
+（例）unsigned int studentNumber[4];
+
+24時間分の気温（実数）を格納すればよいので、
+要素数が24の実数型の配列を定義すればよい。
+（例）float temprature[24];
+}}
+
+
+
+
+
+
+
+\toi
+
+式中の配列の添字には、整数だけでなく、評価結果が整数型である
+式を書くことができる。
+その結果、添字が0から「要素の数-1」にない場合、
+評価結果は不定である。
+
+
+各変数の値を書け。
+\begin{center}
+ \ttfamily%\small
+ \begin{tabular}{|l|c|c|c|} \hline
+   & a[0]の値 & a[1]の値& a[2]の値\\ \hline\hline
+  int a[3], i;& & & \\ \cline{2-4}
+  i = 0; & & & \\ \cline{2-4}
+  a[i] = 3; & & & \\ \cline{2-4}
+  i = i + 1; & & & \\ \cline{2-4}
+  a[i] = -5;& & & \\ \cline{2-4}
+  i = i + 1; & & & \\ \cline{2-4}
+  a[i] = 10;& & & \\ \cline{2-4}
+  i = 0; & & & \\ \cline{2-4}
+  a[i+1] = a[i]; & & & \\ \cline{2-4}
+  i = i + 2; & & & \\ \cline{2-4}
+  a[i] = a[i-1]; & & & \\ \cline{2-4}
+  a[i] = a[i+1]; & & & \\ \hline
+ \end{tabular}
+\end{center}
+
+
+\myanswer{{\ttfamily
+iの値も一緒に考えるとよい。
+
+\noindent
+ \begin{tabular}{|c|c|c|c|} \hline
+  a[0]の値 & a[1]の値& a[2]の値 & iの値 \\ \hline\hline
+  不定 & 不定 & 不定 & 不定 \\ \hline
+  不定 & 不定 & 不定 & 0\\ \hline
+  3 & 不定 & 不定 & 0\\ \hline
+  3 & 不定 & 不定 & 1\\ \hline
+  3 & -5 & 不定 & 1\\ \hline
+  3 & -5 & 不定 & 2\\ \hline
+  3 & -5 & 10 & 2\\ \hline
+  3 & -5 & 10 & 0\\ \hline
+  3 & 3 & 10 & 0\\ \hline
+  3 & 3 & 10 & 2\\ \hline
+  3 & 3 & 3 & 2\\ \hline
+  3 & 3 & 不定 & 2\\ \hline
+ \end{tabular}
+
+}}
+
+
+
+\toi
+
+何が表示されるか。
+\begin{verbatim}
+int a[3];
+a[0] = 1;
+a[a[0]] = 2;
+a[a[1]] = 3;
+a[a[a[0]]] = 4;
+printf("%d %d %d\n", a[0], a[1], a[2]);
+\end{verbatim}
+
+\myanswer{{\ttfamily
+1 2 4
+}}
+
+
+
+
+
+
+
+\toi
+
+
+char型（文字型）の配列は、「{\ttfamily 文字列}」と呼ばれる。
+
+\ex{例：
+{\ttfamily char name[11];}と宣言した場合、
+11文字文の文字型の配列が確保される。つまり、
+11文字分の文字列を表現できる。
+}
+
+
+{\ttfamily printf}で文字列を表示する場合には、
+第一引数内に{\ttfamily \%s}を書き、
+第二引数以降に配列名だけを書く（{\ttfamily []}は必要ない）。
+この{\ttfamily \%s}と第二引数以降の対応は、
+{\ttfamily \%d}や{\ttfamily \%f}などと同じである。
+
+ただし、文字列（文字型の配列）の最後の要素の値は「0」
+でなくてはならない（文字{\ttfamily '0'}ではなく数値の0である）。
+最後の要素（つまり数値の「0」）は{\ttfamily printf}では表示されない。
+{\ttfamily printf}は、数値の「0」の直前までの内容を表示する。
+
+もし最後の要素の値が{\ttfamily 0}でない場合には、
+最後の要素のひとつ前の要素までは表示されるが、それ以降の出力は不定である。
+
+
+\ex{例：
+{\ttfamily char name[11];}と宣言した場合、
+11文字文の文字型の配列が確保されるが、
+{\ttfamily printf}で表示する場合には
+10文字分の文字列を表現する（最後の要素は0でなければならないため）。
+}
+
+
+以下のプログラムを実行した場合、何が表示されるか。
+\begin{verbatim}
+char b[4];
+b[0] = 'a';
+b[1] = 'b';
+b[2] = 'c';
+b[3] = 0;
+printf("b is %s.\n", b);
+printf("%c %c\n", b[2], b[0]);
+b[0] = b[0] + 1;
+b[1] = b[1] + 1;
+b[2] = b[2] + 1;
+printf("b is %s.\n", b);
+\end{verbatim}
+
+
+\myanswer{{\ttfamily
+
+b is abc.
+
+c a
+
+b is bcd.
+
+}}
+
+
+
+
+\toi
+
+何が表示されるか。
+\begin{verbatim}
+int a[3];
+char b[3];
+b[0] = '0';
+b[1] = '8';
+b[2] = '2';
+a[0] = b[0] - '0';
+a[1] = b[1] - '0';
+a[2] = b[2] - '0';
+printf("%d %d %d\n", a[0], a[1], a[2]);
+\end{verbatim}
+
+\myanswer{{\ttfamily
+この問のプログラムは、文字列を数値の配列に変換している。
+
+0 8 2
+}}
+
+
+
+
+\toi
+
+何が表示されるか。
+\begin{verbatim}
+int a[3];
+char b[3];
+a[0] = 2;
+a[1] = 3;
+a[2] = 1;
+b[0] = 'a';
+b[1] = 'b';
+b[2] = 'c';
+printf("%c %c %c\n", b[0], b[1], b[2]);
+printf("%c %c %c\n", b[a[0]-1], b[a[1]-1], b[a[2]-1]);
+printf("%c\n", b[a[a[a[2]]-1]-1]);
+\end{verbatim}
+
+
+\myanswer{{\ttfamily
+a b c
+
+b c a
+
+a
+}}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\mysection{宣言時の初期化}
+
+
+
+
+配列の要素が増えると、配列の各要素を初期化するために
+沢山の代入文が必要となる。
+これは面倒なので、宣言と同時に初期化することができる。
+宣言するときに、
+配列の要素の数だけ、値を中括弧{\ttfamily \{ \}}で括くる。
+
+\ex{例：\\
+{\ttfamily
+\hspace{3ex}int a[2];\\
+\hspace{3ex}a[0] = 1;\\
+\hspace{3ex}a[1] = 4;}\\
+のかわりに\\
+\hspace{3ex}{\ttfamily
+int a[2] = \{1, 4\};}\\
+と書くことができる。
+}
+
+
+宣言以外の場所でこのような書き方はできない。
+つまり普通の代入文ではこのような書き方は許されない。
+
+
+中括弧{\ttfamily \{ \}}の中の値の数は、
+配列の要素の数よりも多く書くことはできない。
+また逆に少ない場合には、残りの要素は初期化されない（つまり値は不定になる）。
+
+
+
+
+
+\toi
+
+各変数の値を書け。
+\begin{center}
+ \ttfamily%\small
+ \begin{tabular}{|l|c|c|c|} \hline
+   & a[0] & a[1]& a[2]\\ \hline\hline
+  int a[3] = \{3, -5, 10\};& & & \\ \cline{2-4}
+  a[0] = a[1] + 10;& & & \\ \cline{2-4}
+  a[7-6] = 10;& & & \\ \cline{2-4}
+  a[10/5] = 8;& & & \\ \hline
+ \end{tabular}
+\end{center}
+
+\myanswer{{\ttfamily
+
+ \begin{tabular}{|c|c|c|} \hline
+  a[0] & a[1]& a[2]\\ \hline\hline
+  3 & -5 & 10 \\ \hline
+  5 & -5 & 10 \\ \hline
+  5 & 10 & 10 \\ \hline
+  5 & 10 & 8 \\ \hline
+ \end{tabular}
+
+}}
+
+
+\toi
+
+以下の変数宣言と代入文を、
+宣言時の初期化に書き直せ。
+
+\begin{verbatim}
+float value[2];
+value[1] = 4.5;
+value[0] = 1.2;
+\end{verbatim}
+
+\myanswer{{\ttfamily
+float value[2] = \{1.2, 4.5\};
+}}
+
+
+\toi
+
+何が表示されるか。
+\begin{verbatim}
+double d[5] = {1.1, 2.2, 3.3, 4.4, 5.5};
+printf("%f\n", d[1]);
+\end{verbatim}
+
+\myanswer{{\ttfamily
+2.200000
+}}
+
+
+
+
+\toi
+通常の変数も、宣言時に初期化することができる。
+
+何が表示されるか。
+\begin{verbatim}
+int a[5] = {1, 2, 3, 4, 5}, i = 5;
+printf("%d\n", a[i-1]);
+\end{verbatim}
+
+\myanswer{{\ttfamily
+5
+}}
+
+
+
+
+
+\toi
+
+何が表示されるか。
+\begin{verbatim}
+int a[3] = {2, 3, 1}, x = 3, b[3] = {5, 4, 8};
+printf("%d %d %d\n", b[0], b[1], b[2]);
+printf("%d %d %d\n", b[a[0]-1], b[a[1]-1], b[a[2]-1]);
+printf("%d %d %d\n", b[x - 3], b[x - 2], b[x - 1]);
+\end{verbatim}
+
+
+\myanswer{{\ttfamily
+5 4 8
+
+4 8 5
+
+5 4 8
+}}
+
+
+
+
+\toi
+
+何が表示されるか。
+\begin{verbatim}
+int a = 2, b = 3, c = 4;
+printf("%d %d %d\n", a, b, c);
+a = b;
+printf("%d %d %d\n", a, b, c);
+b = c;
+printf("%d %d %d\n", a, b, c);
+c = a;
+printf("%d %d %d\n", a, b, c);
+\end{verbatim}
+
+
+\myanswer{{\ttfamily
+2 3 4
+
+3 3 4
+
+3 4 4
+
+3 4 3
+}}
+
+
+
+
+
+\toi
+
+
+各変数の値を書け。
+\begin{center}\ttfamily%\small
+ \begin{tabular}{|l|c|c|c|c|}\hline
+  & a[0]& a[1]& b[0]& b[1]\\ \hline\hline
+  int a[2]=\{4, 2\};& & & & \\ \cline{2-5}
+  int b[2]=\{1, 0\};& & & & \\ \cline{2-5}
+  a[0] = 1;& & & & \\ \cline{2-5}
+  b[0] = a[a[0]];& & & & \\ \cline{2-5}
+  b[1] = a[b[1]]+1;& & & & \\ \cline{2-5}
+  b[1] = a[b[0]-2];& & & & \\ \hline
+ \end{tabular}
+\end{center}
+
+\myanswer{{\ttfamily
+
+ \begin{tabular}{|c|c|c|c|}\hline
+  a[0]& a[1]& b[0]& b[1]\\ \hline\hline
+  4 & 2 & 未定義 & 未定義 \\ \hline
+  4 & 2 & 1 & 0 \\ \hline
+  1 & 2 & 1 & 0 \\ \hline
+  1 & 2 & 2 & 0 \\ \hline
+  1 & 2 & 2 & 2 \\ \hline
+  1 & 2 & 2 & 1 \\ \hline
+ \end{tabular}
+
+}}
+
+
+
+
+
+\toi
+
+文字型配列の変数の初期化も同様に初期化できる。
+
+何が表示されるか。
+\begin{verbatim}
+int x = 1;
+char a[3] = {'a', 'b', 'c'};
+printf("%c %c %c\n", a[0], a[1], a[2]);
+printf("%c %c %c\n", a[x - 1], a[x], a[x + 1]);
+\end{verbatim}
+
+
+\myanswer{{\ttfamily
+a b c
+
+a b c
+}}
+
+
+
+\toi
+
+文字型配列の変数は、特殊な初期化の方法がある。
+ダブルクォーテーション{\ttfamily ""}で複数の文字（文字列）を
+括る。ただし、宣言する配列の要素の数は、文字列の文字数よりも
+1だけ多くなければならない（最後の要素には、自動的に数値の「0」
+が代入されるため）。
+
+\ex{例：
+{\ttfamily char a[4] = "abc";}と変数宣言した場合、\\
+{\ttfamily a[0]}には{\ttfamily 'a'}が、
+{\ttfamily a[1]}には{\ttfamily 'b'}が、\\
+{\ttfamily a[2]}には{\ttfamily 'c'}が、
+{\ttfamily a[3]}には数値の「0」が、それぞれ代入される。
+}
+
+
+何が表示されるか。
+\begin{verbatim}
+int x = 1;
+char a[4] = "abc";
+printf("%c %c %c\n", a[0], a[1], a[2]);
+printf("%d %d %d %d\n", a[0], a[1], a[2], a[3]);
+printf("%c %c %c\n", a[x - 1], a[x], a[x + 1]);
+printf("%s\n", a);
+\end{verbatim}
+
+
+\myanswer{{\ttfamily
+a b c
+
+97 98 99 0
+
+a b c
+
+abc
+}}
+
+
+
+
+\toi
+
+
+何が表示されるか。
+\begin{verbatim}
+int i = 0, b[3] = {0, 1, 2};
+char a[4] = "abc";
+i = 0;
+printf("a[%d] = %c\n", i, a[i]);
+i = i + 1;
+printf("a[%d] = %c\n", i, a[i]);
+i = i + 1;
+printf("a[%d] = %c\n", i, a[i]);
+i = 0;
+printf("a[%d] = %c\n", b[i], a[b[i]]);
+b[i] = b[i+1];
+printf("a[%d] = %c\n", b[i], a[b[i]]);
+b[i] = b[i+2];
+printf("a[%d] = %c\n", b[i], a[b[i]]);
+\end{verbatim}
+
+
+
+\myanswer{{\ttfamily
+a[0] = a
+
+a[1] = b
+
+a[2] = c
+
+a[0] = a
+
+a[1] = b
+
+a[2] = c
+}}
+
+
+
+\toi
+
+
+何が表示されるか。
+\begin{verbatim}
+int a[9] = {1,2,3,4,5,6,7,8,9};
+char b[9] = "abcdefgh";
+printf("%d", a[0]);
+printf("%d", a[a[0]]);
+printf("%d", a[a[a[0]]]);
+printf("%d\n", a[a[a[a[a[a[a[0]]]]]]]);
+printf("%c", b[a[0]]);
+printf("%c", b[a[a[0]]]);
+printf("%c", b[a[a[a[0]]]]);
+printf("%c\n", b[a[a[a[a[a[0]]]]]]);
+\end{verbatim}
+
+
+\myanswer{{\ttfamily
+1237
+
+bcdf
+}}
+
+
+\toi
+
+
+何が表示されるか。
+\begin{verbatim}
+int a[9] = {1,2,3,4,5,6,7,8,9}, i;
+char b[9] = "abcdefgh";
+i = a[0];
+printf("%d", i);
+i = a[i];
+printf("%d\n", i);
+i = a[i];
+printf("%d", i);
+i = a[0];
+printf("%c\n", b[i]);
+i = a[i];
+printf("%c", b[i]);
+i = a[i];
+printf("%c\n", b[i]);
+\end{verbatim}
+
+
+\myanswer{{\ttfamily
+12
+
+3b
+
+cd
+}}
+
+
+
+
+
+
+
+
+
+\toi
+
+次のプログラムがある。
+\begin{verbatim}
+char name[11] = "suzuki rie";
+printf("%c%c\n", name[＿＿＿＿], name[＿＿＿＿]);
+\end{verbatim}
+これを実行したところ、次のように表示された。
+\begin{verbatim}
+kr
+\end{verbatim}
+プログラム中の下線部を埋めよ。 
+
+\myanswer{{\ttfamily
+4, 7
+}}
+
+
+
+\toi
+
+次のプログラムがある。
+\begin{verbatim}
+char name[10] = "Takeshi K";
+printf("%c%c\n", name[＿＿＿＿], name[＿＿＿＿]);
+\end{verbatim}
+これを実行したところ、次のように表示された。
+\begin{verbatim}
+KT
+\end{verbatim}
+プログラム中の下線部を埋めよ。 
+
+
+\myanswer{{\ttfamily
+8, 0
+}}
+
+
+
+
+\toi
+
+
+次のプログラムがある。
+\begin{verbatim}
+char c[4] = "＿＿＿＿＿＿＿＿＿";
+printf("%c%c%c\n", c[1], c[2], c[0]);
+\end{verbatim}
+これを実行したところ、次のように表示された。
+\begin{verbatim}
+abc
+\end{verbatim}
+プログラム中の下線部を埋めよ。 
+
+
+\myanswer{{\ttfamily
+cab
+}}
+
+
+
+
+
+
+
+
+\mysection{繰り返し：whileループ}
+
+変数宣言や代入文や{\ttfamily printf}関数
+などを、まとめて{\ttfamily 文}と呼ぶ。
+プログラムとは、文をセミコロン「{\ttfamily ;}」で
+区切って並べたものである。
+
+プログラムの実行（プログラムを実行する）とは、
+セミコロン「{\ttfamily ;}」で区切られた
+文を順に評価することである。
+
+\bigskip
+
+プログラムの一部を、全く同じ書き方で繰り返して
+書ける場合には、その部分を{\ttfamily while}文で
+まとめることができる。
+{\ttfamily while}文は次の様に書く。
+
+\begin{quote}\bfseries
+\begin{verbatim}
+while(条件となる式){
+  繰り返す文の並び
+}
+\end{verbatim} 
+\end{quote}
+
+「条件となる式」を{\ttfamily 条件式}と呼ぶ。
+条件式は小括弧「{\ttfamily ( )}」で括り、
+繰り返す文の並びは中括弧「{\ttfamily \{\}}」で括る。
+
+条件式を評価し、その評価結果が真（0以外、問\ref{toi:evaluation}参照）であるとき、
+「繰り返す文の並び」を実行する。そして再び条件式の評価を行う。
+
+条件式の評価結果が偽（0）ならば、{\ttfamily while}文を終了する。
+
+\begin{quote}
+例：
+次のような繰り返し
+\begin{verbatim}
+      int i = 0;
+      printf("%d\n", i);
+      i = i + 1;
+      printf("%d\n", i);
+      i = i + 1;
+      printf("%d\n", i);
+      i = i + 1;
+      printf("end\n");
+\end{verbatim}
+は、次の書き方
+\begin{verbatim}
+      int i = 0;
+      while(i < 3){
+        printf("%d\n", i);
+        i = i + 1;
+      }
+      printf("end\n");
+\end{verbatim}
+と等価である。
+\end{quote}
+
+
+{\ttfamily while}によるプログラムの繰り返しを
+{\ttfamily while}ループと呼ぶ。
+
+\toi
+
+$5\times1=5$を計算するには、
+＿＿＿＿＿＿＿＿＿＿＿＿を＿＿＿＿＿回繰り返せばよい。
+
+
+
+
+変数宣言は{\ttfamily int i = 0;}、
+条件式は {\ttfamily i < 4}、
+繰り返す文は {\ttfamily i = i + 1;}
+である{\ttfamily while}ループを書け。
+
+\myanswer{{\ttfamily
+1を足す計算, 5回
+
+int i = 0;
+
+while(i < 4)\{
+
+\hspace{2ex}i = i + 1;
+
+\}
+
+}}
+
+
+
+
+
+%\toi
+%
+%次の{\ttfamily while}ループは、代入文を3回繰り返す。
+%それぞれの繰り返しにおける、条件式評価と代入文実行後の
+%{\ttfamily i}の値を書け。
+%
+%\begin{center}\ttfamily
+% \begin{tabular}{|l|c|c|c|c|} \hline
+%  & \multicolumn{4}{c|}{iの値}\\ \hline
+%  & 1周目& 2周目&3周目&4周目 \\\hline
+%  int i = 0;  & 1 & ─& ─& ─\\ \cline{2-5}
+%  while(i <= 3)\{  & & & &\\ \cline{2-5}
+%  \hspace{1em}i = i + 5;  && & &─ \\ \cline{2-5}
+%  \}  & ─& ─& ─&\\\hline
+% \end{tabular}
+%\end{center}
+%
+
+
+
+\toi
+
+{\ttfamily while}文では、
+「条件式の評価」と「繰り返す文の並びの実行」を
+順に行う。文を実行している間に
+条件式を満たしているかどうかは関係がない。
+
+次のプログラムでは、条件式を評価し、三つの文を実行し、
+条件式を評価し、ということを繰り返している。
+
+\begin{verbatim}
+int a = 0, b = 0;
+while(a < 5){
+  a = a + 5;
+  b = b + 3;
+  a = a - 2;
+}
+\end{verbatim}
+
+この{\ttfamily while}ループが終了したときの
+{\ttfamily a,b}の値を答えよ。
+また、一つ一つの繰り返しのときの
+{\ttfamily a,b}の値の変化と、
+条件式「{\ttfamily a < 5}」の評価結果を
+答えよ。
+
+\myanswer{{\ttfamily
+まず、aとbの値は0である。
+
+一回目の繰り返し：条件式は真（0 < 5）である。
+aは5になり、bは3になり、さらにaは3になる。
+一回目の繰り返しが終わった時点で、aは3である。
+
+二回目の繰り返し：条件式は真（3 < 5）である。
+aは8になり、bは6になり、さらにaは6になる。
+
+三回目の繰り返し：条件式は偽（6 < 5）である。
+したがって繰り返しは終了する。
+
+つまり、繰り返しが終了した時点で、aの値は6、bの値は6である。
+}}
+
+
+
+\toi
+
+何が表示されるか。
+\begin{verbatim}
+int i = 0;
+while(i < 10){
+  printf("%d ", i);
+  i = i + 1;
+}
+\end{verbatim}
+
+何が表示されるか。
+\begin{verbatim}
+int i = 0;
+while(i < 10){
+  i = i + 1;
+  printf("%d ", i);
+}
+\end{verbatim}
+それぞれの繰り返しのときの{\ttfamily i}の値の変化
+に注目して、上の二つのプログラムはどのように違うのかを述べよ。
+
+
+\myanswer{{\ttfamily
+0 1 2 3 4 5 6 7 8 9
+
+1 2 3 4 5 6 7 8 9 10
+}}
+
+
+
+
+\toi
+\label{toi:7multiples}
+
+何が表示されるか。また、これは何の計算をしているのかを述べよ。
+\begin{verbatim}
+int i = 0;
+while(i < 66){
+  printf("%d ", i);
+  i = i + 7;
+}
+\end{verbatim}
+
+
+\myanswer{{\ttfamily
+0 7 14 21 28 35 42 49 56 63}
+
+66未満の7の倍数（0を含む）を計算している。
+}
+
+
+
+\toi
+
+次のプログラムがある。
+これを、{\ttfamily while}文を使わない
+プログラムに書き直せ。
+
+\begin{verbatim}
+int i = 0, n = 0;
+while(i < 3){
+  n = n + i;
+  i = i + 1;
+  printf("%d %d\n", n, i);
+}
+\end{verbatim}
+
+\myanswer{{\ttfamily
+
+int i = 0, n = 0;
+
+n = n + i;
+
+i = i + 1;
+
+printf("\%d \%d\verb \ n", n, i);
+
+n = n + i;
+
+i = i + 1;
+
+printf("\%d \%d\verb \ n", n, i);
+
+n = n + i;
+
+i = i + 1;
+
+printf("\%d \%d\verb \ n", n, i);
+
+}}
+
+
+\vspace{3cm}
+
+
+\toi
+
+次のプログラムがある。
+これを、{\ttfamily while}文を使った
+プログラムに書き直せ。
+
+\begin{verbatim}
+int i = 0, a[3];
+a[i] = i * 2;
+printf("%d %d\n", i, a[i]);
+i = i + 1;
+a[i] = i * 2;
+printf("%d %d\n", i, a[i]);
+i = i + 1;
+a[i] = i * 2;
+printf("%d %d\n", i, a[i]);
+i = i + 1;
+\end{verbatim}
+
+
+\vspace{3cm}
+
+\myanswer{{\ttfamily
+
+int i = 0, a[3];
+
+while(i < 3)\{
+
+\hspace{2ex}a[i] = i * 2;
+
+\hspace{2ex}printf("\%d \%d\verb \ n", i, a[i]);
+
+\hspace{2ex}i = i + 1;
+
+\}
+
+
+}}
+
+
+
+\toi
+
+次のプログラムを実行すると何が表示されるか。
+\begin{verbatim}
+char c = 'b';
+while(c != 'f'){
+  printf("%c", c);
+  c = c + 1;
+}
+\end{verbatim}
+
+\myanswer{{\ttfamily
+bcde
+}}
+
+
+\toi
+
+何が表示されるか。
+\begin{verbatim}
+int i = 0;
+while(i < 5){
+  printf("%d ", i);
+  i = i + 1;
+}
+printf("%d ", i);
+while(i >= 0){
+  printf("%d ", i);
+  i = i - 1;
+}
+\end{verbatim}
+
+\myanswer{{\ttfamily
+0 1 2 3 4 5 5 4 3 2 1 0
+}}
+
+
+
+\toi
+
+
+何が表示されるか。
+\begin{verbatim}
+int i = 0, a[5] = {2, 4, 6, 8, 10};
+while(i < 5){
+  printf("%d ", a[i]);
+  i = i + 1;
+}
+while(i > 0){
+  i = i - 1;
+  printf("%d ", a[i] - 1);
+}
+\end{verbatim}
+
+
+\myanswer{{\ttfamily
+2 4 6 8 10 9 7 5 3 1
+}}
+
+
+
+\toi
+
+
+何が表示されるか。
+\begin{verbatim}
+int i = 0, b[3] = {0, 1, 2};
+char a[4] = "abc";
+while(i < 3){
+  printf("a[%d] = %c\n", i, a[i]);
+  i = i + 1;
+}
+i = 0;
+while(i < 3){
+  printf("a[%d] = %c\n", b[i], a[b[i]]);
+  i = i + 1;
+}
+\end{verbatim}
+
+
+
+\myanswer{{\ttfamily
+a[0] = a
+
+a[1] = b
+
+a[2] = c
+
+a[0] = a
+
+a[1] = b
+
+a[2] = c
+}}
+
+
+
+
+\toi
+
+何が表示されるか。また、これは何の計算をしているのかを述べよ。
+\begin{verbatim}
+int i = 0, a[6] = {2,4,6,8,10,7};
+while(a[i] < 10){
+  printf("%d ", a[i]);
+  i = i + 1;
+}
+\end{verbatim}
+
+\myanswer{{\ttfamily
+2 4 6 8
+
+10未満の要素を順に表示し、
+最初に10以上の要素が見付かった時点で繰り返しを終了する。
+}}
+
+
+
+\toi
+
+何が表示されるか。また、これは何の計算をしているのかを述べよ。
+\begin{verbatim}
+int i = 12;
+char b[14] = "!gninrom doog";
+while(b[i] != '!'){
+  printf("%c", b[i]);
+  i = i - 1;
+}
+printf(".\n");
+\end{verbatim}
+
+
+\myanswer{{\ttfamily
+good morning.
+
+文字列を逆順に、つまり文字型配列の最後の要素から順に表示している。
+また、最後の ! は表示されない。
+}}
+
+
+
+\toi
+
+次のプログラムがある。
+\begin{verbatim}
+int i = 0, a[7] = {1,3,5,7,9,11,8};
+while(a[i] < 10){
+  printf("%d ", a[i]);
+  ＿＿＿＿＿＿＿＿＿＿＿
+}
+\end{verbatim}
+これを実行したときに、次のように表示したい。
+\begin{verbatim}
+1 3 5 7 9
+\end{verbatim}
+プログラムの下線部を埋めよ。
+
+
+\myanswer{{\ttfamily
+i = i + 1;
+}}
+
+
+
+\toi
+
+次のプログラムがある。
+\begin{verbatim}
+int i = 1;
+while(i <= 100){
+  printf("%d ", i);
+  ＿＿＿＿＿＿＿＿＿
+}
+\end{verbatim}
+これを実行すると、100以下の全ての奇数を表示するようにしたい。
+プログラムの下線部を埋めよ。
+
+\myanswer{{\ttfamily
+ i = i + 2;
+}}
+
+
+
+
+
+
+\toi
+
+次のプログラムがある。
+\begin{verbatim}
+int i = 0, a[5] = {3, 5, 2, 6, 9};
+while( ＿＿＿＿＿＿＿＿＿＿ ){
+  printf("%d ", a[i]);
+  i = i + 1;
+}
+\end{verbatim}
+これを実行すると、配列{\ttfamily a}の全ての要素を表示するようにしたい。
+プログラムの下線部を埋めよ。
+
+\myanswer{{\ttfamily
+i < 5
+}}
+
+
+
+
+\toi
+
+次のプログラムがある。
+\begin{verbatim}
+int i;
+char c[5] = "abcd";
+＿＿＿＿＿
+while( ＿＿＿＿＿＿＿＿＿ ){
+  printf(＿＿＿＿＿＿＿＿＿, ＿＿＿＿＿＿＿＿＿);
+  ＿＿＿＿＿＿＿＿＿
+}
+\end{verbatim}
+これを実行すると、配列{\ttfamily c}の全ての要素を連続して表示するようにしたい。
+プログラムの下線部を埋めよ。
+
+
+\myanswer{{\ttfamily
+
+int i;
+
+char c[5] = "abcd";
+
+i = 0;
+
+while(i < 4)\{
+
+\hspace{2ex}printf("\%c", c[i]);
+
+\hspace{2ex}i = i + 1;
+
+\}
+
+}}
+
+
+
+
+\toi
+
+次の配列{\ttfamily f}がある。
+\begin{verbatim}
+float f[4] = {1.23, 4.56, 78.9, 10.11};
+\end{verbatim}
+この配列{\ttfamily f}の全ての要素を表示するプログラム
+を{\ttfamily while}文を用いて書け。
+
+\vspace*{3cm}
+
+\myanswer{{\ttfamily
+
+int i;
+
+float f[4] = \{1.23, 4.56, 78.9, 10.11\};
+
+i = 0;
+
+while(i < 4)\{
+
+\hspace{2ex}printf("\%f\verb \ n", f[i]);
+
+\hspace{2ex}i = i + 1;
+
+\}
+
+}}
+
+
+
+
+\toi
+
+
+次のプログラムがある。
+\begin{verbatim}
+int a[5] = {4, 5, 6, 7, 8}, b[5], i = 0;
+while(i < 5){
+  b[i] = a[i] + 4;
+  i = i + 1;
+}
+＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
+＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
+＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
+＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
+＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
+\end{verbatim}
+このあとに配列{\ttfamily b}の全ての要素を表示するように
+プログラムの続きを書け。また、その結果何が表示されるか。
+
+
+\myanswer{{\ttfamily
+
+i = 0;
+
+while(i < 5)\{
+
+\hspace{2ex}printf("\%d\verb \ n", b[i]);
+
+\hspace{2ex}i = i + 1;
+
+\}
+
+表示される結果
+
+8
+
+9
+
+10
+
+11
+
+12
+}}
+
+
+
+
+
+
+\toi
+\label{toi:whilesum}
+
+何が表示されるか。また、これは何の計算をしているのかを、
+それぞれの繰り返しのときの{\ttfamily iとsum}の値の変化
+に注目して、述べよ。
+
+\begin{verbatim}
+int i = 0, sum = 0;
+while(i < 10){
+  i = i + 1;
+  sum = sum + i;
+}
+printf("%d\n", sum);
+\end{verbatim}
+
+
+
+\myanswer{{\ttfamily
+55,  （略）0（または1）から10までの和を計算している
+}}
+
+
+
+
+\toi
+
+
+何が表示されるか。また、これは何の計算をしているのかを、
+それぞれの繰り返しのときの{\ttfamily iとfactorial}の値の変化
+に注目して、述べよ。
+\begin{verbatim}
+int i = 1, factorial = 1;
+while(i < 4){
+  factorial = factorial * i;
+  i = i + 1;
+}
+printf("%d\n", factorial);
+\end{verbatim}
+
+\myanswer{{\ttfamily
+6,  （略）3の階乗を計算している
+}}
+
+
+
+
+
+\toi
+
+{\ttfamily while}文を使って、
+100以下の7の倍数を全て表示するプログラムを書け。
+
+\begin{verbatim}
+＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
+＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
+＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
+＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
+＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
+\end{verbatim}
+
+\myanswer{
+問\ref{toi:7multiples}を参照。
+
+{\ttfamily
+
+int i = 7; 
+
+while(i <= 100)\{
+
+  printf("\%d ", i);
+
+  i = i + 7;
+
+\}
+
+0は7の倍数としない。
+}}
+
+
+
+
+\toi
+
+次のプログラムがある。
+これは、ある数列の1000項目までを表示するものである。
+数列の第$n$項を（数学の数式で）書け。
+\begin{verbatim}
+int n = 1;
+while(n <= 1000){
+  printf("%f\n", (2.0 * n - 3.0) / (n * n + 1));
+  n = n + 1;
+}
+\end{verbatim}
+
+
+\myanswer{
+$\ds\frac{2n-3}{n^2+1}$
+}
+
+
+
+
+
+\toi
+
+次のプログラムがある。
+\begin{verbatim}
+int n = 1
+float sum = 0;
+while(n <= 1000){
+  sum = ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
+  printf("%f\n", sum);
+  n = n + 1;
+}
+\end{verbatim}
+これは、次の級数の1000項目までの和を表示するものである。
+プログラム中の下線部を埋めよ。
+\[
+ \sum_{n=1}^{1000} \left( \frac{1}{n^2}+2n \right) 
+\]
+
+
+\myanswer{{\ttfamily\noindent
+sum + (1.0 / (n * n) + 2 * n);
+}}
+
+
+
+
+%\newpage
+
+\toi
+
+\begin{multicols}{2}
+ 
+
+次のプログラムがある。
+\begin{quote}\ttfamily%\small
+int i= {\fbox{\hbox to 1cm{ \an{-3} \rule{0mm}{3mm}}}} , n=0;\\
+while(i < 150)\{\\
+\hspace*{1em}   n = \fbox{\hbox to 3cm{ \an{2*i+4} \rule[-1.5mm]{0mm}{5mm}}} ;\\
+\hspace*{1em}   i = i + 1;\\
+\}
+\end{quote}
+これが表す数式は次のようなものである。
+空欄を埋めよ。
+\[
+n = \sum_{i=-3}^{\fbox{ \an{149} \hbox to .8cm{\rule[-1.5mm]{0mm}{5mm}}}}
+\quad (2i+4)
+\]
+
+\end{multicols}
+
+\myanswer{{\ttfamily
+
+-3
+
+n + (2 * i + 4)
+}
+
+149
+}
+
+
+
+
+
+\toi
+
+\begin{multicols}{2}
+ 
+ 次のプログラムがある。
+ \begin{verbatim}
+ int i=-3, n=0;
+ while(i != 128){
+   n = n + 1;
+   i = i + 1;
+ }
+ \end{verbatim}
+ これが表す数式は次のようなものである。
+ 空欄を埋めよ。
+ \[
+ % n = \sum_{i=-2}^{9} i
+ n = \sum_{i=\raisebox{.5mm}{\fbox{\hbox to .3cm{\rule[-1.5mm]{0mm}{3mm}}}}}^{\fbox{\hbox to .8cm{\rule[-4mm]{0mm}{3mm}}}}
+ \quad\fbox{\hbox to 2cm{\rule[-4mm]{0mm}{10mm}}}
+ \]
+
+\end{multicols}
+
+
+\myanswer{
+
+$ n = \ds\sum_{i=-3}^{127} 1$
+
+}
+
+
+
+
+
+
+
+\toi
+
+\noindent
+次の三つのプログラムがある。
+\begin{verbatim}
+int i = 0, a[6] = {0, 0, 0, 1, 2, 3};
+while(a[i] == 0){
+  printf("%d ", a[i]);
+  i = i + 1;
+}
+-------------------------------------
+int i = 0, a[6] = {0, 0, 0, 1, 2, 3};
+while(a[i] = 0){
+  printf("%d ", a[i]);
+  i = i + 1;
+}
+-------------------------------------
+int i = 0, a[6] = {1, 2, 3, 0, 0, 0};
+while(a[i]){
+  printf("%d ", a[i]);
+  i = i + 1;
+}
+\end{verbatim}
+それぞれ実行したときに、何が表示されるか。
+また上の三つのプログラムはどのように違うのか、
+なぜ表示結果が違うのかの理由を述べよ。
+
+\myanswer{
+一番目のプログラムの表示：{\ttfamily 000}
+
+二番目のプログラムの表示：なにも表示されない
+
+三番目のプログラムの表示：{\ttfamily 123}
+
+（略）二番目の条件式は代入文になっているため
+（これは実際にとてもよくある間違い）。
+詳しくは問\ref{toi:substitution}を参照。
+}
+
+
+
+
+
+\toi
+
+
+何が表示されるか。
+\begin{verbatim}
+int i = 0, a[6] = {11, 56, 34, 77, 39, 0};
+while(a[i] != 0){
+  printf("%d ", a[i]);
+  i = i + 1;
+}
+\end{verbatim}
+
+\myanswer{{\ttfamily
+11 56 34 77 39
+}}
+
+
+
+
+\toi
+
+何が表示されるか。
+
+\begin{verbatim}
+int a[5] = {4, 0, 1, 3, 2}, i = 0, j = 0;
+char b[6] = "abcde";
+while(j < 10){
+  printf("%c ", b[i]);
+  i = a[i];
+  j = j + 1;
+}	
+\end{verbatim}
+
+
+\myanswer{{\ttfamily
+a e c b a e c b a e
+}}
+
+
+
+
+\toi
+
+何が表示されるか。
+\begin{verbatim}
+ int numbers[6] = {15, 13, 64, 37, 74, 62}, i = 1;
+ while(numbers[i] < 30 && i < 6){
+   printf("%d\n", numbers[i]);
+   i = i + 2;
+ }
+\end{verbatim}
+
+\myanswer{{\ttfamily
+13
+}}
+
+
+
+
+
+
+
+\toi
+
+配列{\ttfamily a}の平均(mean) $E[a]$を表示したい。
+下線部を埋めよ。
+\begin{verbatim}
+int a[10] = {3, 4, 1, 6, 6, 2, 7, 2, 9, 9}, i = 0;
+float mean = 0;
+while(i < 10){
+  mean = ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
+  i = i + 1;
+}
+mean = ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
+printf("mean = %f\n", mean);
+\end{verbatim}
+
+
+\myanswer{{\ttfamily
+mean + a[i];
+
+mean / 10;
+}}
+
+
+
+\toi
+
+配列{\ttfamily a}の平均と分散(variance) $V[a]$を表示したい。
+下線部を埋めよ。
+\begin{verbatim}
+int a[10] = {3, 4, 1, 6, 6, 2, 7, 2, 9, 9}, i = 0;
+float mean = 0, variance = 0;
+while(i < 10){
+  mean      = ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
+  variance  = variance + a[i] * a[i];
+  i = i + 1;
+}
+mean      = ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
+variance  = ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
+printf("mean      = %f\n", mean);
+printf("variance  = %f\n", variance);
+\end{verbatim}
+ここで、$a$の分散$V[a]$は $V[a] = E[a^2] - E[a]^2$である。
+
+
+\myanswer{{\ttfamily
+mean + a[i];
+
+mean / 10;
+
+variance / 10 - mean * mean;
+}
+
+なぜこのプログラムが平均と分散を計算できているのか
+をよく考えること。
+}
+
+
+
+
+
+
+
+\mysection{二重ループ}
+
+{\ttfamily while}ループの中に{\ttfamily while}を書いてもよい。
+これを二重ループと呼ぶ。
+外側の{\ttfamily while}一回に付き、
+内側の{\ttfamily while}は毎回繰り返される。
+
+\begin{quote}\small
+ 例：
+
+ 12:30のように「時:分」という形式で時刻を表示する。
+
+ 外側のループは、時を0から23まで変化させる。
+ 時を表す変数を{\ttfamily hour}とすると、
+ そのループは次のようになる。 
+\begin{verbatim}
+   hour = 0;
+   while(hour < 24){
+     ここで「hour:00」から「hour:59」まで表示する
+     hour = hour + 1;
+   }
+\end{verbatim}
+
+内側のループは、{\ttfamily hour}の値を固定している間に、
+分を0から59まで変化させる。
+分を表す変数を{\ttfamily minute}とすると、
+このループは次のようになる。
+\begin{verbatim}
+   minute = 0;
+   while(minute < 60){
+     ここで「hour:minute」を表示する
+     minute = minute + 1;
+   }
+\end{verbatim}
+
+二つのループを組み合わせると、次のようになる。
+\begin{verbatim}
+   　　 int hour = 0, minute;
+   ┌─ while(hour < 24){
+   │　   minute = 0;
+   │┌   while(minute < 60){
+   ││     printf("%d:%d\n", hour, minute);
+   ││     minute = minute + 1;
+   │└   }
+   │　   hour = hour + 1;
+   └─ }
+\end{verbatim}
+ここで左端の罫線は、それぞれ外側のループと内側のループの
+範囲の対応が分かるように描いてある。
+また、プログラム中でもループの範囲が明確になるように、
+左側に空白をあけているが、
+内側のループには外側のループよりも
+多く空白をあけている（これを{\bfseries インデント}と呼ぶ）。
+
+
+\end{quote}
+
+
+
+
+
+
+\toi
+
+
+次のプログラムの左端に、
+それぞれ外側のループと内側のループの
+範囲の対応が分かるように罫線を描け。
+また、一つ一つの繰り返しのときの
+{\ttfamily i,j}の値の変化を考えて、
+何が表示されるかを答えよ。
+
+\begin{verbatim}
+int i, j;
+i = 0;
+while(i < 3){
+  printf("i = %d\n", i);
+  j = 0;
+  while(j < 2){
+    printf("i = %d, j = %d\n", i, j);
+    j = j + 1;
+  }
+  i = i + 1;
+}
+\end{verbatim}
+
+
+\myanswer{{\ttfamily
+
+i = 0
+
+i = 0, j = 0
+
+i = 0, j = 1
+
+i = 1
+
+i = 1, j = 0
+
+i = 1, j = 1
+
+i = 2
+
+i = 2, j = 0
+
+i = 2, j = 1
+
+}}
+
+
+
+
+
+
+
+\toi
+
+一つ一つの繰り返しのときの
+{\ttfamily a,i}の値の変化を考えて、
+何が表示されるかを答えよ。
+
+\begin{verbatim}
+int i;
+char a = 'a';
+while(a < 'j'){
+  i = 0;
+  while(i < 5){
+    printf("%c", a);
+    a = a + 1;
+    i = i + 1;
+  }
+  printf("\n");
+}
+\end{verbatim}
+
+
+\myanswer{{\ttfamily
+abcde
+
+fghij
+}}
+
+
+
+
+
+
+\toi
+\label{toi:histgram}
+
+配列{\ttfamily a}の値を{\ttfamily *}で
+（例えば3なら{\ttfamily ***}と）表示する
+次のプログラムがある。
+
+\begin{verbatim}
+int a[10] = {3, 4, 1, 6, 6, 2, 7, 2, 9, 9}, i = 0, k;
+while( ＿＿＿＿＿＿＿＿ ){
+  k = 0;
+  printf("a[%d]: ", i);
+  while( ＿＿＿＿＿＿＿＿＿ ){
+    printf("*");
+    k = k + 1;
+  }
+  printf("\n");
+  i = i + 1;
+}
+\end{verbatim}
+出力結果は以下の様になる。
+\begin{verbatim}
+a[0]: ***
+a[1]: ****
+a[2]: *
+a[3]: ******
+a[4]: ******
+a[5]: **
+a[6]: *******
+a[7]: **
+a[8]: *********
+a[9]: *********
+\end{verbatim}
+どのような処理が（二重ループの）外側のループと内側のループになるのか、
+変数{\ttfamily iやk}は何のために使われているのか
+を考えて、プログラム中の下線部を埋めよ。
+
+
+\myanswer{{\ttfamily
+i < 10
+
+k < a[i]
+}}
+
+
+
+
+
+
+\toi
+
+何が表示されるか。
+\begin{verbatim}
+float x = 0;
+while(x < 5){
+  printf("f(%.1f) = %.1f\n", x, 2*x*x+1);
+  x = x + 0.5;
+}
+\end{verbatim}
+
+\myanswer{{\ttfamily
+f(0.0) = 1.0
+
+f(0.5) = 1.5
+
+f(1.0) = 3.0
+
+f(1.5) = 5.5
+
+f(2.0) = 9.0
+
+f(2.5) = 13.5
+
+f(3.0) = 19.0
+
+f(3.5) = 25.5
+
+f(4.0) = 33.0
+
+f(4.5) = 41.5
+}}
+
+%\vspace*{3cm}
+
+%\newpage
+
+
+
+
+
+\toi
+
+次の二つのプログラムがある。
+\begin{verbatim}
+ float x = 0, y = 0;
+ while(y < 3){
+   x = 0;
+   while(x < 3){
+     printf("f(%.1f,%.1f) = %.1f\n", x, y, 2*x+y+1);
+     x = x + 1;
+   }
+   y = y + 1;
+ }
+----------------------------------------------------
+ float x = 0, y = 0;
+ while(y < 3){
+   x = 0;
+   while(x > 3){};
+   printf("f(%.1f,%.1f) = %.1f\n", x, y, 2*x+y+1);
+   x = x + 1;
+   y = y + 1;
+ }
+\end{verbatim} 
+それぞれ実行したときに、何が表示されるか。
+また上の二つのプログラムはどのように違うのか、
+なぜ表示結果が違うのかの理由を述べよ。
+
+\myanswer{{\ttfamily
+一つ目のプログラムの実行結果：
+
+f(0.0,0.0) = 1.0
+
+f(1.0,0.0) = 3.0
+
+f(2.0,0.0) = 5.0
+
+f(0.0,1.0) = 2.0
+
+f(1.0,1.0) = 4.0
+
+f(2.0,1.0) = 6.0
+
+f(0.0,2.0) = 3.0
+
+f(1.0,2.0) = 5.0
+
+f(2.0,2.0) = 7.0\\
+
+
+二つ目のプログラムの実行結果：
+
+f(0.0,0.0) = 1.0
+
+f(0.0,1.0) = 2.0
+
+f(0.0,2.0) = 3.0\\
+
+（略）内側のループの範囲が異なる。
+
+
+}}
+
+%\vspace*{3cm}
+
+
+\toi
+
+この章の冒頭の例を参考に、
+「分 : 秒」という形式で表示するプログラムを書け。
+また適切にインデントを付けよ。
+
+\myanswer{{\ttfamily
+
+int minute = 0, second;
+
+while(minute < 60)\{
+
+\hspace{2ex}second = 0;
+
+\hspace{2ex}while(second < 60)\{
+
+\hspace{4ex}printf("\%d:\%d\verb \ n",
+
+\hspace{12ex}      minute, second);
+
+\hspace{4ex}second = second + 1;
+
+\hspace{2ex}\}
+
+\hspace{2ex}minute = minute + 1;
+
+\}
+
+
+}}
+
+
+\vfill
+
+
+
+
+
+\toi
+
+この章の冒頭の例と前問を参考に、
+「時 : 分 : 秒」という形式で表示するプログラムを書け
+（これは三重ループになることに注意）。
+また適切にインデントを付けよ。
+
+\myanswer{{\ttfamily
+
+int hour = 0, minute, second;
+
+while(hour < 24)\{
+
+\hspace{2ex}minute = 0;
+
+\hspace{2ex}while(minute < 60)\{
+
+\hspace{4ex}second = 0;
+
+\hspace{4ex}while(second < 60)\{
+
+\hspace{6ex}printf("\%d:\%d:\%d\verb \ n",
+
+\hspace{14ex}      hour, minute, second);
+
+\hspace{6ex}second = second + 1;
+
+\hspace{4ex}\}
+
+\hspace{4ex}minute = minute + 1;
+
+\hspace{2ex}\}
+
+\hspace{2ex}hour = hour + 1;
+
+\}
+
+
+}}
+
+
+\vfill
+
+
+\mysection{無限ループ}
+
+
+{\ttfamily while}の条件式が常に真であるとき、
+{\ttfamily while}ループから抜け出すことができなくなる。
+これを無限ループと呼ぶ。これはよくあるプログラミング時の間違いである。
+
+\begin{quote}
+例：次の{\ttfamily while}ループは、
+条件式に用いている変数{\ttfamily i}の値が変わらないため、
+終了することがない。
+\begin{verbatim}
+int i = 0;
+while(i == 0){
+  printf("%d\n", i);
+}
+\end{verbatim}
+\end{quote}
+
+
+無限ループは、条件式の評価結果が繰り返しによって変わるべきところが変わら
+なかったり、永久に満たされない条件になっていたり、
+比較演算子（{\ttfamily >,<,>=,<=}）を使うべきところに
+否定演算子（{\ttfamily !}）を
+使ったりするような、
+プログラム上の間違いによって起こる。
+
+
+
+\toi
+
+配列{\ttfamily a}の全ての要素を表示したいが、
+無限ループになっている。それはなぜか。
+また、意図した通りに表示されるように訂正せよ。
+\begin{verbatim}
+int i = 0, int a[6] = {0, 0, 0, 1, 2, 3};
+while(i < 6){
+  printf("%d ", a[i]);
+}
+\end{verbatim}
+
+
+\myanswer{{\ttfamily
+iの値が変化していないため。
+printfの次の行に i = i + 1; を追加する。
+}}
+
+
+
+
+\toi
+
+配列{\ttfamily a}の全ての要素を表示したいが、
+無限ループになっている。それはなぜか。
+また、意図した通りに表示されるように訂正せよ。
+\begin{verbatim}
+int i = 0, int a[6] = {0, 0, 0, 1, 2, 3};
+while(a[i] != 4){
+  printf("%d ", a[i]);
+  i = i + 1;
+}
+\end{verbatim}
+
+\myanswer{{\ttfamily
+間違った条件式 a[i] != 4 が常に真となってしまうため。
+
+条件式は、a[i]の値で判別するのではなく、i < 6 する。
+}}
+
+
+
+
+
+
+\toi
+\label{toi:mugen_loop_a}
+
+aから二つおきにfまでのアルファベットを表示したいが、
+無限ループになっている。それはなぜか。
+また、意図した通りに表示されるように訂正せよ。
+\begin{verbatim}
+char c = 'a';
+while(c != 'f'){
+  printf("%c", c);
+  c = c + 2;
+}
+\end{verbatim}
+
+\myanswer{{\ttfamily
+条件式 c != 'f' は変数cの値が'f'にならなければ、
+ループが終了しないが、変数cは'a'から二つおきに
+変化しているため、絶対に'f'になることがない。
+
+条件式には !=（非等号）は使わずに、不等号を使って c < 'f' とする。
+}
+問\ref{toi:mugen_loop_x}参照。
+}
+
+
+\toi
+
+無限ループになっている。それはなぜか。
+また、意図した通りに表示されるように訂正せよ。
+\begin{verbatim}
+int i, j;
+i = 0;
+while(i < 3){
+  printf("i = %d\n", i);
+  j = 0;
+  while(j < 2){
+    printf("i = %d, j = %d\n", i, j);
+    j = j + 1;
+  }
+  j = j + 1;
+}
+\end{verbatim}
+
+
+\myanswer{{\ttfamily
+外側のループの条件式は i < 3 なのに、iの値が変化していない。
+つまり、最後から二行目の「j = j + 1;」
+は間違いで、「i = i + 1;」が正しい。
+
+これは実際のプログラミングで非常によくある間違いである。
+}}
+
+
+
+
+\toi
+\label{toi:mugen_loop_x}
+
+無限ループになっている。それはなぜか。
+また、意図した通りに表示されるように訂正せよ。
+\begin{verbatim}
+float x = 0;
+while(x != 10){
+  printf("f(%.1f) = %f\n", x, 2*x*x+1);
+  x = x + 0.3;
+}
+\end{verbatim}
+
+
+\myanswer{
+条件式は {\ttfamily x != 10} であるが、{\ttfamily x}の値は0から0.3
+刻みで変化しているため、絶対に10になることはない。
+
+条件式には {\ttfamily !=}（非等号）は使わずに、不等号を使って {\ttfamily x < 10} とする。
+問\ref{toi:mugen_loop_a}参照。
+
+これは実際のプログラミングで非常によくある間違いである。
+}
+
+
+
+
+
+\toi
+
+1から200までの数字を表示したいが、無限ループになっている。
+それはなぜか。また、意図した通りに表示されるように訂正せよ。
+\begin{verbatim}
+int i = 1;
+while(i = 200){
+  printf("%d\n", i);
+  i = i + 1;
+}
+\end{verbatim}
+
+
+\myanswer{
+条件式 {\ttfamily i = 200} は代入文であり、
+その評価結果は代入された値（この場合は200）である
+（問\ref{toi:substitution}参照）。
+したがって必ず真となり（問\ref{toi:evaluation}参照）、ループは終了しない。
+
+条件式には {\ttfamily =}（代入）と間違えやすい {\ttfamily ==}（等号）は使わずに、
+不等号を使って {\ttfamily i <= 200} とする。
+
+これは実際のプログラミングで非常によくある間違いである。
+}
+
+
+
+
+
+
+
+
+\mysection{条件分岐：if}
+
+
+
+プログラムの一部を、ある条件によって
+実行するかしないのかを、{\ttfamily if}文によって
+選択することができる。
+
+
+{\ttfamily if}文は次の様に書く。
+\begin{quote}\bfseries
+\begin{verbatim}
+if(条件となる式){
+  選択的に実行する文の並び
+}
+\end{verbatim}
+\end{quote}
+「条件となる式」を{\ttfamily 条件式}と呼ぶ。
+条件式は小括弧「{\ttfamily ( )}」で括り、
+選択的に実行する文の並びは中括弧「{\ttfamily \{\}}」で括る。
+
+条件式を評価し、その評価結果が真（0以外、問\ref{toi:evaluation}参照）であるとき、
+「選択的に実行する文の並び」を実行する。
+条件式の評価結果が偽（0）ならば（なにも実行せず）{\ttfamily if}文を終了する。
+
+
+\begin{quote}\topsep=0pt
+例：
+\begin{verbatim}
+    printf("x is ");
+    if(x < 10){
+      printf("less ");
+    }
+    if(x > 10){
+      printf("larger ");
+    }
+    printf("than 10.\n");
+\end{verbatim}
+を実行すると、例えば{\ttfamily x}の値が5のときは
+\begin{verbatim}
+x is less than 10.
+\end{verbatim}
+が表示され、{\ttfamily x}の値が15のときは
+\begin{verbatim}
+x is larger than 10.
+\end{verbatim}
+が表示される。
+\end{quote}
+
+
+
+このように選択的にプログラムを実行することを、条件分岐と呼ぶ。
+
+
+\toi
+
+何が表示されるか。
+\begin{verbatim}
+int x = 0;
+if(x == 0){
+  printf("x is 0\n");
+}
+if(x == 1){
+  printf("x is 1\n");
+}
+if(x == 2){
+  printf("x is 2\n");
+}
+\end{verbatim}
+
+
+\myanswer{{\ttfamily
+x is 0
+}}
+
+
+
+\toi
+
+何が表示されるか。
+\begin{verbatim}
+int x = 1;
+if(x > 0){
+  printf("x is larger than 0\n");
+}
+if(x != 1){
+  printf("x is not 1\n");
+}
+if(x < 2){
+  printf("x is smaller than 2\n");
+}
+\end{verbatim}
+
+\myanswer{{\ttfamily
+x is larger than 0
+
+x is smaller than 2
+}}
+
+
+
+
+
+
+\toi
+
+何が表示されるか。
+\begin{verbatim}
+double x = 1.5;
+if(0 < x && x < 2){
+  printf("x is between 0 and 2\n");
+}
+if(x == 1){
+  printf("x is 1\n");
+}
+if(x == 1.5 || x == 2.5){
+  printf("x is 1.5 or 2.5\n");
+}
+\end{verbatim}
+
+
+\myanswer{{\ttfamily
+x is between 0 and 2
+
+x is 1.5 or 2.5
+}}
+
+
+
+
+
+
+\toi
+
+配列{\ttfamily a}の40より大きい要素だけを表示したいが、
+次の三つのプログラムがある。
+\begin{verbatim}
+int i = 0, a[6] = {56, 11, 34, 77, 39, 90};
+while(i < 6){
+  if(a[i] > 40){
+    printf("%d ", a[i]);
+  }
+  i = i + 1;
+}
+-------------------------------------------
+int i = 0, a[6] = {56, 11, 34, 77, 39, 90};
+while(a[i] > 40){
+  printf("%d ", a[i]);
+  i = i + 1;
+}
+-------------------------------------------
+int i = 0, a[6] = {56, 11, 34, 77, 39, 90};
+while(i < 6){
+  if(a[i] > 40){
+    printf("%d ", a[i]);
+    i = i + 1;
+  }
+}
+\end{verbatim}
+それぞれ実行したときに、何が表示されるか。
+また上の三つのプログラムはどのように違うのか、
+それぞれの{\ttfamily while}ループにおける
+{\ttfamily if}の条件式の評価に注目して、
+なぜ表示結果が違うのかの理由を述べよ。
+
+
+\myanswer{{\ttfamily
+1番目のプログラムの表示結果：56 77 90
+
+2番目のプログラムの表示結果：56
+
+3番目のプログラムの表示結果：無限ループ
+
+（略）
+}}
+
+
+
+
+\toi
+
+何が表示されるか。また、これは何をしているのかを述べよ。
+\begin{verbatim}
+int numbers[6] = {64, 37, 74, 15, 13, 62}, i = 0;
+while(i < 5){
+  if(numbers[i] > 40){
+     printf("%d ", numbers[i]);
+  }
+  i = i + 1;
+}
+\end{verbatim}
+
+\myanswer{{\ttfamily
+64 74
+
+（略）40より大きい要素を全て表示している。
+}}
+
+
+\toi
+
+何が表示されるか。また、これは何をしているのかを述べよ。
+\begin{verbatim}
+int i = 0;
+char c[16] = "abcdefghijklmno";
+while(i < 15){
+  printf("%c", c[i]);
+  i = i + 1;
+  if(i == 5 || i == 10){
+    printf("\n");
+  }
+}
+\end{verbatim}
+
+
+\myanswer{{\ttfamily
+abcde
+
+fghij
+
+klmno
+
+（略）5文字目と10文字目の後に改行を表示している。
+}}
+
+
+
+
+
+\toi
+
+
+何が表示されるか。また、これは何をしているのかを述べよ。
+\begin{verbatim}
+int a[4] = {7, 1, 9, 5}, i = 0, t;
+while(i < 4){
+  t = a[i];
+  if(t == 5){
+    printf("test");
+  }
+  if(t == 1){
+    printf("is ");
+  }
+  if(t == 7){
+    printf("This ");
+  }
+  if(t == 9){
+    printf("a ");
+  }
+  i = i + 1;
+}
+printf(".\n");
+\end{verbatim}
+
+
+\myanswer{{\ttfamily
+This is a test.
+
+（略）
+}}
+
+
+
+
+\mysection{条件分岐：if $\sim$ else $\sim$}
+
+
+
+
+プログラムを、ある条件によって
+どちらを実行するか、{\ttfamily if}文と{\ttfamily else}文によって
+決めることができる。
+
+
+{\ttfamily if}文と{\ttfamily else}文は次の様に書く。
+\begin{quote}\bfseries
+\begin{verbatim}
+if(条件となる式){
+  条件を満たすときに実行する文の並び
+}else{
+  条件を満たさないときに実行する文の並び
+}
+\end{verbatim}
+\end{quote}
+「条件となる式」を{\ttfamily 条件式}と呼ぶ。
+条件式は小括弧「{\ttfamily ( )}」で括り、{\ttfamily if}の後に書く。
+実行する文の並びは、それぞれ{\ttfamily if}と{\ttfamily else}の後に続けて
+中括弧「{\ttfamily \{ \}}」で括る。
+
+条件式を評価し、その評価結果が真（0以外、問\ref{toi:evaluation}参照）であるとき、
+「条件を満たすときに実行する文の並び」を実行する。
+
+条件式の評価結果が偽（0）ならば、
+「条件を満たさないときに実行する文の並び」を実行する。
+
+
+\begin{quote}\topsep=-1ex
+例：
+\begin{verbatim}
+    printf("x is ");
+    if(x < 10){
+      printf("less ");
+    }else{
+      printf("larger ");
+    }
+    printf("than 10.\n");
+\end{verbatim}
+を実行すると、例えば{\ttfamily x}の値が5のときは
+\begin{verbatim}
+x is less than 10.
+\end{verbatim}
+が表示され、{\ttfamily x}の値が15のときは
+\begin{verbatim}
+x is larger than 10.
+\end{verbatim}
+が表示される。
+
+前章の冒頭の例と比較せよ。
+\end{quote}
+
+
+
+
+
+
+\toi
+
+何が表示されるか。
+\begin{verbatim}
+int x = 0;
+if(x == 0 || x == 1 || x == 2){
+  printf("x is 0 or 1 or 2\n");
+}else{
+  printf("x is not 0/1/2\n");
+}
+\end{verbatim}
+
+\myanswer{{\ttfamily 
+x is 0 or 1 or 2
+}}
+
+
+
+\toi
+
+何が表示されるか。
+\begin{verbatim}
+int x = 1;
+if(x > 0){
+  printf("x is larger than 0\n");
+}else{
+  printf("x is smaller than 0\n");
+}
+\end{verbatim}
+
+\myanswer{{\ttfamily 
+x is larger than 0
+}}
+
+
+\toi
+
+何が表示されるか（問\ref{toi:evaluation}参照）。
+
+\begin{verbatim}
+int a = 2, b = 2;
+if(a){
+  printf("a is true.\n");
+}else{
+  printf("a is false.\n");
+}
+if(a - b){
+  printf("a-b is true.\n");
+}else{
+   printf("a-b is false.\n");
+}
+\end{verbatim}
+
+
+\myanswer{{\ttfamily 
+a is true.
+
+a-b is false.
+}}
+
+
+
+
+
+
+
+
+
+
+\toi
+
+何が表示されるか（問\ref{toi:evaluation}参照）。
+\begin{verbatim}
+if(2){
+  printf("2 is true.\n");
+}else{
+  printf("2 is false.\n");
+}
+if(-3){
+  printf("-3 is true.\n");
+}else{
+  printf("-3 is false.\n");
+}
+if(0){
+  printf("0 is true.\n");
+}else{
+  printf("0 is false.\n");
+}
+\end{verbatim}
+
+\myanswer{{\ttfamily 
+
+2 is true.
+
+-3 is true.
+
+0 is false.
+}}
+
+
+
+
+
+\toi
+
+
+何が表示されるか。
+\begin{verbatim}
+int a = 3, b = 1;
+if((a = b) < 2){
+  printf("2より小\n");
+}else{
+  printf("2以上\n");
+}
+\end{verbatim}
+
+\myanswer{{\ttfamily 
+2より小
+}}
+
+
+
+\toi
+
+
+何が表示されるか。
+\begin{verbatim}
+int a = 3, b = 1;
+if((a = b) == 3){
+  printf("this is 3.\n");
+}else{
+  printf("this is not 3.\n");
+}
+\end{verbatim}
+
+\myanswer{{\ttfamily 
+this is not 3.
+}}
+
+
+
+\toi
+
+何が表示されるか（問\ref{toi:substitution}参照）。
+\begin{verbatim}
+int a = 2, b = 2, c = 2;
+if(a = b = c = 3){
+  printf("true %d %d %d\n", a, b, c);
+}else{
+  printf("false %d %d %d\n", a, b, c);
+}
+\end{verbatim}
+
+\myanswer{{\ttfamily 
+true 3 3 3
+}}
+
+
+\toi
+
+何が表示されるか（問\ref{toi:substitution}参照）。
+\begin{verbatim}
+int a = 3, b = 5;
+if(a = b){
+  printf("a = %d, b = %d\n", a, b);
+}else{
+  printf("a = %d, b = %d\n", a, b);
+}
+\end{verbatim}
+
+\myanswer{{\ttfamily 
+a = 5, b = 5
+}}
+
+
+
+
+\toi
+
+何が表示されるか（問\ref{toi:substitution2}参照）。
+\begin{verbatim}
+int a = 2, b = 2, c = 2;
+if(a = b = c < 3){
+  printf("true %d %d %d\n", a, b, c);
+}else{
+  printf("false %d %d %d\n", a, b, c);
+}
+\end{verbatim}
+
+\myanswer{{\ttfamily 
+true 1 1 2
+}}
+
+
+
+
+
+
+\toi
+
+何が表示されるか。
+\begin{verbatim}
+char c1 = 'd';
+if('a' <= c1  && c1 <= 'z'){
+  printf("%c is a small letter.\n", c1);
+}else{
+  printf("%c is not a small letter.\n", c1);
+}
+\end{verbatim}
+
+\myanswer{{\ttfamily 
+d is a small letter.
+}}
+
+
+\toi
+
+何が表示されるか。
+\begin{verbatim}
+printf("c-a  and  f-d  are ");
+if( 'c' - 'a' == 'f' - 'd' ){
+  printf("same.\n");
+}else{
+  printf("different.\n");
+}
+\end{verbatim}
+
+\myanswer{{\ttfamily 
+c-a  and  f-d  are same.
+}}
+
+
+
+\mysection{条件分岐と繰り返しの組み合わせ}
+
+
+{\ttfamily while}ループの中で、
+{\ttfamily if}文で処理を分岐することができる。
+このような繰り返しと条件分岐の組み合せは、
+さまざまな処理を行うことができ、非常に重要でよく使われる。
+
+
+\toi
+\label{toi:countLarge}
+
+次のプログラムは何が表示されるか。また、これは何をしているのかを述べよ。
+\begin{verbatim}
+int i = 0, count = 0;
+char c[15] = "This Is A Pen.";
+while(i < 14){
+  if('A' <= c[i] && c[i] <= 'Z'){
+    count = count + 1;
+  }
+  i = i + 1;
+}
+printf("count: %d\n", count);
+\end{verbatim}
+
+\myanswer{{\ttfamily 
+count: 4
+
+（略）文字列cの中の大文字の数を数えて表示している。
+}}
+
+
+
+\toi
+
+文字列{\ttfamily fourWords}内の小文字の数を表示したい。
+下線部を埋めよ。
+\begin{verbatim}
+int i = 0, count = 0;
+char fourWords[25] = "United States Of America";
+while( ＿＿＿＿＿＿ ){
+  if( ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿ ){
+    ＿＿＿＿＿＿＿＿＿＿＿＿
+  }
+  i = i + 1;
+}
+printf("count: %d\n", count);
+\end{verbatim}
+
+
+\myanswer{{\ttfamily 
+i < 24
+
+'a' <= fourWords[i]
+
+\hspace{5ex} \&\& fourWords[i] <= 'z'
+
+count = count + 1;
+
+前問を参照。
+}}
+
+
+
+
+\toi
+\label{toi:toLarge}
+
+何が表示されるか。また、これは何をしているのかを述べよ。
+\begin{verbatim}
+int i = 0;
+char greeting[21] = "I'm fine, thank you.";
+while(i < 20){
+  if('a' <= greeting[i] && 'z' >= greeting[i]){
+    printf("%c", greeting[i] - ('a' - 'A'));
+  }else{
+    printf("%c", greeting[i]);
+  }
+ i = i + 1;
+}
+printf("\n");
+\end{verbatim}
+
+\myanswer{{\ttfamily 
+I'M FINE, THANK YOU.
+
+（略）全ての小文字を大文字に変換して表示している。
+問\ref{toi:charconvert}参照。
+}}
+
+
+
+
+
+\toi
+
+何が表示されるか。また、これは何をしているのかを述べよ。
+\begin{verbatim}
+int i = 0;
+char cipher[13] = "Hnv aqd xnt?";
+while(i < 12){
+  if('b' <= cipher[i] && 'y' >= cipher[i]){
+    printf("%c", cipher[i] + 1);
+  }else{
+    printf("%c", cipher[i]);
+  }
+ i = i + 1;
+}
+printf("\n");
+\end{verbatim}
+
+
+\myanswer{{\ttfamily 
+How are you?
+
+（略）暗号化された文字列cipherを復号化している。
+つまり、アルファベット小文字のbからyを表示するときには、
+一つずらして次の文字を表示している。
+}}
+
+
+
+\toi
+
+何が表示されるか。また、これは何をしているのかを述べよ。
+\begin{verbatim}
+int i = 0;
+char c[18] = "I'm 18 years old.";
+while(i < 17){
+  if('0' <= c[i] && '8' >= c[i]){
+    printf("%c", c[i] + 1);
+  }else{
+    printf("%c", c[i]);
+  }
+  i = i + 1;
+}
+printf("\n");
+\end{verbatim}
+
+\myanswer{{\ttfamily 
+I'm 29 years old.
+
+（略）0から8の数字を表示するときは、一つずらして
+次の数字を表示している。
+}}
+
+
+
+
+\toi
+
+文字列を全て小文字にして表示したい。
+下線部を埋めよ。
+\begin{verbatim}
+int i = 0;
+char c[21] = "I'm Fine, Thank You.";
+while( ＿＿＿＿ ){
+  if( ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿ ){
+    printf("%c", c[i] ＿＿＿＿＿＿＿＿＿＿＿);
+  }else{
+    printf("%c", c[i]);
+  }
+ i = i + 1;
+}
+printf("\n");
+\end{verbatim}
+%i'm fine, thank you.
+
+\myanswer{{\ttfamily 
+
+i < 20
+
+'A' <= c[i] \&\& c[i] <= 'Z'
+
++ ('a' - 'A')
+
+
+問\ref{toi:countLarge}、問\ref{toi:toLarge}参照。
+}}
+
+
+
+\toi
+\label{toi:array_f}
+
+次の配列{\ttfamily f}がある。
+\begin{verbatim}
+float f[6] = {1.23, 4.56, 78.9, 10.11, 30.23, 88.12};
+\end{verbatim}
+この配列{\ttfamily f}の
+20以上80未満の要素を表示するプログラムを書け。
+
+\vspace*{5cm}
+
+
+\myanswer{{\ttfamily 
+  float f[6] = \{1.23, 4.56, 78.9, 10.11, 30.23, 88.12\};
+
+  int i = 0;
+
+  while(i < 6)\{
+
+\hspace{3ex}    if(20 <= f[i]
+
+\hspace{10ex}        \&\& f[i] < 80)\{
+
+\hspace{6ex}      printf("\%.2f ", f[i]);
+
+\hspace{3ex}    \}
+
+\hspace{3ex}    i = i + 1;
+
+  \}
+
+}}
+
+
+
+
+
+
+
+\toi
+
+{\ttfamily if}文の中にさらに
+{\ttfamily if}文を書いてもよい。
+
+何が表示されるか。
+%\begin{verbatim}
+%int a = 76;
+%if(50 < a && a < 100){
+%  if(a < 75){
+%    printf("50 < a < 75\n");
+%  }else{
+%    printf("75 < a < 100\n");
+%  }
+%}
+%\end{verbatim}
+\begin{verbatim}
+int a = 0;
+while(a < 150){
+  a = a + 33;
+  if(50 < a && a < 100){
+    if(a < 75){
+      printf("50 < %d < 75\n",  a);
+    }else{
+      printf("75 < %d < 100\n", a);
+    }
+  }else{
+    if(a < 50){
+      printf("%d < 50\n", a);
+    }else{
+      printf("100 < %d\n", a);
+    }
+  }
+}
+\end{verbatim}
+
+
+\myanswer{{\ttfamily 
+
+33 < 50
+
+50 < 66 < 75
+
+75 < 99 < 100
+
+100 < 132
+
+100 < 165
+
+}}
+
+
+
+
+\toi
+
+
+次のプログラムは、判別式が正のとき、
+二次方程式$ax^2+bx+c=0$の解
+$x=\displaystyle\frac{-b\pm\sqrt{b^2-4ac}}{2a}$を
+計算し表示するものである。
+{\ttfamily double}型変数{\ttfamily a,b,c}は
+すでに宣言されていて、何らかの値が代入されているとする。
+
+問\ref{toi:quadricsolution}等を参考に、以下のプログラムの下線部を埋めよ。
+\begin{verbatim}
+double x1, x2;
+if( ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿ >= 0){
+  x1 = ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
+  x2 = ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
+  printf("%f %f\n", x1, x2);
+}else{
+  printf("no solution.\n");
+}
+\end{verbatim}
+
+\myanswer{{\ttfamily 
+
+b*b - 4*a*c >= 0
+
+x1 = (-b+sqrt(b*b-4*a*c))/(2*a);
+
+x2 = (-b-sqrt(b*b-4*a*c))/(2*a);
+
+}}
+
+
+
+\toi
+
+
+次のプログラムは、
+二次方程式$ax^2+bx+c=0$の解
+$x=\displaystyle\frac{-b\pm\sqrt{b^2-4ac}}{2a}$を
+計算し表示するものである。
+判別式$D$が0のときは実数解（重根）を一つ、
+判別式$D$が正のときは実数解を二つ、
+判別式$D$が負のときは虚数解を二つ表示する。
+
+{\ttfamily double}型変数{\ttfamily a,b,c}は
+すでに宣言されていて、何らかの値が代入されているとする。
+問\ref{toi:quadricsolution}等を参考に、以下のプログラムの下線部を埋めよ。
+\begin{verbatim}
+double x1, x2, D;
+D = ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
+if(D == 0){
+  printf("%f\n", ＿＿＿＿＿＿＿＿＿＿＿＿);
+}else{
+  if(D > 0){
+    x1 = ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
+    x2 = ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
+    printf("%f\n%f\n", x1, x2);
+  }else{
+    x1 = ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
+    x2 = ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
+    printf("%f+%fi\n", x1, x2);
+    printf("%f-%fi\n", x1, x2);
+  }
+}
+\end{verbatim}
+
+
+\myanswer{{\ttfamily 
+
+
+D = b*b - 4*a*c 
+
+-b / (2*a)
+
+x1 = (-b+sqrt(b*b-4*a*c))/(2*a);
+
+x2 = (-b-sqrt(b*b-4*a*c))/(2*a);
+
+x1 = -b / (2*a);
+
+x2 = sqrt(-(b*b - 4*a*c)) / (2*a);
+
+
+
+}}
+
+
+
+
+
+\toi
+
+次のプログラムは、$a+b+c=17$を満たす10以下の自然数$a,b,c$の組を求めるもので
+ある。プログラム中の下線部を埋めよ。
+
+また、このプログラムはどのように解を求めているのか（アルゴリズム）を述べよ。
+さらに、このアルゴリズムは効率が悪い（実行した時に繰り返しの回数が多いということ）。
+それはなぜか、どうすれば良くなるのかを述べ、プログラムを修正せよ。
+\begin{verbatim}
+int a = 1, b, c;
+while(a <= 10){
+  b = 1;
+    while(b <= 10){
+      c = 1;
+      while(c <= 10){
+        if( ＿＿＿＿＿＿＿＿＿＿＿＿＿＿ ){
+          printf("%d+%d+%d=%d\n", a,b,c, ＿＿＿＿＿);
+      }
+      c = c + 1;
+    }
+    b = b + 1;
+  }
+  a = a + 1;
+}
+\end{verbatim}
+
+
+\myanswer{{\ttfamily 
+a+b+c == 17
+
+a+b+c
+}
+
+（略）$a,b,c$にそれぞれ1から10の数字をすべて代入し、式を満たすかどうかを
+判定している。
+そのため、{\ttfamily if}文の条件式は$10\times10\times10$回評価されることになる。
+しかし、1+8+8も8+1+8も8+8+1も同じ解の組み合わせであるのに、
+別個に計算されている。
+
+これを改善するには、 {\ttfamily b = 1;} と {\ttfamily c = 1;} の部分を
+それぞれ {\ttfamily b = a;} と {\ttfamily c = b;} に書き換える。
+なぜこれで同じ組合せを計算しなくなるのか、
+またなぜ効率が良くなるのか（つまり{\ttfamily if}文の条件式が評価される回数は
+何回になるのか）は各自考えること。
+
+}
+
+
+
+
+\toi
+
+次のプログラムは、$a+b+c=7$を満たす10以下の自然数$a,b,c$を
+一つだけ求めるものである。何が表示されるか。
+
+また前問のプログラムとどう違うのか、
+変数{\ttfamily flag}の役割は何かを述べよ。
+\begin{verbatim}
+int a = 1, b, c, flag = 1;
+while(a <= 10 && flag){
+  b = 1;
+    while(b <= 10 && flag){
+      c = 1;
+      while(c <= 10 && flag){
+        if(a+b+c == 7){
+          printf("%d+%d+%d=%d\n", a,b,c,a+b+c);
+          flag = 0;
+      }
+      c = c + 1;
+    }
+    b = b + 1;
+  }
+  a = a + 1;
+}
+\end{verbatim}
+
+
+\myanswer{{\ttfamily 
+1+1+5=7
+
+（略）flagが0になったら処理がすべて終了する。
+}}
+
+
+
+
+
+
+
+
+\mysection{剰余：余りをもとめる}
+
+{\ttfamily 9/5}の評価結果は（整数同士の除算なので商）{\ttfamily 1}である。
+余りは{\ttfamily 4}であるが、これを求めるには
+剰余演算子「{\ttfamily \%}」を使う。
+
+\ex{例：{\ttfamily 9 \% 5}の評価結果は4である。}
+
+この演算子「{\ttfamily \%}」は、他の{\ttfamily +,-,*,/}などの演算子
+と同様に式中に書くことができるが、演算子の優先度に注意すること。
+
+\ex{例：{\ttfamily 18 \% 4 / 2}は
+{\ttfamily (18 \% 4) / 2}と等価であるので、
+評価結果は1である。}
+
+\bigskip
+
+\begin{multicols*}{2}
+ 
+
+ \toi
+
+ 何が表示されるか。
+ \begin{verbatim}
+ printf("%d\n", 4 % 2);
+ printf("%d\n", 1 % 2);
+ printf("%d\n", 9 % 2);
+ printf("%d %d\n", 9 / 5, 9 % 5);
+ \end{verbatim}
+
+\myanswer{{\ttfamily
+0
+1
+1
+1 4
+}}
+
+
+\toi
+
+何が表示されるか。また、これは何をしているのかを述べよ。
+\begin{verbatim}
+int n = 1;
+while(n <= 100){
+ if(n % 17 == 0){
+   printf("%d ", n);
+ }
+ n = n + 1;
+}
+\end{verbatim}
+
+
+\myanswer{{\ttfamily
+17 34 51 68 85}
+
+（略）100以下の17の倍数を求めている。
+}
+
+
+
+\toi
+
+何が表示されるか。また、これは何をしているのかを述べよ。
+\begin{verbatim}
+int n = 1;
+while(n <= 100){
+ if(n % 3 == 0 && n % 7 == 0){
+   printf("%d ", n);
+ }
+ n = n + 1;
+}
+\end{verbatim}
+
+
+\myanswer{{\ttfamily
+21 42 63 84}
+
+（略）100以下の3と7の公倍数を求めている。
+}
+
+
+
+
+\toi
+
+ある値が入っている{\ttfamily int}型変数{\ttfamily x}の1の位を{\ttfamily y}に代入したい。
+下線部を埋めよ。
+\begin{verbatim}
+int y;
+y = ＿＿＿＿＿＿＿＿＿＿＿＿
+\end{verbatim}
+
+\myanswer{{\ttfamily
+x \% 10;
+}}
+
+
+\toi
+
+
+ある値が入っている{\ttfamily int}型変数{\ttfamily x}の
+10の位を{\ttfamily y}に代入したい。
+下線部を埋めよ。
+\begin{verbatim}
+int y;
+y = (x / 10) ＿＿＿＿＿＿＿＿＿＿
+\end{verbatim}
+
+\myanswer{{\ttfamily
+\% 10;
+}}
+
+
+\toi
+
+ある値が入っている{\ttfamily int}型変数{\ttfamily x}の
+100の位を{\ttfamily y}に代入したい。下線部を埋めよ。
+\begin{verbatim}
+int y;
+y = ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
+\end{verbatim}
+
+
+\myanswer{{\ttfamily
+(x / 100) \% 10;
+}}
+
+
+
+
+\toi
+
+何が表示されるか。
+\begin{verbatim}
+int i = 0;
+char c[15] = "Today is fine.";
+while(i < 24){
+ printf("%c", c[i % 14]);
+ i = i + 1;
+}
+\end{verbatim}
+
+\myanswer{{\ttfamily
+Today is fine.Today is f
+}}
+
+
+\toi
+
+何が表示されるか。
+\begin{verbatim}
+int i = 0;
+char c[15] = "Today is fine.";
+while(i < 14){
+ printf("%c", c[(i+3) % 14]);
+ i = i + 1;
+}
+\end{verbatim}
+
+\myanswer{{\ttfamily
+ay is fine.Tod
+}}
+
+
+
+ \toi
+
+
+100以下の5と7の公倍数を求めたい。
+下線部を埋めよ。
+\begin{verbatim}
+int n = 1;
+while(＿＿＿＿＿＿){
+ if( ＿＿＿＿＿＿＿＿＿＿＿＿＿＿ ){
+   printf("%d ", n);
+ }
+ n = n + 1;
+}
+\end{verbatim}
+
+\myanswer{{\ttfamily
+n <= 100
+
+n \% 5 == 0 \&\& n \% 7 == 0
+}}
+
+
+
+\toi
+
+以下は98の約数を求るプログラムである。
+下線部を埋めよ。
+\begin{verbatim}
+int n = 98;
+while(＿＿＿＿＿＿){
+ if( 98 % n == 0 ){
+   printf("%d ", n);
+ }
+ n = ＿＿＿＿＿＿＿＿
+}
+\end{verbatim}
+%   int n = 98;
+%   while(n > 1){
+%     if(98 % n == 0){
+%       printf("%d ", n);
+%     }
+%     n = n - 1;
+%   }
+
+\myanswer{{\ttfamily
+n > 1
+
+n - 1;
+}}
+
+
+
+\toi
+
+以下は45と630の公約数を求る効率の悪いプログラムである。
+下線部を埋めよ。また効率のよい公約数を求めるアルゴリズムには
+どのようなものがあるのか、調べよ。
+\begin{verbatim}
+int n = ＿＿＿＿＿＿;
+while(＿＿＿＿＿＿){
+ if( ＿＿＿＿＿＿＿＿＿＿＿＿＿＿ ){
+   printf("%d ", n);
+ }
+ n = ＿＿＿＿＿＿＿＿
+}
+\end{verbatim}
+ %   int n = 45;
+ %   while(n > 1){
+ %     if(630 % n == 0 && 45 % n == 0){
+ %       printf("%d ", n);
+ %     }
+ %     n = n - 1;
+ %   }
+
+\myanswer{{\ttfamily
+45
+
+n > 1
+
+630 \% n == 0 \&\& 45 \% n == 0
+
+n - 1;
+
+（略）ユークリッドの互除法。
+}}
+
+
+
+
+
+
+\end{multicols*}
+
+
+
+\mysection{算術代入演算子}
+
+C言語では、代入と{\ttfamily +,-,*,/}の演算子を一度に行うことができる。
+
+{\ttfamily +=,-=,*=,/=}演算子である
+（{\ttfamily =}とその前の記号は離してはいけない。
+二文字で一つの演算子である）。
+
+\ex{例：{\ttfamily i = i + 2;}の代わりに、{\ttfamily i += 2;}と書くことができる。
+}
+
+\toi
+
+それぞれの代入文を、算術代入演算子を
+用いて書き直せ。また、その逆を書け。
+\begin{center}\ttfamily
+\begin{tabular}{|l|l|}\hline
+ 代入文& {\ttfamily +=,-=,*=,/=}を使う場合\\\hline\hline
+ i = i + 2;& i += 2;\\\hline
+ x = x - 1;& \\\hline
+ x = x + y;& \\\hline
+ y = y * z * 2;& \\\hline
+ & z /= x + 4;\\\hline
+ & y += 2 * x + 3 * z;\\\hline
+ & x *= z + 2;\\\hline
+\end{tabular}
+\end{center}
+
+\myanswer{{\ttfamily
+x -= 1;
+
+x += y;
+
+y *= z * 2;
+
+z = z / (x + 4);
+
+y = y + 2 * x + 3 * z;
+
+x = x * (z + 2);
+}}
+
+
+
+
+\toi
+
+何が表示されるか。
+\begin{verbatim}
+int i = 0;
+while(i < 10){
+  printf("%d ", i);
+  i += 2;
+}
+\end{verbatim}
+
+
+\myanswer{{\ttfamily
+0 2 4 6 8
+}}
+
+
+
+
+\toi
+
+何が表示されるか。
+\begin{verbatim}
+int n = 100;
+while(n > 1){
+  if(n % 17 == 0){
+    printf("%d ", n);
+  }
+  n -= 1;
+}
+\end{verbatim}
+
+\myanswer{{\ttfamily
+85 68 51 34 17
+}}
+
+
+
+\toi
+
+何が表示されるか。また、これは何をしているのかを述べよ。
+\begin{verbatim}
+int i = 2, f = 1;
+while(i < 7){
+  printf("%d ", f);
+  f *= i;
+  i += 1;
+}
+\end{verbatim}
+
+\myanswer{{\ttfamily
+1 2 6 24 120}
+
+（略）1から5までの階乗(1!, 2!, 3!, 4!, 5!)を計算している。
+}
+
+
+
+
+
+\toi
+
+頻繁に使用する{\ttfamily i += 1;}と
+{\ttfamily i -= 1;}だけは、C言語には特別な書き方がある。
+
+変数の直後に記号を二つならべて、
+{\ttfamily i++;}と{\ttfamily i--;}と書くことができる
+（問\ref{toi:pmoperators}参照）。
+
+\ex{例：{\ttfamily i = i + 1;}は、{\ttfamily i += 1;}とも
+{\ttfamily i++;}とも書くことができる。}
+
+
+それぞれの代入文を、{\ttfamily ++,--}演算子を
+用いて書き直せ。また、その逆を書け。
+\begin{center}\ttfamily
+\begin{tabular}{|l|l|}\hline
+ 代入文 & {\ttfamily ++,--}を使う場合\\\hline\hline
+ i = i + 1;& \\\hline
+ x = x - 1;& \\\hline
+ x += 1;& \\\hline
+ y -= 1;& \\\hline
+ & z++;\\\hline
+ & z--;\\\hline
+\end{tabular}
+\end{center}
+
+
+\myanswer{{\ttfamily
+i++;
+
+x--;
+
+x++;
+
+y--;
+
+z = z + 1;
+
+z = z - 1;
+}}
+
+
+
+\toi
+
+何が表示されるか。また、これは何をしているのかを述べよ。
+\begin{verbatim}
+int i = 0;
+while(i < 10){
+  printf("%d ", i);
+  i++;
+}
+\end{verbatim}
+
+
+\myanswer{{\ttfamily
+0 1 2 3 4 5 6 7 8 9
+
+（略）0から10未満の整数を表示している。
+}}
+
+
+
+
+\toi
+
+何が表示されるか。また、これは何をしているのかを述べよ。
+\begin{verbatim}
+int i = 0, a[7] = {2,4,6,8,10,9,12};
+while(a[i] < 10){
+  printf("%d ", a[i]);
+  i++;
+}
+\end{verbatim}
+
+
+\myanswer{{\ttfamily
+2 4 6 8
+
+（略）配列の要素で先頭から表示し、10以上があったら終了する。
+}}
+
+
+
+
+\toi
+
+何が表示されるか。また、これは何をしているのかを述べよ。
+\begin{verbatim}
+int i = 6, a[6] = {2,4,6,8,10,12};
+while(i > 0){
+  i--;
+  printf("%d ", a[i]);
+}
+\end{verbatim}
+
+\myanswer{{\ttfamily
+12 10 8 6 4 2
+
+（略）配列の内容を逆順に表示している。
+}}
+
+
+
+\toi
+
+配列{\ttfamily a}の値を（{\ttfamily *}で）表示したい
+（問\ref{toi:histgram}参照）。
+
+下線部を埋めよ。
+\begin{verbatim}
+int a[10] = {3, 4, 1, 6, 6, 2, 7, 2, 9, 9}, i = 0, k;
+while( ＿＿＿＿＿＿＿＿ ){
+  k = 0;
+  printf("%d: ", i);
+  while( ＿＿＿＿＿＿＿＿＿ ){
+    printf("*");
+    k++;
+  }
+  printf("\n");
+  i++;
+}
+\end{verbatim}
+
+\myanswer{{\ttfamily
+i < 10
+
+k < a[i]
+}}
+
+
+
+\toi
+
+何が表示されるか。また、これは何をしているのかを述べよ。
+\begin{verbatim}
+int i = 6, j = 0, a[6] = {2,4,6,8,10,12};
+while(i > 0){
+  i--;
+  printf("%d %d\n", a[i], a[j]);
+  j++;
+}
+\end{verbatim}
+
+\myanswer{{\ttfamily
+12 2
+
+10 4
+
+8 6
+
+6 8
+
+4 10
+
+2 12
+
+（略）配列の内容を先頭からと末尾からそれぞれならべて表示している。
+}}
+
+
+
+
+
+\mysection{繰り返し：forループ}
+
+
+プログラムの一部を、全く同じ書き方で繰り返して
+書ける場合には、その部分を{\ttfamily for}文で
+まとめることができる。
+
+{\ttfamily for}文は次の様に書く。
+\begin{quote}\bfseries
+\begin{verbatim}
+for(式1; 式2; 式3){
+  繰り返す文の並び
+}
+\end{verbatim}
+\end{quote}
+
+式1、式2、式3の間はセミコロン「{\ttfamily ;}」で区切り、
+繰り返す文の並びは中括弧「{\ttfamily \{ \}}」で括る。
+
+\fbox{{\sffamily 1}}
+まず最初に{\bfseries 式1を評価}する。
+通常は、ループを制御する変数を初期化する代入文である
+（{\ttfamily i = 0} など）。
+\fbox{{\sffamily 2}}
+次に、{\bfseries 式2を評価}する（通常は {\ttfamily i < 10} などの条件式である）。
+式2の評価結果が真（0以外、問\ref{toi:evaluation}参照）であるとき、
+「繰り返す文の並び」を実行する。
+\fbox{{\sffamily 3}}
+そして{\bfseries 式3を評価}する。通常は変数の値を変化させる算術代入文である
+（{\ttfamily i++} や {\ttfamily i += 2} など）。
+\fbox{{\sffamily 2}}
+そして{\bfseries 再び式2の評価}に戻る。
+
+式2の評価結果が偽（0）ならば、{\ttfamily for}文を
+終了する。
+
+\begin{description}\itemsep=-1pt
+ \item[式1] 変数の初期化を行う代入文（{\ttfamily i=0}など）、
+ \item[式2] 繰り返しを行うかどうかを判定する条件式（{\ttfamily i<3}など）、
+ \item[式3] 繰り返しの最後に変数の値を増やす（減らす）ための代入文（{\ttfamily i++}など）
+\end{description}
+
+
+
+
+
+\begin{quote}\topsep=-1ex
+例：次のwhileによる繰り返し
+\begin{verbatim}
+    int i = 0;
+    while(i < 3){
+      printf("%d\n", i);
+      i = i + 1;
+    }
+\end{verbatim}
+は、次のforによる繰り返し
+\begin{verbatim}
+    int i;
+    for(i = 0; i < 3; i++){
+      printf("%d\n", i);
+    }
+\end{verbatim}
+と等価である。
+\end{quote}
+
+
+{\ttfamily for}によるプログラムの繰り返しを{\ttfamily for}ループと呼ぶ。
+{\ttfamily for}ループは{\ttfamily while}ループ
+とまったく同じことができるが、
+{\ttfamily for}ループの方が簡潔に書ける場合が多い。
+
+
+\toi
+
+何が表示されるか。
+\begin{verbatim}
+int i;
+for(i = 0; i < 10; i++){
+  printf("%d ", i);
+}
+\end{verbatim}
+
+\myanswer{{\ttfamily
+0 1 2 3 4 5 6 7 8 9
+}}
+
+
+
+\toi
+
+何が表示されるか。
+\begin{verbatim}
+int i;
+for(i = 0; i < 66; i += 7){
+  printf("%d ", i);
+}
+\end{verbatim}
+
+\myanswer{{\ttfamily
+0 7 14 21 28 35 42 49 56 63
+}}
+
+
+
+\toi
+
+次のプログラムがある。
+\begin{verbatim}
+int i = 0, a[6] = {2,4,6,8,10,12};
+while(a[i] < 10){
+  printf("%d ", a[i]);
+  i++;
+}
+\end{verbatim}
+これを{\ttfamily for}を使って書き直す。下線部を埋めよ。
+\begin{verbatim}
+int i, a[6] = {2,4,6,8,10,12};
+for(i = 0 ; ＿＿＿＿＿＿＿ ; i++){
+  printf("%d ", a[i]);
+}
+\end{verbatim}
+
+
+\myanswer{{\ttfamily
+a[i] < 10
+}}
+
+
+
+
+\toi
+
+次のプログラムがある。
+\begin{verbatim}
+int i = 6, a[6] = {2,4,6,8,10,12};
+while(i > 0){
+  i--;
+  printf("%d ", a[i]);
+}
+\end{verbatim}
+これを{\ttfamily for}を使って書き直したい。しかし、
+変数{\ttfamily i}の値を減らすための代入文
+が繰り返しの最後にない。まず、次のように書き換える。
+\begin{verbatim}
+int i = 5, a[6] = {2,4,6,8,10,12};
+while( ＿＿＿＿＿＿ ){
+  printf("%d ", a[i]);
+  i--;
+}
+\end{verbatim}
+これを{\ttfamily for}を使って書き直す。
+\begin{verbatim}
+int i, a[6] = {2,4,6,8,10,12};
+for(＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿ ){
+  printf("%d ", a[i]);
+}
+\end{verbatim}
+下線部を埋めよ。
+
+\myanswer{{\ttfamily
+i >= 0
+
+i = 5 ; i >= 0 ; i--
+}}
+
+
+
+
+
+\toi
+
+次のプログラムを実行すると何が表示されるか。
+\begin{verbatim}
+char c;
+for(c = 'b'; c != 'f'; c++){
+  printf("%c", c);
+}
+\end{verbatim}
+
+\myanswer{{\ttfamily
+bcde
+}}
+
+
+
+\toi
+
+何が表示されるか。
+\begin{verbatim}
+int i;
+for(i = 0; i < 5; i++){
+  printf("%d ", i);
+}
+printf("%d ", i);
+for(i = 5; i >= 0; i--){
+  printf("%d ", i);
+}
+\end{verbatim}
+
+\myanswer{{\ttfamily
+0 1 2 3 4 5 5 4 3 2 1 0
+}}
+
+\toi
+
+何が表示されるか。
+\begin{verbatim}
+int i, a[5] = {2, 4, 6, 8, 10};
+for(i = 0; i < 5; i++)
+  printf("%d ", a[i]);
+}
+\end{verbatim}
+
+\myanswer{{\ttfamily
+2 4 6 8 10
+}}
+
+
+
+
+
+
+
+
+\toi
+
+次のプログラムがある。
+\begin{verbatim}
+int a[6] = {1, 2, 3, 4, 5, 6}, i;
+for(i = 0; i < 6;  ＿＿＿＿＿＿＿＿＿  ){
+  printf("%d ", a[i]);
+}
+\end{verbatim}
+これを実行したときに、次のように表示したい。
+\begin{verbatim}
+1 3 5
+\end{verbatim}
+プログラム中の下線部を埋めよ。
+
+\myanswer{{\ttfamily
+i += 2
+}}
+
+
+
+
+\toi
+
+次のプログラムがある。
+\begin{verbatim}
+int a[6] = {1, 2, 3, 4, 5, 6}, i;
+for(i = 5; i >= 0;  ＿＿＿＿＿＿  ){
+  printf("%d ", a[i]);
+}
+\end{verbatim}
+これを実行したときに、次のように表示したい。
+\begin{verbatim}
+6 4 2
+\end{verbatim}
+プログラム中の下線部を埋めよ。
+
+\myanswer{{\ttfamily
+i -= 2
+}}
+
+
+\toi
+
+次のプログラムがある。
+\begin{verbatim}
+int i, a[7] = {1,3,5,7,9,11,13};
+for(i = 0 ; ＿＿＿＿＿＿＿＿＿＿＿＿＿＿ ){
+  printf("%d ", a[i]);
+}
+\end{verbatim}
+これを実行したときに、次のように表示したい。
+\begin{verbatim}
+1 3 5 7 9
+\end{verbatim}
+プログラムの下線部を埋めよ。
+
+\myanswer{{\ttfamily
+i < 5 ; i++
+
+または
+
+a[i] < 10 ; i++
+}}
+
+
+
+
+\toi
+
+次のプログラムがある。
+\begin{verbatim}
+int i;
+for(＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿ ){
+  printf("%d ", i);
+}
+\end{verbatim}
+これを実行すると、100以下の全ての奇数を表示するようにしたい。
+プログラムの下線部を埋めよ。
+
+\myanswer{{\ttfamily
+i = 1 ; i <= 100 ; i += 2
+
+または
+
+i = 99 ; i > 0 ; i -= 2
+}}
+
+
+
+\toi
+
+次の配列{\ttfamily f}がある。
+\begin{verbatim}
+float f[4] = {1.23, 4.56, 78.9, 10.11};
+\end{verbatim}
+この配列{\ttfamily f}の全ての要素を表示するプログラム
+を{\ttfamily for}文を用いて書け（問\ref{toi:array_f}参照）。
+
+\vspace*{3cm}
+
+
+\myanswer{{\ttfamily
+  float f[4] = \{1.23, 4.56, 78.9, 10.11\};
+
+  int i;
+
+  for(i = 0; i < 4; i++)\{
+
+\hspace{3ex}      printf("\%.2f ", f[i]);
+
+  \}
+
+
+}}
+
+
+
+\toi
+
+
+何が表示されるか。また、何を計算して表示しているか
+（問\ref{toi:whilesum}参照）。
+
+\begin{verbatim}
+int i, sum = 0;
+for(i = 1; i <= 10; i++){
+  sum = sum + i;
+}
+printf("%d\n", sum);
+\end{verbatim}
+
+\myanswer{{\ttfamily
+55
+
+（略）1から10までの和を計算している
+}}
+
+
+\toi
+
+このプログラムは{\ttfamily while}を使って、
+3の階乗を計算するものである。
+\begin{verbatim}
+int i = 1, f = 1;
+while(i < 4){
+  f *= i;
+  i++;
+}
+printf("%d\n", f);
+\end{verbatim}
+{\ttfamily for}を使ったプログラムに書き直せ。
+
+
+\vspace*{3cm}
+
+
+\myanswer{{\ttfamily
+int i, f = 1;
+
+\hspace{3ex}for(i = 1; i < 4; i++)\{
+
+\hspace{6ex}  f *= i;
+
+\hspace{3ex}\}
+
+printf("\%d\verb \ n", f);
+
+}}
+
+
+
+
+\toi
+
+
+このプログラムは、西暦1000年から2003年までの
+閏年を表示するプログラムである。
+閏年（leap year）は、4で割り切れて100で割り切れない年か、
+400で割り切れる年である。
+
+下線部を埋めよ。
+\begin{verbatim}
+int year;
+for(year = 1000; year <= 2003; year++){
+  if( ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿ ){
+    printf("Year %d is a leap year.\n", year);
+  }
+}
+\end{verbatim}
+
+\myanswer{{\ttfamily
+(year \%4 == 0 \&\& year \% 100 != 0) || (year \% 400 == 0)
+}}
+
+
+
+\toi
+
+何が表示されるか．
+\begin{verbatim}
+int i, n=0;
+for( i=-2; i<=9; i++ ){
+   n += 1;
+}
+printf("n is %d\n", n);
+\end{verbatim}
+
+
+\myanswer{{\ttfamily
+n is 12
+}}
+
+
+
+
+\toi
+
+for文を使って，整数型の配列a[128]のすべての
+要素の和を計算し表示したい．下線部を埋めよ。
+\begin{verbatim}
+int i, sum = 0;
+for( ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿ ){
+   sum += a[i];
+}
+printf("sum is %d\n", sum);
+\end{verbatim}
+
+\myanswer{{\ttfamily
+i = 0; i < 128; i++
+
+または
+
+i = 0; i <= 127; i++
+}}
+
+
+
+
+\toi
+
+
+次のプログラムがある。
+\begin{verbatim}
+int i, n = 0;
+for( i = -2; i < 100; i++ ){
+   n += i;
+}
+\end{verbatim}
+これが表す数式は次のようなものである。
+空欄を埋めよ。
+\[
+% n = \sum_{i=-2}^{99} i
+ n = \sum_{i=\raisebox{.5mm}{\fbox{\hbox to .3cm{\rule[-1.5mm]{0mm}{3mm}}}}}^{\fbox{\hbox to .8cm{\rule[-4mm]{0mm}{3mm}}}}
+ \quad\fbox{\hbox to 2cm{\rule[-4mm]{0mm}{10mm}}}
+\]
+
+
+\myanswer{
+$\ds\sum_{i=-2}^{99} i$
+}
+
+
+
+
+
+\toi
+
+
+次のプログラムがある。
+\begin{verbatim}
+int i, n = 0;
+for( i = ＿＿＿＿＿ ; i < 200 ; i++ ){
+  n += ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿;
+}
+\end{verbatim}
+
+
+これが表す数式は次のようなものである。
+下線部と空欄を埋めよ。
+\[
+ n = \sum_{i=8}^{\fbox{\hbox to 1.5cm{ \an{199} \rule[-1.5mm]{0mm}{5mm}}}}
+ \left(5i+1\right)
+\]
+
+
+\myanswer{
+{\ttfamily 8
+
+5 * i + 1}
+
+$199$
+
+}
+
+
+
+
+
+\toi
+\label{toi:zenkasiki1}
+
+次の数学の漸化式の第10項までをC言語で計算したい。
+\begin{eqnarray*}
+ a_1 &=& 1\\
+ a_n &=& 2 a_{n-1} + 1, \quad n \ge 2
+\end{eqnarray*}
+プログラム中の空欄を埋めよ。
+\begin{verbatim}
+int n, a = 1;
+printf("%d\n", a);
+for(n = 2; n <= 10; n++){
+  ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
+  printf("%d\n", a);
+}
+\end{verbatim}
+
+\myanswer{{\ttfamily 
+a = 2 * a + 1;
+}}
+
+
+
+\toi
+\label{toi:zenkasiki2}
+
+何が表示されるか。また、変数{\ttfamily x1, x2} の
+値の変化に注目して、何を計算しているのか、
+変数{\ttfamily t} の役割は何かを述べよ。
+
+\begin{verbatim}
+int i, x1 = 1, x2 = 2, t;
+for(i = 0; i < 6; i++){
+  printf("%d %d\n", x1, x2);
+  t = x1;
+  x1 = x2;
+  x2 = t;
+} 
+\end{verbatim}
+
+\myanswer{{\ttfamily 
+1 2
+
+2 1
+
+1 2
+
+2 1
+
+1 2
+
+2 1
+
+（略）tを媒介してx1とx2の値を交互に入れ換えている。
+
+}}
+
+
+
+\toi
+\label{toi:zenkasiki3}
+
+何が表示されるか。
+\begin{verbatim}
+int i, x1 = 1, x2 = 2, x3 = 3;
+for(i = 0; i < 6; i++){
+  printf("%d %d %d\n", x1, x2, x3);
+  x1 = x2;
+  x2 = x3;
+  x3 = i * 2;
+} 
+\end{verbatim}
+
+\myanswer{{\ttfamily 
+1 2 3
+
+2 3 0
+
+3 0 2
+
+0 2 4
+
+2 4 6
+
+4 6 8
+
+（略）x1,x2,x3の値を順次2倍して入れ換えている。
+}}
+
+
+
+\toi
+\label{toi:zenkasiki4}
+
+次の数学の漸化式の第10項までをC言語で計算したい。
+\begin{eqnarray*}
+ a_1 &=& a_2 = 1\\
+ a_n &=& a_{n-1} - 2 a_{n-2} + 1, \quad n \ge 3
+\end{eqnarray*}
+問\ref{toi:zenkasiki1},
+問\ref{toi:zenkasiki2},
+問\ref{toi:zenkasiki3}を参考にして、
+次のプログラム中の空欄を埋めよ。
+\begin{verbatim}
+int n, an1 = 1, an2 = 1, an;
+for(n = 3; n <= 10; n++){
+  an = an1 - 2 * an2 + 1;
+  printf("%d\n", an);
+  ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
+  ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
+}
+\end{verbatim}
+
+\myanswer{{\ttfamily 
+an2 = an1;
+
+an1 = an;
+}}
+
+
+
+
+
+\toi
+
+次の数学の漸化式の第10項までをC言語で計算したい。
+\begin{eqnarray*}
+ &&a_1 = 1,\quad b_1 = -2\\
+  &&a_n = -2a_{n-1} + 6 b_{n-1},\quad
+  b_n = a_{n-1} - b_{n-1}, \quad n \ge 2
+\end{eqnarray*}
+問\ref{toi:zenkasiki1}$\sim$\ref{toi:zenkasiki4}
+を参考にして、
+次のプログラム中の空欄を埋めよ。
+\begin{verbatim}
+int n, an, bn, an1 = 1, bn1 = -2;
+for(n = 2; n <= 10; n++){
+  an = -2 * an1 + 6 * bn1;
+  bn = an1 - bn1;
+  printf("%d %d\n", an, bn);
+  ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
+  ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
+}
+\end{verbatim}
+
+\myanswer{{\ttfamily 
+an1 = an;
+
+bn1 = bn;    
+}}
+
+
+\mysection{プログラムの図式化：フローチャート}
+
+
+プログラムがどのように実行されていくか
+（処理の流れ）を図式化する方法の一つに、
+フローチャート（flowchart、流れ図）がある。
+
+
+
+\begin{multicols}{2}
+
+例：次のwhileによる繰り返し
+\begin{verbatim}
+int i = 0;
+while(i < 3){
+ printf("%d\n", i);
+ i++;
+}
+printf("end\n");
+\end{verbatim}
+のフローチャートは次のように描く。
+
+\flow{flow1.eps}
+
+\end{multicols}
+
+
+矩形（四角形）は一般の処理を、菱形は判断（判定）を、釣鐘型は
+表示を表す。処理のつながりを上から下へと線で結ぶ。判断の箇所では線は分岐
+し、繰り返しを表す場合には線を上へ戻す。
+
+上に戻ったり分岐したりした線は、矩形や菱形には必ず上から入り、線には横か
+ら入る。矩形からでる線は下へ、菱形から出る線は左右下へと描く
+（下図参照）。
+
+\flow{flow1-2.eps}
+
+代入は「『代入する値（式）』→『代入先の変数』」と書く（C言語の代入文
+の書き方とは異なる）。C言語特有の演算子（{\ttfamily ++,--,+=,-=,*=,/=}など）は使用しない。
+
+変数の宣言は描かない。
+
+
+
+\newpage
+
+\toi
+
+\begin{multicols}{2}
+ 以下のプログラムは7の倍数を表示する。
+ \begin{verbatim}
+ int i = 0;
+ while(i < 100){
+  printf("%d ", i);
+  i += 7;
+ }
+ \end{verbatim}
+ %0 7 14 21 28 35 42 49 56 63
+ このフローチャートは次の様になる。空欄を埋めよ。
+ \flow{flow2.eps}
+\end{multicols}
+
+\myanswer{
+
+ \flow{flow2ans.eps}
+
+}
+
+
+\toi
+
+\begin{multicols}{2}
+ 
+以下のプログラム
+に対応するフローチャートは次の様になる。空欄を埋めよ。
+\begin{verbatim}
+int i = 0;
+if(i > 0){
+  printf("i is positive.\n");
+}else{
+  printf("i is negative.\n");
+}
+\end{verbatim}
+
+\flow{flow21.eps}
+\end{multicols}
+
+\myanswer{
+\flow{flow21ans.eps}
+}
+
+\newpage
+
+\toi
+
+\begin{multicols}{2}
+ 
+次のプログラム
+に対応するフローチャートは次の様になる。空欄を埋めよ。
+\begin{verbatim}
+int i = 0, a[3] = {2,4,6};
+while(i < 3){
+  printf("%d ", a[i]);
+  i++;
+}
+\end{verbatim}
+
+\flow{flow3.eps}
+
+\end{multicols}
+
+\myanswer{
+\flow{flow3ans.eps}
+}
+
+
+
+
+\toi
+\begin{multicols}{2}
+ 
+次のプログラム
+に対応する次のフローチャートを完成させよ。
+\begin{verbatim}
+int i = 0, sum = 0;
+while(i < 10){
+  i = i + 1;
+  sum = sum + i;
+}
+printf("%d\n", sum);
+\end{verbatim}
+
+\flow{flow4.eps}
+
+
+\end{multicols}
+
+
+\myanswer{
+\flow{flow4ans.eps}
+}
+
+
+
+
+\newpage
+
+
+\toi
+\begin{multicols}{2}
+ 
+次のプログラム
+に対応する次のフローチャートを完成させよ。
+\begin{verbatim}
+int i = 1, f = 1;
+while(i < 4){
+  f *= i;
+  i++;
+}
+printf("%d\n", f);
+\end{verbatim}
+
+\flow{flow5.eps}
+
+\end{multicols}
+
+
+
+\myanswer{
+\flow{flow5ans.eps}
+}
+
+
+
+
+\toi
+
+
+次のプログラム
+に対応するフローチャートを描け。
+\begin{verbatim}
+int i=-3, n=0;
+while(i != 128){
+   n++;
+   i++;
+}
+printf("%d\n", n);
+\end{verbatim}
+\vspace*{6cm}
+
+
+\myanswer{
+\flow{flow5-1ans.eps}
+}
+
+
+
+
+\newpage
+
+\toi
+
+次のフローチャート
+に対応するC言語プログラムを、
+{\ttfamily while}文と
+{\ttfamily for}文を使ったものをそれぞれ書け。
+ 
+\flowl{flow6.eps}
+
+\vspace*{6cm}
+
+\myanswer{{\ttfamily
+
+int i = -2, n = 0;
+
+while(i < 150)\{
+
+\hspace{3ex}n += 2 * i + 4;
+
+\hspace{3ex}i++;
+
+\}
+
+printf("\%d\verb \ n", n);
+
+-----------------------------
+
+int i, n = 0;
+
+for(i = -2; i < 150; i++)\{
+
+\hspace{3ex}n += 2 * i + 4;
+
+\}
+
+printf("\%d\verb \ n", n);
+
+}}
+
+
+
+
+\newpage
+
+\begin{multicols}{2}
+ 
+
+\toi
+
+繰り返しを使って、100以下の
+9の倍数を全て表示するプログラムの
+フローチャートを描け。\\
+\vspace*{20cm}
+
+
+\myanswer{{\ttfamily
+\flow{flow6-1ans.eps}
+}}
+
+
+
+\mbox{}
+
+
+\toi
+
+次の配列{\ttfamily f}がある。
+\begin{verbatim}
+float f[4] = {1.23, 4.56, 78.9, 10.11};
+\end{verbatim}
+この配列{\ttfamily f}の全ての要素を表示するプログラム
+のフローチャートを描け。
+
+\vfill
+
+\myanswer{{\ttfamily
+\flow{flow6-2ans.eps}
+}}
+
+
+\end{multicols}
+
+
+\newpage
+
+\toi
+
+\begin{multicols}{2}
+
+次のプログラム
+に対応するフローチャートを完成させよ。
+\begin{verbatim}
+int a = 76;
+if(50 <= a && a < 100){
+ if(a < 75){
+   printf("50 < a < 75\n");
+ }else{
+   printf("75 < a < 100\n");
+ }
+}
+\end{verbatim}
+
+\flow{flow61.eps}
+
+
+\end{multicols}
+
+
+\myanswer{
+\flow{flow61ans.eps}
+}
+
+
+
+\newpage
+
+\toi
+
+次のフローチャート
+は、$2xy+1$の値を表示するプログラムを
+二重ループによって表現している。
+これに対応するC言語プログラムを、
+{\ttfamily while}と
+{\ttfamily for}を使ってそれぞれ書け。
+
+\begin{multicols}{2}
+ 
+ \flow{flow7.eps}
+
+\vspace*{6cm}
+
+\end{multicols}
+
+\myanswer{{\ttfamily
+float y = 0, x;
+
+while(y < 5)\{
+
+\hspace{3ex}x = 0;
+
+\hspace{3ex}while(x < 5)\{
+
+\hspace{6ex}printf("\%f\verb \ n", 2*x*y + 1);
+
+\hspace{6ex}x += 0.5;
+
+\hspace{3ex}\}
+
+\hspace{3ex}y += 0.5;
+
+\}
+
+------------------------------
+
+float y, x;
+
+for(y = 0; y < 5; y += 0.5)\{
+
+\hspace{3ex}for(x = 0; x < 5; x += 0.5)\{
+
+\hspace{6ex}printf("\%f\verb \ n", 2*x*y + 1);
+
+\hspace{3ex}\}
+
+\}
+
+
+
+
+}}
+
+
+\newpage
+
+\toi
+
+次のプログラム
+に対応するフローチャートを描け。
+また、何が表示されるか。
+\begin{verbatim}
+int i;
+char a = 'a';
+while(a < 'j'){
+  i = 0;
+  while(i < 5){
+    printf("%c", a);
+    a = a + 1;
+    i = i + 1;
+  }
+  printf("\n");
+}
+\end{verbatim}
+
+\vspace*{10cm}
+
+\myanswer{{\ttfamily
+abcde
+
+fghij
+
+
+\flow{flow7-1ans.eps}
+
+}}
+
+
+
+
+
+
+
+%\mysection{プログラムの図式化：PAD}
+%
+%\setlength{\columnseprule}{0pt}
+%
+%
+%
+%プログラムがどのように実行されていくか
+%（処理の流れ）を図式化する方法の一つに、
+%PAD（Programm Analysis Diagrams、プログラムを
+%解析するためのダイアグラム）がある。
+%
+%
+%
+%
+%
+%\begin{multicols}{2}
+%例：次のwhileによる繰り返し
+%のPADは次のように描く。
+%
+%\begin{minipage}{\linewidth}
+%\begin{verbatim}
+%int i = 0;
+%if(i > 0){
+%  printf("i is positive.\n");
+%}else{
+%  printf("i is negative.\n");
+%}
+%while(i < 3){
+%  printf("%d\n", i);
+%  i++;
+%}
+%printf("end\n");
+%\end{verbatim}
+%\end{minipage}
+%
+%\pad{pad1.eps}
+%\end{multicols}
+%
+%
+%
+%矩形（四角形）は一般の処理を表す。
+%処理のつながりは縦線で表し、その側に矩形を描く。
+%
+%判断は、右側が切り取られた矩形で表し、
+%右上に真の場合の処理を、右下に偽の場合の処理を描く。
+%
+%繰り返しは左端に縦線の付いた矩形（四角形）で表し、
+%右側に新しい縦線を作成して繰り返しの内容を描く。
+%
+%底辺が短い台形は表示を表す。
+%
+%
+%代入は「『代入する値（式）』→『代入先の変数』」と書く（C言語の代入文
+%の書き方とは異なる）。C言語特有の演算子（{\ttfamily ++,--,+=,-=,*=,/=}など）は使用しない。
+%
+%変数の宣言は描かない。
+%
+%
+%
+%
+%
+%
+%
+%\toi
+%
+%\begin{multicols}{2}
+%以下のプログラムは7の倍数を表示する。
+%
+%\begin{minipage}{\linewidth}
+%\begin{verbatim}
+%int i = 0;
+%while(i < 100){
+%printf("%d ", i);
+%i += 7;
+%}
+%\end{verbatim}
+%\end{minipage}
+%%0 7 14 21 28 35 42 49 56 63
+%
+%このPADは次の様になる。空欄を埋めよ。
+%
+%\pad{pad2.eps}
+%\end{multicols}
+%
+%
+%\newpage
+%
+%\toi
+%
+%
+%\begin{multicols}{2}
+% 
+% 以下のプログラム
+% に対応するPADは次の様になる。空欄を埋めよ。
+% \begin{verbatim}
+% int i = 0;
+% if(i > 0){
+%  printf("i is positive.\n");
+% }else{
+%  printf("i is negative.\n");
+% }
+% \end{verbatim}
+%
+% \pad{pad21.eps}
+%
+%\end{multicols}
+%
+%
+%\toi
+%
+%\begin{multicols}{2}
+% 次のプログラム
+% に対応するPADを完成させよ。
+% \begin{verbatim}
+% int i = 0, a[3] = {2,4,6};
+% while(i < 3){
+%  printf("%d ", a[i]);
+%  i++;
+% }
+% \end{verbatim}
+%
+% \pad{pad3.eps}
+%
+%\end{multicols}
+%
+%
+%
+%\newpage
+%
+%\toi
+%
+%\begin{multicols}{2}
+% 
+% 次のプログラム
+% に対応する次のPADを完成させよ。
+% \begin{verbatim}
+% int i = 0, sum = 0;
+% while(i < 10){
+%  i = i + 1;
+%  sum = sum + i;
+% }
+% printf("%d\n", sum);
+% \end{verbatim}
+%
+% \pad{pad4.eps}
+%
+%\end{multicols}
+%
+%
+%
+%
+%
+%\toi
+%\begin{multicols}{2}
+% 
+% 次のプログラム
+% に対応する次のPADを完成させよ。
+% \begin{verbatim}
+% int i = 1, f = 1;
+% while(i < 4){
+%  f *= i;
+%  i++;
+% }
+% printf("%d\n", f);
+% \end{verbatim}
+%
+% \pad{pad5.eps}
+%\end{multicols}
+%
+%
+%
+%
+%
+%\toi
+%
+%
+%次のプログラム
+%に対応するPADを描け。
+%
+%\begin{verbatim}
+%int i=-3, n=0;
+%while(i != 128){
+%   n++;
+%   i++;
+%}
+%\end{verbatim}
+%
+%\vspace*{6cm}
+%
+%%\newpage%
+%
+%\toi
+%
+%次のPAD
+%に対応するC言語プログラムを書け。
+%
+%\begin{multicols}{2}
+% \pad{pad6.eps}
+%
+%
+%\end{multicols}
+% \vspace*{6cm}
+%
+%\newpage
+%
+%\toi
+%
+%繰り返しを使って、100以下の
+%9の倍数を全て表示するプログラムの
+%PADを描け。\\
+%
+%\vspace*{8cm}
+%
+%%\newpage
+%
+%\toi
+%
+%次の配列{\ttfamily f}がある。
+%\begin{verbatim}
+%float f[4] = {1.23, 4.56, 78.9, 10.11};
+%\end{verbatim}
+%この配列{\ttfamily f}の全ての要素を表示するプログラム
+%のPADを描け。\\
+%
+%
+%
+%\vspace*{6cm}
+%
+%
+%\newpage
+%
+%\toi
+%
+%次のプログラム
+%に対応するPADを完成させよ。
+%
+%\begin{multicols}{2}
+% \begin{verbatim}
+% int a = 76;
+% if(50 < a && a < 100){
+%  if(a < 75){
+%    printf("50 < a < 75\n");
+%  }else{
+%    printf("75 < a < 100\n");
+%  }
+% }
+% printf("%d\n", a);
+% \end{verbatim}
+%
+% \pad{pad61.eps}
+%
+%\end{multicols}
+%
+%
+%
+%
+%
+%\toi
+%
+%次のPAD
+%は、$x+2y+1$の値を表示するプログラムを
+%二重ループによって表現している。
+%これに対応するC言語プログラムを書け。
+%
+%
+%\pad{pad7.eps}
+%
+%\vspace*{6cm}
+%
+%
+%
+%\newpage
+%
+%
+%
+%\toi
+%
+%次のプログラム
+%に対応するPADを描け。
+%また、何が表示されるか。
+%
+%\begin{verbatim}
+%int i;
+%char a = 'a';
+%while(a < 'j'){
+%  i = 0;
+%  while(i < 5){
+%    printf("%c", a);
+%    a = a + 1;
+%    i = i + 1;
+%  }
+%  printf("\n");
+%}
+%\end{verbatim}
+%%abcde
+%%fghij
+%
+%\vspace*{10cm}
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%\mysection{プログラムの図式化：SPD}
+%
+%
+%
+%
+%プログラムがどのように実行されていくか
+%（処理の流れ）を図式化する方法の一つに、
+%SPD（Structured Programming Diagrams、構造化されたプログラミングの
+%ダイアグラム）がある。
+%
+%
+%
+%
+%\begin{multicols}{2}
+% 
+%例：次のwhileによる繰り返し
+%のSPDは次のように描く。\\
+%
+%\begin{minipage}{\linewidth}
+%\begin{verbatim}
+%int i = 0;
+%if(i > 0){
+%  printf("i is positive.\n");
+%}else{
+%  printf("i is negative.\n");
+%}
+%while(i < 3){
+%  printf("%d\n", i);
+%  i++;
+%}
+%printf("end\n");
+%\end{verbatim}
+%\end{minipage}
+%
+%\spd{spd1.eps}
+%
+%\end{multicols}
+%
+%
+%
+%
+%
+%
+%処理のつながりは縦線で表し、その右側に横線を延ばして
+%一般の処理を描く。
+%
+%
+%IFによる判断は、横線を円で右と下に分岐させる。
+%分岐の右に、判断条件を「{\ttfamily (IF : 条件式)}」と描く。
+%分岐の下に処理を描く。
+%真の場合の処理は「{\ttfamily (THEN)}」の線に、
+%偽の場合の処理は「{\ttfamily (FALSE)}」の線に描く。
+%
+%WHILEによる繰り返しは、回転する矢印で右と下に分岐させる。
+%分岐の右に、繰り返しの条件を「{\ttfamily (WHILE : 条件式)}」と描く。
+%分岐の下に処理を描く。
+%
+%
+%
+%代入は「『代入する値（式）』→『代入先の変数』」と書く（C言語の代入文
+%の書き方とは異なる）。C言語特有の演算子（{\ttfamily ++,--,+=,-=,*=,/=}など）は使用しない。
+%
+%変数の宣言は描かない。
+%
+%
+%
+%
+%
+%
+%
+%\toi
+%
+%\begin{multicols}{2}
+% 以下のプログラムは7の倍数を表示する。
+% \begin{verbatim}
+% int i = 0;
+% while(i < 100){
+%  printf("%d ", i);
+%  i += 7;
+% }
+% \end{verbatim}
+% %0 7 14 21 28 35 42 49 56 63
+% このSPDは次の様になる。空欄を埋めよ。
+%
+% \spd{spd2.eps}
+%
+%\end{multicols}
+%
+%\newpage
+%
+%\toi
+%\begin{multicols}{2}
+%
+% 以下のプログラム
+% に対応するSPDは次の様になる。空欄を埋めよ。
+% \begin{verbatim}
+% int i = 0;
+% if(i > 0){
+%  printf("i is positive.\n");
+% }else{
+%  printf("i is negative.\n");
+% }
+% \end{verbatim}
+%
+% \spd{spd21.eps}
+%\end{multicols}
+%
+%
+%
+%\toi
+%\begin{multicols}{2}
+% 
+% 次のプログラム
+% に対応するSPDを完成させよ。
+% \begin{verbatim}
+% int i = 0, a[3] = {2,4,6};
+% while(i < 3){
+%  printf("%d ", a[i]);
+%  i++;
+% }
+% \end{verbatim}
+%
+% \spd{spd3.eps}
+%
+%\end{multicols}
+%
+%
+%
+%
+%
+%\toi
+%
+%\begin{multicols}{2}
+% 
+% 次のプログラム
+% に対応する次のSPDを完成させよ。
+% \begin{verbatim}
+% int i = 0, sum = 0;
+% while(i < 10){
+%  i = i + 1;
+%  sum = sum + i;
+% }
+% printf("%d\n", sum);
+% \end{verbatim}
+%
+% \spd{spd4.eps}
+%\end{multicols}
+%
+%
+%
+%
+%
+%
+%\toi
+%\begin{multicols}{2}
+% 
+% 次のプログラム
+% に対応する次のSPDを完成させよ。
+% \begin{verbatim}
+% int i = 1, f = 1;
+% while(i < 4){
+%  f *= i;
+%  i++;
+% }
+% printf("%d\n", f);
+% \end{verbatim}
+%
+% \spd{spd5.eps}
+%
+%
+%\end{multicols}
+%
+%
+%
+%\toi
+%
+%
+%次のプログラム
+%に対応するSPDを描け。
+%
+%\begin{verbatim}
+%int i=-3, n=0;
+%while(i != 128){
+%   n++;
+%   i++;
+%}
+%\end{verbatim}
+%
+%\vspace*{6cm}
+%
+%
+%\toi
+%
+%次のSPD
+%に対応するC言語プログラムを書け。
+%
+%\spd{spd6.eps}
+%
+%\vspace*{6cm}
+%
+%
+%
+%\toi
+%
+%繰り返しを使って、100以下の
+%9の倍数を全て表示するプログラムの
+%SPDを描け。\\
+%
+%\vspace*{6cm}
+%
+%
+%
+%\newpage
+%
+%
+%\toi
+%
+%次の配列{\ttfamily f}がある。
+%\begin{verbatim}
+%float f[4] = {1.23, 4.56, 78.9, 10.11};
+%\end{verbatim}
+%この配列{\ttfamily f}の全ての要素を表示するプログラム
+%のSPDを描け。\\
+%
+%
+%
+%\vspace*{8cm}
+%
+%
+%
+%
+%\toi
+%
+%\begin{multicols}{2}
+% 次のプログラム
+% に対応するSPDを完成させよ。
+% \begin{verbatim}
+% int a = 76;
+% if(50 < a && a < 100){
+%  if(a < 75){
+%    printf("50 < a < 75\n");
+%  }else{
+%    printf("75 < a < 100\n");
+%  }
+% }
+% printf("%d\n", a);
+% \end{verbatim}
+%
+% \spd{spd61.eps}
+%\end{multicols}
+%
+%
+%
+%
+%\newpage
+%
+%\toi
+%
+%次のSPD
+%は、$x^2+y^2+1$の値を表示するプログラムを
+%二重ループによって表現している。
+%これに対応するC言語プログラムを書け。
+%
+%\spd{spd7.eps}
+%
+%\vspace*{6cm}
+%
+%
+%
+%
+%
+%
+%\toi
+%
+%次のプログラム
+%に対応するSPDを描け。また、何が表示されるか。
+%
+%\begin{verbatim}
+%int i;
+%char a = 'a';
+%while(a < 'j'){
+%  i = 0;
+%  while(i < 5){
+%    printf("%c", a);
+%    a = a + 1;
+%    i = i + 1;
+%  }
+%  printf("\n");
+%}
+%\end{verbatim}
+%%abcde
+%%fghij
+%
+%\vspace*{10cm}
+%
+%
+%
+%
+%
+\mysection{まだまだ続く}
+
+\makeatletter
+\def\verbatim@font{%\small
+\bfseries\ttfamily}
+\makeatother
+\setlength{\columnseprule}{.5pt}
+
+
+% \begin{multicols}{2}
+
+
+\toi
+
+次のプログラムを実行し終った時，画面には何が表示されるか．
+
+\begin{verbatim}
+float a=4.8, b=2.4, x;
+int m=3, n=2;
+x = a / b + n / m;
+if(x > 2){
+  printf("2より大\n");
+}else{
+  printf("2以下\n");
+}
+\end{verbatim}
+
+\myanswer{{\ttfamily 
+2以下
+}}
+
+
+
+\toi
+
+
+次のプログラムを実行し終った時，画面には何が表示されるか．
+
+\begin{verbatim}
+float a=4.8, b=2.4, x;
+int m=5, n=2;
+x = a / b + m / n;
+if(x <= 4){
+  printf("4以下\n");
+}else{
+  printf("4より大\n");
+}
+\end{verbatim}
+
+\myanswer{{\ttfamily 
+4以下
+}}
+
+
+
+
+\toi
+
+次のプログラムを実行すると何が表示されるか．
+\begin{verbatim}
+int a = 3, b = 10;
+printf("%d\n", a/b);
+\end{verbatim}
+
+\myanswer{{\ttfamily 
+0
+}}
+
+
+
+
+\toi
+
+
+次のプログラムを実行すると何が表示されるか．
+\begin{verbatim}
+int a = 10, b = 3;
+printf("%d\n", a/b);
+\end{verbatim}
+
+\myanswer{{\ttfamily 
+3
+}}
+
+
+
+\toi
+
+
+
+次のプログラムを実行すると何が表示されるか。
+\begin{verbatim}
+int i = -2.9, j = 2.9;
+float x = 3/2;
+printf("%d %d %f\n", i, j, x); 
+\end{verbatim}
+%答：
+%-2 2 1.000000
+
+\myanswer{{\ttfamily 
+-2 2 1.000000
+}}
+
+
+
+
+
+\toi
+
+
+次の数学の関数をC言語の関数で定義したい。
+\[
+f(x) = \left\{
+\begin{array}{rl}
+2x & \mbox{if $x = \pm 2, x > 7.5$}\\
+0  & \mbox{otherwise}
+\end{array}\right.
+\]
+次のプログラム中の下線部を埋めよ。
+\begin{verbatim}
+double f(double x){
+ if( ＿＿＿＿＿＿＿＿＿＿＿＿＿＿ )
+     return 2*x;
+ else
+     return 0;
+}
+\end{verbatim}
+
+\myanswer{{\ttfamily 
+d
+}}
+
+
+
+
+\toi
+
+次の数学の関数をC言語の関数で定義したい。
+\[
+f(x) = \left\{
+\begin{array}{rl}
+2x & \mbox{if $x=1, x \le -2, x > 7$}\\
+0  & \mbox{otherwise}
+\end{array}\right.
+\]
+次のプログラム中の下線部を埋めよ。
+\begin{verbatim}
+double f(double x){
+ if( ＿＿＿＿＿＿＿＿＿＿＿＿＿＿ )
+     return 2*x;
+ else
+     return 0;
+}
+\end{verbatim}
+
+\myanswer{{\ttfamily 
+x == -2 || x > 7
+}}
+
+\toi
+
+
+次の数学の関数をC言語の関数で定義したい。
+\[
+f(x) = \left\{
+\begin{array}{rl}
+2x & \mbox{if $|x| = 2, x > 10$}\\
+0  & \mbox{otherwise}
+\end{array}\right.
+\]
+次のプログラム中の空欄を埋めよ。
+\begin{verbatim}
+double f(double x){
+ if( ＿＿＿＿＿＿＿＿＿＿＿＿＿＿ )
+     return 2*x;
+ else
+     return 0;
+}
+\end{verbatim}
+
+\myanswer{{\ttfamily 
+x == -2 || x == 2 || x > 10
+}}
+
+
+\toi
+
+次の数学の関数をC言語の関数で定義したい。
+\[
+f(x) = \left\{
+\begin{array}{rl}
+2x & \mbox{if $x=1, |x| > 7$}\\
+0  & \mbox{otherwise}
+\end{array}\right.
+\]
+次のプログラム中の空欄を埋めよ。
+\begin{verbatim}
+double f(double x){
+ if( ＿＿＿＿＿＿＿＿＿＿＿＿＿＿ )
+     return 2*x;
+ else
+     return 0;
+}
+\end{verbatim}
+
+\myanswer{{\ttfamily 
+x == 1 || x > 7 || x < -7
+}}
+
+
+
+
+\toi
+
+
+次のようなプログラムファイルがある。
+\begin{verbatim}
+#include <stdio.h>
+int main(){
+int a = 2, b = 3, c
+c = a + b
+return 0
+}
+\end{verbatim}
+このプログラムファイルには間違いがあるため
+コンパイルできない。訂正せよ。
+
+\myanswer{{\ttfamily 
+int a = 2, b = 3, c;
+
+c = a + b;
+
+return 0;
+}}
+
+
+
+
+\toi
+
+
+次のようなプログラムファイルがある。
+\begin{verbatim}
+#include <stdio.h>
+int main(){
+int a == 5, b == 2, c;
+c == a * b;
+return 0;
+}
+\end{verbatim}
+このプログラムファイルには間違いがあるため
+コンパイルできない。訂正せよ。
+%答：== -> =
+
+
+\myanswer{{\ttfamily 
+== を = に
+}}
+
+
+
+\toi
+
+
+次のようなプログラムファイルがある。
+\begin{verbatim}
+#include <stdio.h>
+int main(){
+int a = 2, b = 3;
+printf('a+b= %d\n', a+b);
+return 0;
+}
+\end{verbatim}
+このプログラムファイルには間違いがあるため
+コンパイルできない。訂正せよ。
+%答：' -> ``
+
+\myanswer{{\ttfamily 
+printf('a+b= \%d\verb \ n', a+b);
+
+を
+
+printf("a+b= \%d\verb \ n", a+b);
+
+に
+}}
+
+
+
+\toi
+
+
+次のようなプログラムファイルがある。
+\begin{verbatim}
+#include <stdio.h>
+int main(){
+int a = 5, b = 2;
+if(a => b) printf("aはbより大きい\n");
+return 0;
+}
+\end{verbatim}
+このプログラムファイルには間違いがあるため
+コンパイルできない。訂正せよ。
+%答：=> -> <=
+
+\myanswer{{\ttfamily 
+=> を >= に
+}}
+
+
+
+\toi
+
+次のようなプログラムファイルがある。
+\begin{verbatim}
+#include <stdio.h>
+int main(){
+int a = 5, b = 2, c = 0;
+c =+ a * b;
+return 0;
+}
+\end{verbatim}
+このプログラムファイルには間違いがあるため
+コンパイルできない。訂正せよ。
+%答：=+ -> +=
+
+\myanswer{{\ttfamily 
+=+ を += に
+}}
+
+
+\toi
+
+
+次のようなプログラムファイルがある。
+\begin{verbatim}
+#inclde <stdio.h>
+int main(){
+int a = 5, b = 2, c = 0;
+c += a * b;
+return 0;
+}
+\end{verbatim}
+このプログラムファイルには間違いがあるため
+コンパイルできない。訂正せよ。
+%答：inclde -> include
+
+\myanswer{{\ttfamily 
+inclde を include に
+}}
+
+
+
+\toi
+
+次のようなプログラムファイルがある。
+\begin{verbatim}
+#include <stdio.h>
+int main(){
+int a = 2, b = 3;
+print("a+b= %d\n", a+b);
+return 0;
+}
+\end{verbatim}
+このプログラムファイルには間違いがあるため
+コンパイルできない。訂正せよ。
+%答：print -> printf
+
+\myanswer{{\ttfamily 
+print を printf に
+}}
+
+
+
+
+\toi
+
+
+次のプログラムには間違いがありコンパイルできない。
+訂正せよ。
+\begin{verbatim}
+float i;
+int a[6] = {1, 2, 3, 4, 5, 6};
+for(i = 1.0; i < 6.0; i += 1.0){
+printf("%d\n", a[i]);
+}
+\end{verbatim}
+%答：
+%float -> int
+
+\myanswer{{\ttfamily 
+float を int に
+}}
+
+
+\toi
+
+
+
+次のプログラムは間違っているためコンパイルできない。訂正せよ。
+\begin{verbatim}
+int a = 1, b = 1;
+if( a = = b ){
+printf("aとbは等しい\n");
+}
+\end{verbatim}
+
+\myanswer{{\ttfamily 
+a = = b を　a == b に
+}}
+
+
+\toi
+
+
+次のプログラムは間違っているためコンパイルできない。訂正せよ。
+\begin{verbatim}
+int a = 1, b = 2;
+if( a < = b ){
+  printf("aはbより小さい\n");
+}
+\end{verbatim}
+
+
+\myanswer{{\ttfamily 
+a < = b を　a <= b に
+}}
+
+
+
+\toi
+
+
+
+次のプログラムは間違ってはいないが冗長である。直せ。
+\begin{verbatim}
+int a = 1, b = 2;
+if(a > b){
+  printf("aはbより大きい\n");
+}else{
+  if(a <= b){
+    printf("aはb以下\n");
+ }
+}
+\end{verbatim}
+
+
+\myanswer{{\ttfamily 
+int a = 1, b = 2;
+
+if(a > b)\{
+
+\hspace{3ex} printf("aはbより大きい\verb \ n");
+
+\}else\{
+
+\hspace{3ex} if(a <= b)\{
+
+\hspace{6ex}    printf("aはb以下\verb \ n");
+
+\hspace{3ex} \}
+
+\}
+}}
+
+
+
+
+
+\toi
+
+
+
+次のプログラムは配列aの全ての要素を表示する。
+しかし、コンパイルはできるが、実行時にエラーとなる。訂正せよ。
+\begin{verbatim}
+int a[6] = {1, 2, 3, 4, 5, 6}, i;
+for(i = 0; i <= 6; i++ ){
+ printf("%d ", a[i]);
+}
+\end{verbatim}
+%答： i <= 6 -> i < 6
+
+\myanswer{{\ttfamily 
+i <= 6 を i < 6 に
+}}
+
+
+\toi
+
+
+
+次のプログラムは配列aの全ての要素を
+逆順に表示する。
+しかし、コンパイルはできるが、実行時にエラーとなる。訂正せよ。
+\begin{verbatim}
+int a[6] = {1, 2, 3, 4, 5, 6}, i;
+for(i = 6; i >= 0; i-- ){
+ printf("%d ", a[i]);
+}
+\end{verbatim}
+%答： i = 6 -> i = 5
+
+\myanswer{{\ttfamily 
+i = 6 を i = 5 に
+}}
+
+
+
+\toi
+
+
+次のプログラム終了後には何が表示されるか。
+\begin{verbatim}
+int a[6] = {6, 4, 2, 8, 5, 3}, i = 8;
+printf("%d\n", a[i >> 2]);
+\end{verbatim}
+%答： 2
+
+\myanswer{{\ttfamily 
+2
+}}
+
+\toi
+
+
+次のプログラム終了後には何が表示されるか。
+\begin{verbatim}
+int d = 5;
+printf("%d\n", (d&1) | (d&2) | (d&4));
+\end{verbatim}
+%答： 5
+
+\myanswer{{\ttfamily 
+5
+}}
+
+
+\toi
+
+
+次のプログラム終了後には何が表示されるか。
+\begin{verbatim}
+int a[6] = {6, 4, 3, 7, 1, 5}, i = 1;
+printf("%d\n", a[i << 2]);
+\end{verbatim}
+%答： 1
+
+\myanswer{{\ttfamily 
+1
+}}
+
+
+
+
+\toi
+
+
+次のプログラム終了後には何が表示されるか。
+\begin{verbatim}
+int d = 1;
+printf("%d\n", d | (d << 2) );
+\end{verbatim}
+%答： 5
+
+\myanswer{{\ttfamily 
+5
+}}
+
+
+
+\toi
+
+
+次のプログラム終了後には何が表示されるか。
+\begin{verbatim}
+int a[6] = {6, 4, 2, 8, 4, 2}, i;
+for(i = 0; i < 6; i++){
+ printf("%d ", a[i] >> 1);
+}
+\end{verbatim}
+%答： 3 2 1 4 2 1
+
+\myanswer{{\ttfamily 
+3 2 1 4 2 1
+}}
+
+\toi
+
+次のプログラム終了後には何が表示されるか。
+\begin{verbatim}
+int d = 5;
+printf("%d\n", d & 3);
+\end{verbatim}
+%答： 1
+
+\myanswer{{\ttfamily 
+1
+}}
+
+
+
+
+
+
+\toi
+
+
+次のプログラム終了後には何が表示されるか。
+\begin{verbatim}
+int a = 3, b = 5;
+printf("%d\n", a == b);
+printf("%d\n", a < b);
+\end{verbatim}
+%答：
+%0
+%1
+
+\myanswer{{\ttfamily 
+0
+
+1
+}}
+
+
+
+\toi
+
+
+次のプログラム終了後には何が表示されるか。
+\begin{verbatim}
+int a[6] = {6, 4, 3, 7, 1, 5}, i;
+for(i = 0; i < 6; i++){
+ printf("%d ", a[i] << 1);
+}
+\end{verbatim}
+%答： 12 8 6 14 2 10
+
+\myanswer{{\ttfamily 
+12 8 6 14 2 10
+}}
+
+
+
+
+\toi
+
+
+次のプログラム終了後には何が表示されるか。
+\begin{verbatim}
+int d = 2;
+printf("%d\n", d | 5);
+\end{verbatim}
+%答： 7
+
+\myanswer{{\ttfamily 
+7
+}}
+
+
+
+
+
+
+\toi
+
+
+次のプログラム終了後には何が表示されるか。
+\begin{verbatim}
+int a = 3, b = 1;
+printf("%d\n", a << b);
+printf("%d\n", a < b);
+\end{verbatim}
+%答：
+%6
+%0
+
+\myanswer{{\ttfamily 
+6
+
+0
+}}
+
+
+
+
+\toi
+
+
+次のプログラム終了後には何が表示されるか。
+\begin{verbatim}
+int numbers[6] = {15, 13, 12, 37, 74, 62};
+int i = 2;
+printf("%d\n", numbers[i++]);
+printf("%d\n", numbers[i++]);
+printf("%d\n", numbers[i++]);
+printf("%d\n", numbers[i++]);
+\end{verbatim}
+%答：
+%12
+%37
+%74
+%62
+
+\myanswer{{\ttfamily 
+12
+
+37
+
+74
+
+62
+}}
+
+
+
+\toi
+
+
+次のプログラム終了後には何が表示されるか。
+\begin{verbatim}
+int numbers[6] = {64, 37, 74, 15, 13, 62};
+int i = 5;
+printf("%d\n", numbers[--i]);
+printf("%d\n", numbers[--i]);
+printf("%d\n", numbers[--i]);
+printf("%d\n", numbers[--i]);
+\end{verbatim}
+%答：
+%13
+%15
+%74
+%37
+
+\myanswer{{\ttfamily 
+13
+
+15
+
+74
+
+37
+}}
+
+
+
+\toi
+
+
+
+
+次のプログラムは1から100までの和（つまり5050）を計算し表示する。
+しかし実行はできたが、（5050ではない）おかしな値が表示された。
+訂正せよ。
+\begin{verbatim}
+int i, sum;
+for(i = 1; i <= 100; i++ ){
+ sum += i;
+}
+printf("%d\n", sum);
+\end{verbatim}
+%答： sum; -> sum = 0;
+
+\myanswer{{\ttfamily 
+sum; を sum = 0; に
+}}
+
+
+
+
+\toi
+
+
+
+次のプログラムを実行すると何が表示されるか。
+\begin{verbatim}
+#include <stdio.h>
+int main(){
+int a = 2, i;
+for(i = 0; i < 2; i++){
+  int a = 3;
+  printf("a=%d\n", a);
+}
+return 0;
+}
+\end{verbatim}
+%答：
+%a=3
+%a=3
+
+\myanswer{{\ttfamily 
+a=3
+
+a=3
+}}
+
+
+
+\toi
+
+
+次の数学の数列$\{a_i\}$
+\begin{eqnarray*}
+a_1 &=& 1\\[-7pt]
+a_n &=& 2 a_{n-1} + 1, \quad n \ge 2
+\end{eqnarray*}
+の第$n$項をC言語の関数で定義したい。
+プログラム中の下線部を埋めよ。
+\begin{verbatim}
+int nth_term_of_a(int n){
+int ai = 1, i;
+for(i = 2; i <= n; i++){
+  ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
+}
+return ai;
+}  
+\end{verbatim}
+%答：     ai = 2 * ai + 1;
+
+\myanswer{{\ttfamily 
+ai = 2 * ai + 1;
+}}
+
+
+
+\toi
+
+
+次のプログラムは
+\fbox{\hbox to 10em{\rule[.5ex]{0pt}{1ex}}}
+を表示するものである。
+空欄を埋めよ。
+\begin{verbatim}
+int i;
+for(i = 3; i < 100; i += 3){
+  printf("%d\n", i);
+}
+\end{verbatim}
+% 100未満の3の倍数
+
+\myanswer{{\ttfamily 
+100未満の3の倍数
+}}
+
+
+\toi
+
+
+次のプログラムは
+\fbox{\hbox to 10em{\rule[.5ex]{0pt}{1ex}}}
+をするものである。
+空欄を埋めよ。
+\begin{verbatim}
+int i;
+for(i = 100; i > 0; i -= 7){
+  printf("%d\n", i);
+}
+\end{verbatim}
+% 100から7をつぎつぎに引いていく計算
+
+\myanswer{{\ttfamily 
+100から7をつぎつぎに引いていく計算
+}}
+
+
+
+\toi
+
+
+次のプログラムは、10進数で変数{\ttfamily x}の右から$n$桁目を{\ttfamily
+y}に代入する。下線部を埋めよ。
+\begin{verbatim}
+int n = 3;
+int x = 1234, y;
+for( ＿＿＿ ; ＿＿＿＿＿ ; ＿＿＿ ){
+  x /= 10;
+}
+y = x % 10;
+\end{verbatim}
+%  for(i = 1; i <= n-1; i++)
+
+\myanswer{{\ttfamily 
+for(i = 1; i <= n-1; i++)
+}}
+
+
+\toi
+
+
+次のプログラムは、数列
+\fbox{\hbox to 3em{\rule[.5ex]{0pt}{2ex}}}
+%$\displaystyle\frac{1}{n^2}$
+を
+第1000項まで計算し表示するものである。
+空欄を埋めよ。
+\begin{verbatim}
+int n;
+for(n = 1; n <= 1000; n++){
+  printf("%f\n", 1.0 / (n * n) );
+}
+\end{verbatim}
+
+\myanswer{{\ttfamily 
+$\displaystyle\frac{1}{n^2}$
+}}
+
+
+
+\toi
+
+
+次のプログラムは、無限級数$x=\displaystyle\sum_{n=1}^\infty\frac{1}{n^2}$を
+$n=1000$まで計算し表示するものである。
+下線部を埋めよ。
+\begin{verbatim}
+int n;
+double x = 0;
+for(n = 1; n <= 1000; n++){
+  ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
+  printf("%f\n", x);
+}
+\end{verbatim}
+%    x += 1.0 / (n * n);
+
+\myanswer{{\ttfamily 
+x += 1.0 / (n * n);
+}}
+
+
+
+\toi
+
+
+次のプログラムを実行すると何が表示されるか。
+\begin{verbatim}
+ char c1 = 'a';
+ printf("%c\n", c1++);
+ printf("%c\n", c1++);
+ printf("%c\n", c1++);
+\end{verbatim}
+% a
+% b
+% c
+
+\myanswer{{\ttfamily 
+a
+
+b
+
+c
+}}
+
+
+
+\toi
+
+
+次のプログラムを実行すると何が表示されるか。
+\begin{verbatim}
+ char c;
+ for(c = 'a'; c <= 'f'; c++){
+   printf("%c", c);
+ }
+\end{verbatim}
+% abcdef
+
+\myanswer{{\ttfamily 
+abcdef
+}}
+
+
+\toi
+
+
+
+$\log_e 2 \cong 0.693147$ を表示する次のプログラムファイル {\ttfamily log2.c} がある。
+\begin{verbatim}
+#include <stdio.h>
+int main(){
+printf("log(2)=%f\n", log(2));
+return 0;
+}
+\end{verbatim}
+これを次のコマンドでコンパイルした。
+\begin{verbatim}
+$ cc -lm log2.c
+\end{verbatim}
+しかし、実行して表示された結果は
+\begin{verbatim}
+log(2)=1.498446
+\end{verbatim}
+となり、間違っている。正しい値を計算するようにプログラムを訂正せよ。
+
+%答：
+%#include <math.h>をいれる
+
+\myanswer{{\ttfamily 
+\#include <math.h> を入れる
+}}
+
+
+
+% \end{multicols}
+
+
+\toi
+
+
+次のプログラムファイル {\ttfamily my\_x.c} がある
+（左の数字は表示のために付けた行番号であり、
+プログラムファイルに書かれているわけではない）。
+\begin{verbatim}
+1: #include <stdio.h>
+2: int main(){
+3:   for(x = 0; x < 2; x += 0.1)
+4:     printf("x=%f\n", x);
+5:   return 0;
+6: }
+\end{verbatim}
+これをコンパイルしたら次のようなエラーが出た。
+\begin{verbatim}
+   $ cc my_x.c
+   "my_x.c", 3 行目: 未定義のシンボル: x
+\end{verbatim}
+プログラムを訂正せよ。
+
+%答：
+
+\myanswer{{\ttfamily 
+float x; を入れる
+}}
+
+
+
+
+\toi
+
+
+
+文章を表示する次のプログラム
+ファイル {\ttfamily hello.c} がある。
+\begin{verbatim}
+#include <stdio.h>
+int main(){
+printf("hello world!\n");
+return 0;
+}
+\end{verbatim}
+これを次のコマンドでコンパイルしたが、以下のようにエラーが出た。
+
+\begin{verbatim}
+$ cc hello
+ld: 重大なエラー: ファイル hello: open に失敗しました: ファイルもディレクトリもありません。
+ld: 重大なエラー: ファイル処理エラー。a.out へ書き込まれる出力がありません。
+\end{verbatim}
+
+どうすればコンパイルできるようになるか。
+
+%答：
+% -> cc hello.c
+
+\myanswer{{\ttfamily 
+cc hello を cc hello.c に
+}}
+
+
+
+\toi
+
+
+
+
+
+
+次のプログラムファイル {\ttfamily my\_ab.c} がある。
+\begin{verbatim}
+1: #include <stdio.h>
+2: #include <math.h>
+3: int main(){
+4:  double a = 0.2, b = 0.4;
+5:  printf("%f %f\n", sin(a, b), a);
+6:  return 0;
+7: }
+\end{verbatim}
+これをコンパイルしたら次のようなエラーが出た。
+
+\begin{verbatim}
+ $ cc -lm my_ab.c
+ "my_ab.c", 5 行目: プロトタイプの不一致: 2 個の引数が渡されていますが、予期しているのは 1 個です
+\end{verbatim}
+
+プログラムを訂正せよ。
+
+%答：
+
+\myanswer{{\ttfamily
+5行目を
+
+printf("\%f \%f\verb \ n", sin(a), a);
+
+にする
+}}
+
+
+
+
+
+\toi
+
+
+次のプログラムファイル {\ttfamily my\_ab.c} がある。
+\begin{verbatim}
+1: #include <stdio.h>
+2: int main(){
+3:   int a = 2, b = 4;
+4:   printf("%d %d\n", a, b)
+5:   return 0;
+6: }
+\end{verbatim}
+これをコンパイルしたら次のようなエラーが出た。
+\begin{verbatim}
+ $ cc my_ab.c
+ "my_ab.c", 5 行目: return またはそれより前に構文エラーがあります
+\end{verbatim}
+プログラムを訂正せよ。
+
+%答：
+
+
+\myanswer{{\ttfamily 
+printfの行の最後に ; を入れる
+}}
+
+
+
+
+\toi
+
+
+
+$\sin(x)$ を表示する次のプログラム
+ファイル {\ttfamily testsinprog.c} がある。
+\begin{verbatim}
+#include <stdio.h>
+#include <math.h>
+int main(){
+printf("sin(0.5)=%f\n", sin(0.5));
+return 0;
+}
+\end{verbatim}
+これを次のコマンドでコンパイルしたが、以下のようにエラーが出た。
+\begin{verbatim}
+$ cc testsinprog.c 
+未定義のシンボル     最初に参照しているファイル
+sin                  testsinprog.o
+ld:重大なエラー: シンボル参照エラー。
+   a.out に書き込まれる出力はありません。
+\end{verbatim}
+どうすればコンパイルできるようになるか。
+
+%答：
+% コンパイルオプションに -lm をつける。
+
+
+\myanswer{{\ttfamily 
+コンパイルオプションに -lm をつける。
+}}
+
+
+
+
+
+
+
+
+
+\mysection{ポインタ}
+
+
+
+C言語では、他の変数そのものを値に持つ（その変数の値ではなく）
+型がある。これを{\bfseries ポインタ}と呼ぶ。
+{\ttfamily int}型のポインタ変数 {\ttfamily p} が、
+{\ttfamily int}型の変数 {\ttfamily x} を値に持つとき、
+{\bfseries {\ttfamily ポインタpはxを指している}}と言う。
+
+ポインタ変数を宣言するときは、
+変数名の前（型名の後）に{\ttfamily *}をつける。
+\ex{\ttfamily 
+例：
+{\bfseries int型のポインタpを宣言するには
+
+\hspace{3ex}int *p;
+
+とする。}二つ以上のポインタを同時に宣言するには、
+
+\hspace{3ex}int *p1, *p2, *p3;
+
+のように変数名の前に*をつける。
+
+int型の変数を同時に宣言するには、
+
+\hspace{3ex}int x, *p1, y, *p2, *p3;
+
+のように、ポインタ変数の前にだけ*をつける（この場合xとyはポインタではな
+く通常のint型の変数である）。
+}
+
+ポインタの型はそれが指す変数の型によって異なる。
+それはポインタの宣言時に決まり、異なる型の変数を指すことはできない。
+
+\ex{例：\ttfamily int型のポインタはfloat型の変数を指すことはできない。}
+
+
+
+\toi
+
+ある{\bfseries ポインタ {\ttfamily p} が}別の{\bfseries 変数 {\ttfamily z} を指すためには}、
+その変数 {\ttfamily z} のアドレスを {\ttfamily p} へ代入する。
+これにはアドレス演算子 {\ttfamily \&} を用いる
+（注意：AND演算子とは何の関係もない）。
+
+\ex{例：\ttfamily
+変数 z のアドレスをポインタ p へ代入するには、
+
+\hspace{3ex}p = \&z;
+
+とする。
+}
+
+ポインタに普通の数値を代入することはできない（してはならない）。
+必ず変数のアドレスを代入すること。
+
+\ex{悪い例： {\ttfamily p = 6;} というような代入はできない。}
+
+
+
+以下の代入文が上から順番に実行されるとき、
+それぞれの代入文が実行された時点での
+各変数の値を書け。不定であれば不定と書け。
+ポインタの値は、それが指す変数名を書け。
+
+\begin{center} \ttfamily
+ \begin{tabular}{|l|c|c|c|}\hline
+  代入文 & xの値 & yの値 & pの値\\ \hline\hline
+  int x, *p, y; & & & \\  \cline{2-4}
+  p = \&x; & & & \\  \cline{2-4}
+  x = 3;   & & & \\  \cline{2-4}
+  p = \&y; & & & \\  \cline{2-4}
+  y = 4;   & & & \\  \hline
+ \end{tabular}
+\end{center}
+
+
+\myanswer{
+{\ttfamily\noindent
+\begin{tabular}{|c|c|c|}\hline
+ xの値 & yの値 & pの値\\ \hline\hline
+ 不定& 不定& 不定\\\hline
+ 不定& 不定& x\\  \hline
+ 3& 不定& x\\  \hline
+ 3& 不定& y\\  \hline
+ 3& 4& y\\  \hline
+\end{tabular}
+}}
+
+
+
+\toi
+
+同じ型同士のポインタは代入することができる。
+
+以下の代入文が上から順番に実行されるとき、
+それぞれの代入文が実行された時点での
+各変数の値を書け。
+
+\begin{center}\ttfamily
+ \begin{tabular}{|l|c|c|c|c|}\hline
+  代入文 & pの値 & xの値 & yの値 & zの値\\ \hline\hline
+  int *x, *y; & & & & \\  \cline{2-5}
+  int p, z; & & & & \\  \cline{2-5}
+  p = 1; & & & & \\  \cline{2-5}
+  z = 2; & & & & \\  \cline{2-5}
+  x = \&p; & & & & \\  \cline{2-5}
+  y = x; & & & & \\  \cline{2-5}
+  x = \&z;   & & & & \\  \hline
+ \end{tabular}
+\end{center}
+
+\myanswer{
+{\ttfamily\noindent
+ \begin{tabular}{|c|c|c|c|}\hline
+  pの値 & xの値 & yの値 & zの値\\ \hline\hline
+  未定義& 不定& 不定& 未定義\\\hline
+  不定& 不定& 不定& 不定\\  \hline
+  1&不定& 不定& 不定\\  \hline
+  1&不定& 不定& 2\\  \hline
+  1& p& 不定& 2\\  \hline
+  1& p& p& 2\\ \hline
+  1& z& p& 2\\ \hline
+ \end{tabular}
+}}
+
+
+
+
+\toi
+
+ポインタが別の変数を指しているとき、その指している変数の値を評価するには、
+間接（参照）演算子 {\ttfamily *} を用いる
+（注意：乗算の演算子とは何の関係もない）。
+
+\ex{例：\ttfamily
+int型ポインタpがint型変数xを指している（つまりp=\&x;とされている）とき、
+xと*pは同じものである。つまり、
+
+\hspace{3ex}x = 3;
+
+\hspace{3ex}y = *p;
+
+\hspace{3ex}*p = 4;
+
+とすれば、yには（xと等価である）*pの評価結果3が代入され、
+（*pと等価である）xには4が代入されることになる。
+}
+
+ポインタ変数を宣言するときの{\ttfamily *}と、式中の{\ttfamily *}は
+まったく意味が異なることに注意。
+
+
+以下の代入文が上から順番に実行されるとき、
+それぞれの代入文が実行された時点での
+各変数の値を書け。
+
+
+\begin{center}\ttfamily
+ \begin{tabular}{|l|c|c|c|c|}\hline
+  代入文 & xの値 & yの値 & pの値 & *pの値\\ \hline\hline
+  int x,y,*p; & & & & \\  \cline{2-5}
+  x = 3; & & & & \\  \cline{2-5}
+  p = \&x; & & & & \\  \cline{2-5}
+  x = 4; & & & & \\  \cline{2-5}
+  y = 5; & & & & \\  \cline{2-5}
+  p = \&y;   & & & & \\  \cline{2-5}
+  *p = 6;   & & & & \\  \hline
+ \end{tabular}
+\end{center}
+
+\myanswer{
+{\ttfamily\noindent
+ \begin{tabular}{|c|c|c|c|}\hline
+  xの値 & yの値 & pの値 & *pの値\\ \hline\hline
+  不定& 不定& 不定& 不定\\  \hline
+  3&不定& 不定& 不定\\  \hline
+  3&不定& x& 3\\  \hline
+  4&不定& x& 4\\  \hline
+  4& 5& x& 4\\  \hline
+  4& 5& y& 5\\  \hline
+  4& 6& y& 6\\  \hline
+ \end{tabular}
+}}
+
+
+
+\toi
+
+以下の代入文が上から順番に実行されるとき、
+それぞれの代入文が実行された時点での
+各変数の値を書け。
+
+
+\begin{center}\ttfamily
+ \begin{tabular}{|l|c|c|c|c|c|c|}\hline
+  代入文 & x & y & p1 & *p1 & p2 & *p2\\ \hline\hline
+  int x,y,*p1,*p2; & 　　& 　　& 　　& 　　& 　　& 　　\\  \cline{2-7}   
+  x = 3;   & & & & & & \\  \cline{2-7}   
+  y = 5;   & & & & & & \\  \cline{2-7}   
+  p2 = \&x;& & & & & & \\  \cline{2-7}   
+  p1 = p2; & & & & & & \\  \cline{2-7}   
+  *p2 = 8; & & & & & & \\  \cline{2-7}   
+  p1 = \&y;& & & & & & \\  \cline{2-7}   
+  y = 7;   & & & & & & \\  \cline{2-7}   
+  x = 1;   & & & & & & \\  \hline
+ \end{tabular}
+\end{center}
+
+
+\myanswer{
+{\ttfamily\noindent
+ \begin{tabular}{|c|c|c|c|c|c|}\hline
+  \phantom{*}x & \phantom{*}y & p1 & *p1 & p2 & *p2\\ \hline\hline
+  不定&不定 & 不定& 不定& 不定& 不定\\  \hline
+  3&不定 & 不定& 不定& 不定& 不定\\  \hline
+  3 & 5 & 不定& 不定& 不定& 不定\\  \hline
+  3 & 5 & 不定& 不定& x& 3\\  \hline   
+  3 & 5 & x& 3& x& 3\\  \hline   
+  8 & 5 & x& 8& x& 8\\  \hline   
+  8 & 5 & y& 5& x& 8\\  \hline   
+  8 & 7 & y& 7& x& 8\\  \hline   
+  1 & 7 & y& 7& x& 1\\  \hline   
+ \end{tabular}
+}}
+
+
+
+
+
+
+
+
+\toi
+
+ポインタが配列を指すためには、
+アドレス演算子 {\ttfamily \&} は{\bfseries 必要ない}。
+
+\ex{例：\ttfamily
+ポインタ p が配列変数 a[100] を指すには、単に
+
+\hspace{3ex}p = a;
+
+とすればよい。
+}
+
+配列を指しているポインタに
+整数を足すと、配列の要素を指すことができる。
+さらに間接（参照）演算子 {\ttfamily *} を用いて、
+その要素の値を評価することができる。
+
+\ex{例：\ttfamily
+ポインタ p が配列変数 a[100] を指しているとき、
+p+19 は a[19] を指す。
+したがって、a[19] と *(p+19) 
+は等価であるので、
+
+\hspace{3ex}*(p+19) = 7;
+
+は
+
+\hspace{3ex}a[19] = 7;
+
+と同じことである。
+
+また、p は p+0 と同じである（したがって *p は *(p+0) と等価）。
+
+}
+配列を指していないポインタに整数を足すことはできない（もし足すと不定になる）。
+
+
+以下の代入文が上から順番に実行されるとき、
+それぞれの代入文が実行された時点での
+各変数の値を書け。
+
+
+\begin{center}\ttfamily
+ \begin{tabular}{|l|c|c|c|c|c|c|}\hline
+  代入文 & a[0] & a[1] & p1 & *p1 & p2 & *p2\\ \hline\hline
+  int a[2],*p1,*p2; & 　　& 　　& 　　& 　　& 　　& 　　\\  \cline{2-7}   
+  p1 = a;           & 　　& 　　& 　　& 　　& 　　& 　　\\  \cline{2-7}   
+  p2 = p1 + 1;      & 　　& 　　& 　　& 　　& 　　& 　　\\  \cline{2-7}   
+  *p2 = 3;          & 　　& 　　& 　　& 　　& 　　& 　　\\  \cline{2-7}   
+  *p1 = 5;          & 　　& 　　& 　　& 　　& 　　& 　　\\  \cline{2-7}   
+  a[1] = a[0] + 3;  & 　　& 　　& 　　& 　　& 　　& 　　\\  \cline{2-7}   
+  a[0] = *p2 + 3;   & 　　& 　　& 　　& 　　& 　　& 　　\\  \cline{2-7}   
+  p2 = p1;          & 　　& 　　& 　　& 　　& 　　& 　　\\  \cline{2-7}   
+  a[0] = *(p1 + 1) - 8;  & 　　& 　　& 　　& 　　& 　　& 　　\\  \hline
+ \end{tabular}
+\end{center}
+
+
+\myanswer{
+{\ttfamily\noindent
+ \begin{tabular}{|c|c|c|c|c|c|}\hline
+  a[0] & a[1] & p1 & *p1 & p2 & *p2\\ \hline\hline
+  不定& 不定& 不定& 不定& 不定& 不定\\  \hline   
+  不定& 不定& a[0]& 不定& 不定& 不定\\  \hline   
+  不定& 不定& a[0]& 不定& a[1]& 不定\\  \hline   
+  不定& 3& a[0]& 不定& a[1]& 3\\  \hline   
+   5& 3& a[0]& 5& a[1]& 3\\  \hline   
+   5& 8& a[0]& 5& a[1]& 8\\  \hline   
+   11& 8& a[0]& 11& a[1]& 8\\  \hline   
+   11& 8& a[0]& 11& a[0]& 11\\  \hline   
+   0& 8& a[0]& 0& a[0]& 0\\  \hline   
+ \end{tabular}
+}}
+
+
+
+
+
+
+\toi
+
+配列または配列の要素を指しているポインタは、
+整数を足すと、その配列の別の要素を指すことができる。
+
+\ex{例：\ttfamily
+ポインタ p が配列変数 a[100] の
+要素のうち a[1] を指しているとする。このとき、
+
+\quad p = p + 1;\quad または \quad p++;
+
+とすると、p は a[2] を指すようになる。
+}
+
+また、配列の有効な要素（添字が0から要素数-1の範囲、問\ref{toi:arrayelem}
+参照）を指しているかぎり、
+ポインタに足したり引いたりすることができる。
+
+\ex{例：\ttfamily
+ポインタ p1 が配列変数 a[100] の
+要素のうち a[22] を指しているとする。このとき、
+
+\quad p2 = p1 - 15;
+
+とすると、p2 は a[7] を指すようになり、
+
+\quad p1 += 11;
+
+とすると、p1 は a[33] を指すようになる。
+}
+
+
+配列を指していないポインタに整数を足したり引いたりすることはできない
+（もし足すと不定になる）。また、
+足したり引いたりした結果、配列の有効な要素では
+なくなった場合には、ポインタは不定になる。
+
+
+
+
+
+何が表示されるか。
+
+\begin{verbatim}
+float f[4] = {1.23, 4.56, 78.9, 10.11}, *fp1, *fp2;
+int i;
+fp1 = f;
+fp2 = fp1 + 1;
+for(i = 0; i < 4; i+=2){
+  printf("%.2f, %.2f\n", *fp2, *fp1);
+  fp1++;
+  fp2++;
+}
+\end{verbatim}
+
+\myanswer{{\ttfamily
+4.56, 1.23
+
+78.90, 4.56
+}}
+
+
+\toi
+
+配列名に整数を足すと、ポインタのように、
+配列の要素を指すことができる。
+
+\ex{\ttfamily
+例：
+int a[100]; という配列がある場合、
+a + 1 は a[1] を指す。その値を評価する場合には、
+*(a + 1) とすればよい。
+
+また a は a+0 と等価なので、a[0] を指す。
+}
+
+また、ポインタと違い、配列名には値を代入できない。
+
+\ex{\ttfamily
+例：
+int型の配列 a[100]の先頭
+を指すint型ポインタ *p; がある場合、
+p++; や p = a + 1; のように p に代入することは可能だが、
+a++; や a = a + 1; という a への代入はできない。
+}
+
+
+何が表示されるか。
+
+\begin{verbatim}
+float f[4] = {1.23, 4.56, 78.9, 10.11}, *fp;
+int i;
+fp = f;
+for(i = 0; i < 4; i++){
+  printf("%.2f %.2f\n", *(f + i), *fp);
+  fp++;
+}
+\end{verbatim}
+
+\myanswer{{\ttfamily
+1.23 1.23
+
+4.56 4.56
+
+78.90 78.90
+
+10.11 10.11
+}}
+
+
+
+
+\toi
+
+ポインタ同士を {\ttfamily ==, !=} で比較することができる。
+
+何が表示されるか。
+
+\begin{verbatim}
+char a[10] = "123456789", *cp1, *cp2;
+cp1 = a;
+cp2 = a+6;
+while(cp1 != cp2){
+  printf("%c,",  *cp1);
+  cp1++;
+}
+printf("\n");
+cp1 = a+2;
+while(cp1 != cp2){
+  printf("%c,",  *cp2);
+  cp2--;
+}
+\end{verbatim}
+
+\myanswer{{\ttfamily
+1,2,3,4,5,6,
+
+7,6,5,4,
+}}
+
+
+
+\toi
+
+ポインタを指すポインタを使うことができる。
+このためには、ポインタに対してアドレス演算子{\ttfamily \&}や
+間接参照演算子{\ttfamily *}を適用すればよい。
+
+\ex{\ttfamily
+例： int型のポインタを指すポインタを宣言するには、 
+
+\qquad int **p2;
+
+とする（これは int *(*p2); という書き方の省略形である）。}
+
+\ex{\ttfamily
+例： int型のポインタ p1 がint型の変数 x を指す場合に
+
+\qquad p1 = \&x;
+
+としたのと同様に、p2 が p1 を指すに場合には 
+
+\qquad p2 = \&p1; 
+
+とする。}
+
+\ex{\ttfamily
+例： p1 が指す x の値を評価する場合に間接（参照）演算子を使って
+
+\qquad *p1
+
+としたのと同様に、p2 が指す p1 が指す x の値を評価する場合には、
+
+\qquad **p2
+
+とする。
+}
+
+\ex{\ttfamily
+例：上記の例で p2 = \&p1; とした場合、\\
+\qquad *p2はp1と等価であり、**p2は*p1と等価である。
+}
+
+
+「ポインタを指すポインタ」を二重ポインタと呼ぶこともある。
+
+
+以下の代入文が上から順番に実行されるとき、
+それぞれの代入文が実行された時点での
+各変数の値を書け。
+
+
+\begin{center}\ttfamily
+ \begin{tabular}{|l|c|c|c|c|c|c|}\hline
+  代入文            &   z & x & *x & w & *w & **w\\ \hline\hline
+  int z,*x,**w;   & 　　& 　　& 　　& 　　& 　　& 　　\\  \cline{2-7}
+  w = \&x;        & 　　& 　　& 　　& 　　& 　　& 　　\\  \cline{2-7}
+  x = \&z;         & 　　& 　　& 　　& 　　& 　　& 　　\\  \cline{2-7}
+  z = 3;            & 　　& 　　& 　　& 　　& 　　& 　　\\  \hline
+ \end{tabular}
+\end{center}
+
+
+\myanswer{
+{\ttfamily\noindent
+ \begin{tabular}{|c|c|c|c|c|c|}\hline
+  z &  x & *x &  w &  *w & **w\\ \hline\hline
+不定& 不定& 不定& 不定& 不定& 不定\\ \hline
+不定& 不定& 不定& x& 不定& 不定\\  \hline
+不定&    z& 不定& x& z& 不定\\  \hline
+   3&    z& 3& x& z& 3\\  \hline
+ \end{tabular}
+}}
+
+
+
+
+\toi
+
+以下の代入文が上から順番に実行されるとき、
+それぞれの代入文が実行された時点での
+各変数の値を書け。
+
+\begin{center}\ttfamily
+ \begin{tabular}{|l|c|c|c|c|c|c|}\hline
+  代入文            &   z & x & *x & w & *w & **w\\ \hline\hline
+  int z,*x,**w;   & 　　& 　　& 　　& 　　& 　　& 　　\\  \cline{2-7}
+  x = \&z;         & 　　& 　　& 　　& 　　& 　　& 　　\\  \cline{2-7}
+  w = \&x;        & 　　& 　　& 　　& 　　& 　　& 　　\\  \cline{2-7}
+  *x = 7;            & 　　& 　　& 　　& 　　& 　　& 　　\\  \cline{2-7}
+  **w = 2;            & 　　& 　　& 　　& 　　& 　　& 　　\\  \hline
+ \end{tabular}
+\end{center}
+
+
+
+
+\myanswer{
+{\ttfamily\noindent
+ \begin{tabular}{|c|c|c|c|c|c|}\hline
+  z &  x & *x &  w &  *w & **w\\ \hline\hline
+不定& 不定& 不定& 不定& 不定& 不定\\ \hline
+不定&    z& 不定& 不定& 不定& 不定\\  \hline
+不定&    z& 不定& x& z& 不定\\  \hline
+   7&    z& 7& x& z& 7\\  \hline
+   2&    z& 2& x& z& 2\\  \hline
+ \end{tabular}
+}}
+
+
+
+
+
+\toi
+
+ポインタの配列を作ることができる。
+
+何が表示されるか。
+
+\begin{verbatim}
+char a[15] = "I'm a student.", 
+     b[11] = "Yes, I am.",
+     c[13] = "No, I'm not.";
+char *p[3];
+int i;
+
+p[0] = a;
+p[1] = b;
+p[2] = c;
+
+for(i = 0; i < 3; i++){
+  printf("%s\n", p[i]);
+}
+\end{verbatim}
+
+\myanswer{{\ttfamily
+I'm a student.
+
+Yes, I am.
+
+No, I'm not.
+}}
+
+
+\toi
+
+ポインタの配列へのポインタは、
+二重ポインタになる。
+
+何が表示されるか。また、{\ttfamily p1, p2} は
+どんな役割をしているのかを述べよ。
+
+\begin{verbatim}
+char a[15] = "I'm a student.", 
+     b[11] = "Yes, I am.",
+     c[13] = "No, I'm not.";
+char *p[3];
+char **p1, **p2;
+
+p[0] = a;
+p[1] = b;
+p[2] = c;
+p1 = p;
+p2 = p + 2;
+
+for(p1 = p; p1 != p2; p1++){
+  printf("%s\n", *p1);
+}
+\end{verbatim}
+
+\myanswer{{\ttfamily
+I'm a student.
+
+Yes, I am.
+
+（略）p1を始点、p2を終点とする範囲を表示する。
+}}
+
+
+
+
+
+
+
+\toi
+
+
+前問において、{\ttfamily *p1} は文字列（文字型配列）を指す
+ポインタである。したがって、{\ttfamily *p1+i} は
+{\ttfamily p1} が指す配列のある要素を指し、
+{\ttfamily *(*p1+i)} はその要素の値を
+評価することになる。
+
+
+何が表示されるか。
+
+\begin{verbatim}
+char a[15] = "I'm a student.", 
+     b[11] = "Yes, I am.",
+     c[13] = "No, I'm not.", d;
+char *p[3];
+char **p1, **p2;
+int i;
+
+p[0] = a;
+p[1] = b;
+p[2] = c;
+p[3] = &d;
+p1 = p;
+p2 = p + 3;
+
+for(p1 = p; p1 != p2; p1++){
+  for(i = 0; i < 5; i++){
+    printf("%c", *(*p1 + i));
+  }
+}
+\end{verbatim}
+
+\myanswer{{\ttfamily
+I'm aYes, No, I
+
+ここでのpは、後に出てくるmain関数の第二引数 *argv[] と同じ。
+}}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+%
+% 解答
+%
+\themyanswer
+
+
+
+
+%\end{multicols*}
+
+
+\end{document}
+
