@@ -1,0 +1,268 @@
+\documentclass[a4j]{jarticle}
+\usepackage{multicol}
+\raggedbottom
+\addtolength{\textwidth}{4cm}
+\addtolength{\textheight}{3.5cm}
+\addtolength{\topmargin}{-2.5cm}
+\addtolength{\evensidemargin}{-2cm}
+\addtolength{\oddsidemargin}{-2cm}
+\setlength{\columnseprule}{.5pt}
+\setlength{\columnsep}{4zw}
+
+\makeatletter
+\def\verbatim@font{\small\bfseries\ttfamily}
+\makeatother
+
+
+\include{flag}
+
+\def\ans#1#2{
+\ifnum \anss=1
+#1
+\else
+#2
+\fi
+}
+
+
+\def\ds{\displaystyle}
+
+\begin{document}
+\thispagestyle{empty}
+
+\begin{multicols*}{2}%
+
+
+\def\subst#1#2{$\ds #1$
+ \ $\longrightarrow$\ 
+ \underline{\hbox to 5cm{\ttfamily #2}}}
+
+
+
+\noindent
+\begin{tabular}[t]{|c|cccccccc|}\hline
+氏　　名 & & & & & & & & \\ \hline
+\end{tabular}\\
+\begin{tabular}[t]{|c|c|c|c|c|c|c|c|c|c|}\hline
+学籍番号 & & & & & & & & \\ \hline
+\end{tabular}\\
+学籍番号の\underline{数字の}右から一番目が{\bfseries 奇数の人は左側}の問題を
+解いて下さい。
+\vspace{-5ex}
+
+
+\subsection*{問1}
+
+以下の代入文が上から順番に実行されるとき、全ての代入文の
+実行が終わった時点での各変数の値を書け。
+
+\begin{verbatim}
+y = 1;
+x = 2;
+z = sqrt(9);
+x = x + 14;
+y = x / 2;
+x = x + 4;
+y = z = z+x * 4;
+z = (z - 3) / 40*2;
+\end{verbatim}
+
+
+{\ttfamily x}の値:\an{\quad 20}\\
+
+{\ttfamily y}の値:\an{\quad 83}\\
+
+{\ttfamily z}の値:\an{\quad 4}\\
+
+
+\subsection*{問2}
+
+%代入文「{\ttfamily x = 3}」と「{\ttfamily y = 5}」
+%によって変数{\ttfamily x, y}に値が代入されているとき、
+すでに変数{\ttfamily x, y}に何かの値が代入されているとき、
+変数{\ttfamily x, y}の値を入れ換えるための
+代入文の組を書け。
+
+変数{\ttfamily x, y}以外に
+変数{\ttfamily z}を使ってよい。
+
+\ifnum \anss=1
+\vspace*{3cm}
+\else
+\begin{verbatim}
+z = x;
+x = y;
+y = z;
+\end{verbatim}\vspace*{1cm}
+\fi
+
+
+
+\subsection*{問3}
+次の数学の数式をC言語の式に書き直せ。\\
+
+$2\sigma+\frac{\mu}{2}$
+\an{\quad {\ttfamily 2*sigma+mu/2}}
+
+$\frac{\sqrt{2}+y}{\frac{2}{x-5}+z}$
+\an{\quad {\ttfamily (sqrt(2)+y)/(2/(x-5)+z)}}
+
+$x^2+(x+1)^{10}$
+\an{\quad {\ttfamily x*x+pow(x+1,10)}}
+
+
+
+\subsection*{問4}
+
+
+1.　実数型の変数{\ttfamily x1}と{\ttfamily y2}の変数宣言を書け。\\
+\an{{\ttfamily double x1, y2;} または {\ttfamily float x1, y2;}}\\
+
+2.　{\ttfamily 10/3}の評価結果は　　\an{3}　　である。
+
+
+
+
+%当てはまるものにチェックを付けよ。
+%
+%\begin{itemize}
+% \itemsep=-3pt
+% \item 「代入」は： □よく分からない。□理解した。
+% \item 評価順序は： □よく分からない。□理解した。
+% \item 変数の値の入れ換えは： □できない。□できる。
+%\end{itemize}
+
+
+
+%\vspace{2cm}
+
+\vfill
+
+%\mbox{}
+
+
+
+%{\vbox{\vspace{1cm}}}
+
+
+
+
+\noindent
+\begin{tabular}[t]{|c|cccccccc|}\hline
+氏　　名 & & & & & & & & \\ \hline
+\end{tabular}\\
+\begin{tabular}[t]{|c|c|c|c|c|c|c|c|c|c|}\hline
+学籍番号 & & & & & & & & \\ \hline
+\end{tabular}\\
+学籍番号の\underline{数字の}右から一番目が{\bfseries 偶数の人は右側}の問題を
+解いて下さい。
+\vspace{-5ex}
+
+
+
+
+\subsection*{問1}
+
+%代入文「{\ttfamily a = 1.23}」と「{\ttfamily b = 5.67}」
+%によって変数{\ttfamily a, b}に値が代入されているとき、
+すでに変数{\ttfamily a, b}に何かの値が代入されているとき、
+変数{\ttfamily a, b}の値を入れ換えるための
+代入文の組を書け。
+
+変数{\ttfamily a, b}以外に
+変数{\ttfamily c}を使ってよい。
+
+\ifnum \anss=1
+\vspace*{3cm}
+\else
+\begin{verbatim}
+c = a;
+a = b;
+b = c;
+\end{verbatim}\vspace*{1cm}
+\fi
+
+
+
+\subsection*{問2}
+
+以下の代入文が上から順番に実行されるとき、全ての代入文の
+実行が終わった時点での各変数の値を書け。
+
+\begin{verbatim}
+z = 3;
+y = 1;
+x = sqrt(4);
+z = z + x + 14;
+y = y + x / 2;
+x = x + 4;
+y = z + x * y;
+y = (y - 3) / 14*2;
+\end{verbatim}
+
+
+{\ttfamily x}の値:\an{\quad 6}\\
+
+{\ttfamily y}の値:\an{\quad 4}\\
+
+{\ttfamily z}の値:\an{\quad 19}\\
+
+
+
+
+\subsection*{問3}
+次の数学の数式をC言語の式に書き直せ。\\
+
+$2\theta+\frac{\pi}{2}$
+\an{\quad {\ttfamily 2*theta+pi/2}}
+
+$\frac{-z+\frac{x-5}{2}}{2+y}$
+\an{\quad {\ttfamily (-z+(x-5)/2)/(2+y)}}
+
+$\sqrt{x}+a^p$
+\an{\quad {\ttfamily sqrt(x)+pow(a,p)}}
+
+
+\subsection*{問4}
+
+
+
+1.　符合無し整数（ただしlong）型
+の変数{\ttfamily aとbとc}の変数宣言を書け。\\
+\an{{\ttfamily unsigned long int a, b, c;}}\\
+
+
+2.　{\ttfamily 3/10}の評価結果は　　\an{0}　　である。
+
+
+
+
+%
+%当てはまるものにチェックを付けよ。
+%
+%\begin{itemize}
+% \itemsep=-3pt
+% \item 「代入」は： □理解した。□よく分からない。
+% \item 評価順序は： □理解した。□よく分からない。
+% \item 変数の値の入れ換えは： □できる。□できない。
+%\end{itemize}
+
+%\vspace{2cm}
+
+%\vfill
+
+
+
+
+
+
+
+
+
+
+
+
+\end{multicols*}
+
+
+\end{document}

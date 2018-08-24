@@ -1,0 +1,419 @@
+\documentclass[a4j]{jarticle}
+\usepackage{multicol}
+\raggedbottom
+\addtolength{\textwidth}{4cm}
+\addtolength{\textheight}{3.5cm}
+\addtolength{\topmargin}{-2.5cm}
+\addtolength{\evensidemargin}{-2cm}
+\addtolength{\oddsidemargin}{-2cm}
+\setlength{\columnseprule}{.5pt}
+\setlength{\columnsep}{4zw}
+
+\makeatletter
+\def\verbatim@font{\small\bfseries\ttfamily}
+\makeatother
+
+
+\include{flag}
+
+
+\def\ans#1#2{
+\ifnum \anss=1
+#1
+\else
+#2
+\fi
+}
+
+
+
+
+\def\ds{\displaystyle}
+
+\begin{document}
+\thispagestyle{empty}
+
+\begin{multicols*}{2}%
+
+
+\def\subst#1#2{$\ds #1$
+ \ $\longrightarrow$\ 
+ \underline{\hbox to 5cm{\ttfamily #2}}}
+
+
+
+\noindent
+\begin{tabular}[t]{|c|cccccccc|}\hline
+氏　　名 & & & & & & & & \\ \hline
+\end{tabular}\\
+\begin{tabular}[t]{|c|c|c|c|c|c|c|c|c|c|}\hline
+学籍番号 & & & & & & & & \\ \hline
+\end{tabular}\\
+学籍番号の\underline{数字の}右から一番目が{\bfseries 奇数の人は左側}の問題を
+解いて下さい。
+\vspace{-5ex}
+
+
+
+
+
+
+
+\subsection*{問1}
+
+以下の配列{\ttfamily a}の要素を全て表示したい。
+{\ttfamily while}を使って、そのためのプログラムの続きを書け。
+変数{\ttfamily i}を使ってよい。
+
+
+\ifnum \anss=1
+\begin{verbatim}
+int i;
+double a[4] = {7.7, 3.9, 1.1, 5.6};
+
+
+
+
+
+
+
+\end{verbatim}
+\else
+\begin{verbatim}
+int i;
+double a[4] = {7.7, 3.9, 1.1, 5.6};
+i = 0;
+while(i < 4){
+  printf("%f ", a[i]);
+  i = i + 1;
+}
+\end{verbatim}
+\fi
+\vspace{5cm}
+
+
+
+\subsection*{問2}
+
+二重ループを使って
+$1\times1$から$9\times9$までのかけ算の結果の表（九九）を
+表示するプログラムを完成させよ。
+
+
+\ifnum \anss=1
+\begin{verbatim}
+
+
+
+  while(i <= 9){
+
+
+
+    while(j <= 9){
+
+
+
+
+    }
+
+
+
+
+  }
+\end{verbatim}
+\vspace{1cm}
+\else
+\begin{verbatim}
+  int i = 1, j;
+  while(i <= 9){
+    j = 1;
+    while(j <= 9){
+      printf("%d ", i*j);
+      j = j + 1;
+    }
+    i = i + 1;
+    printf("\n");
+  }
+\end{verbatim}
+\vspace{5cm}
+\fi
+
+
+
+
+\vfill
+
+\mbox{}
+
+
+%
+%
+%
+%\subsection*{問1}
+%
+%{\ttfamily while}文を用いたプログラムに書き直せ。
+%\begin{verbatim}
+%int r = -4;
+%if(r > -3){
+%  printf("%d ", r);
+%}
+%r = r + 2;
+%if(r > -3){
+%  printf("%d ", r);
+%}
+%r = r + 2;
+%if(r > -3){
+%  printf("%d ", r);
+%}
+%r = r + 2;
+%printf("\n");
+%\end{verbatim}
+%
+%
+%\noindent
+%解答欄：
+%%\begin{verbatim}
+%%int r = -4;
+%%while(r < 1){
+%%  if(r > -3){
+%%    printf("%d ", r);
+%%  }
+%%  r = r + 2;
+%%}
+%%printf("\n");
+%%\end{verbatim}\vspace*{2cm}
+%\begin{verbatim}
+%
+%
+%
+%
+%
+%
+%
+%
+%\end{verbatim}\vspace*{2cm}
+%
+%
+%
+%\subsection*{問2}
+%
+%
+%次のプログラムがある。
+%\begin{verbatim}
+%int i = 0, a[6] = {11, 56, 34, 77, 39, 90};
+%while(i < 6){
+%  if(a[i] < 50){
+%     printf("## ");
+%  }else{
+%     printf( ＿＿＿＿＿＿＿＿＿＿＿＿＿ , a[i]); 
+%  }
+%  ＿＿＿＿＿＿＿＿＿＿
+%}
+%\end{verbatim}
+%これを実行したときに、以下のように表示したい。
+%\begin{verbatim}
+%## P56 is OK. ## P77 is OK. ## P90 is OK.
+%\end{verbatim}
+%プログラム中の下線部を埋めよ。
+%
+%
+%\vspace*{1cm}
+%
+%
+%\vfill
+%
+%\mbox{}
+%
+%%{\vbox{\vspace{1cm}}}
+%
+%
+
+
+
+
+\noindent
+\begin{tabular}[t]{|c|cccccccc|}\hline
+氏　　名 & & & & & & & & \\ \hline
+\end{tabular}\\
+\begin{tabular}[t]{|c|c|c|c|c|c|c|c|c|c|}\hline
+学籍番号 & & & & & & & & \\ \hline
+\end{tabular}\\
+学籍番号の\underline{数字の}右から一番目が{\bfseries 偶数の人は右側}の問題を
+解いて下さい。
+\vspace{-5ex}
+
+
+
+
+
+
+
+\subsection*{問1}
+
+以下の配列{\ttfamily b}の要素を全て表示したい。
+{\ttfamily while}を使って、そのためのプログラムの続きを書け。
+変数{\ttfamily j}を使ってよい。
+
+
+\ifnum \anss=1
+\begin{verbatim}
+int j;
+float b[6] = {0.1, 0.5, 0.3, 0.7, 0.9, 0.2};
+
+
+
+
+
+
+
+\end{verbatim}
+\else
+\begin{verbatim}
+int j;
+float b[6] = {0.1, 0.5, 0.3, 0.7, 0.9, 0.2};
+j = 0;
+while(j < 6){
+  printf("%f ", b[j]);
+  j = j + 1;
+}
+\end{verbatim}
+\fi
+\vspace{5cm}
+
+
+
+\subsection*{問2}
+
+
+
+二重ループを使って
+$1\times1$から$9\times9$までのかけ算の結果の表（九九）を
+表示するプログラムを完成させよ。
+
+
+\ifnum \anss=1
+\begin{verbatim}
+
+
+
+  while(a <= 9){
+
+
+
+    while(b <= 9){
+
+
+
+
+    }
+
+
+
+
+  }
+\end{verbatim}
+\vspace{1cm}
+\else
+\begin{verbatim}
+  int a = 1, b;
+  while(a <= 9){
+    b = 1;
+    while(b <= 9){
+      printf("%d ", a*b);
+      b = b + 1;
+    }
+    a = a + 1;
+    printf("\n");
+  }
+\end{verbatim}
+\vspace{5cm}
+\fi
+
+
+
+
+
+
+
+%
+%
+%\subsection*{問1}
+%
+%
+%{\ttfamily while}文を用いたプログラムに書き直せ。
+%\begin{verbatim}
+%int w = 9;
+%if(w < 7){
+%  printf("%d ", w);
+%}
+%w = w - 2;
+%if(w < 7){
+%  printf("%d ", w);
+%}
+%w = w - 2;
+%if(w < 7){
+%  printf("%d ", w);
+%}
+%w = w - 2;
+%printf("\n");
+%\end{verbatim}
+%
+%
+%\noindent
+%解答欄：
+%%\begin{verbatim}
+%%int w = 9;
+%%while(w > 4){
+%%  if(w < 7){
+%%    printf("%d ", w);
+%%  }
+%%  w = w - 2;
+%%}
+%%printf("\n");
+%%\end{verbatim}\vspace*{2cm}
+%\begin{verbatim}
+%
+%
+%
+%
+%
+%
+%
+%
+%\end{verbatim}\vspace*{2cm}
+%
+%
+%
+%
+%\subsection*{問2}
+%
+%
+%次のプログラムがある。
+%\begin{verbatim}
+%int i = 0, a[6] = {11, 56, 34, 77, 39, 90};
+%while(i < 6){
+%  if(a[i] > 40){
+%     printf( ＿＿＿＿＿＿＿＿＿＿＿＿＿ , a[i]); 
+%  }else{
+%     printf("$$ ");
+%  }
+%  ＿＿＿＿＿＿＿＿＿＿
+%}
+%\end{verbatim}
+%これを実行したときに、以下のように表示したい。
+%\begin{verbatim}
+%$$ Test 56th $$ Test 77th $$ Test 90th
+%\end{verbatim}
+%プログラム中の下線部を埋めよ。
+%
+%
+%
+%%\vfill
+%
+
+
+
+\end{multicols*}
+
+
+\end{document}

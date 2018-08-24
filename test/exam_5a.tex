@@ -1,0 +1,317 @@
+\documentclass[a4j]{jarticle}
+\usepackage{multicol}
+\usepackage{fancybox}
+
+\raggedbottom
+\addtolength{\textwidth}{4cm}
+\addtolength{\textheight}{4cm}
+\addtolength{\topmargin}{-2.5cm}
+%\addtolength{\topmargin}{-1.5cm}
+\addtolength{\evensidemargin}{-2cm}
+\addtolength{\oddsidemargin}{-2cm}
+\setlength{\columnseprule}{.5pt}
+\setlength{\columnsep}{4zw}
+
+\makeatletter
+\def\verbatim@font{%\small
+\bfseries\ttfamily}
+\makeatother
+
+
+\include{flag}
+
+\def\ans#1#2{
+\ifnum \anss=1
+#1
+\else
+#2
+\fi
+}
+
+\newcounter{toi}
+\setcounter{toi}{1}
+\def\toi{%
+%\subsubsection*{問\thetoi}
+\bigskip\bigskip\noindent
+\shadowbox{\bfseries\large 問題\thetoi}
+%\addcontentsline{toc}{subsubsection}{問\thetoi}
+\addtocounter{toi}{1}
+%\nopagebreak[4]\bigskip\nopagebreak[4]
+}
+
+
+
+
+
+\def\ds{\displaystyle}
+
+\begin{document}
+\thispagestyle{empty}
+\pagestyle{empty}
+
+\begin{multicols*}{2}%
+
+
+\def\subst#1#2{$\ds #1$
+ \ $\longrightarrow$\ 
+ \underline{\hbox to 5cm{\ttfamily #2}}}
+
+
+
+\noindent
+\begin{tabular}[t]{|c|cccccccc|}\hline
+氏　　名 & & & & & & & & \\ \hline
+\end{tabular}\\
+\begin{tabular}[t]{|c|c|c|c|c|c|c|c|c|c|}\hline
+学籍番号 & & & & & & & & \\ \hline
+\end{tabular}\\
+
+
+
+\toi
+次のC言語の式を評価せよ。
+\begin{itemize}
+ \item \verb@77*4/8+1@ 　解答：\ans{＿＿＿＿＿}{39}
+ \item \verb@(-4<1)&&(9>2)@ 　解答：\ans{＿＿＿＿＿}{1}
+ \item \verb@5<4<3@ 　解答：\ans{＿＿＿＿＿}{1}
+\end{itemize}
+
+
+\toi
+次の数学の式をC言語の式に書き直せ。
+\begin{itemize}
+ \item $-2+\ds\frac{1-\ds\frac{3+1}{4}}{3-1}$\\[2ex]
+       解答：\ans{}{{\ttfamily\small
+       -2+(1-(3+1)/4)/(3-1)}}\\
+ \item $\sqrt{2x^2+2xy+y^2+1}+\sin\ds\frac{x}{2}$\\[2ex]
+       解答：\ans{}{{\ttfamily\small
+       sqrt(2*x*x+2*x*y+y*y+1)+sin(x/2)}}
+\end{itemize}
+
+
+\toi
+次の数式を代入文で書こうとしたが、間違っている。
+訂正せよ。
+\begin{itemize}
+ \itemsep=5ex
+ \item $x=\ds\frac{-\frac{h}{i+2}-j}{k+l}$
+      $\quad\longrightarrow\quad$
+      \ans{\ttfamily x=[-h\{i+2\}-j]/\{k+l\};}
+      {\ttfamily x=(-h/(i+2)-j)/(k+l);}
+% \item $h=\ds\frac{1}{3}+e^{2x}$
+%      $\quad\longrightarrow\quad$
+%      \ans{\ttfamily h=1./3+pow(e,2x);}
+%      {\ttfamily h=1./3+pow(e,2*x);
+%      または h=1./3+exp(2*x);}
+\end{itemize}
+
+
+
+\input{questionarry.tex}
+
+
+\toi
+計算せよ。\\
+$\ds\sum_{m=1}^{5}\left(2m+1\right)=$
+\ans{＿＿＿＿＿}{35}
+
+
+
+
+
+
+\toi
+以下の代入文が上から順に実行されたとき、
+各変数の値を書け。
+\begin{verbatim}
+    int x, y, z;
+    x = 2;
+    y = 4;
+    x = x + 1;
+    y++;
+    x -= y;
+    z = x + y;
+\end{verbatim}
+\noindent
+解答\\
+xの値：\ans{＿＿＿}{-2}　%
+yの値：\ans{＿＿＿}{5}　%
+zの値：\ans{＿＿＿}{3}
+
+
+
+\toi
+符号無しlong型の変数{\ttfamily a}と、
+文字型の変数{\ttfamily c}
+の変数宣言を書け。
+
+\ifnum \anss=1
+\begin{verbatim}
+
+
+
+\end{verbatim}
+\else
+\begin{verbatim}
+    unsigned long int a;
+
+    char c;
+\end{verbatim}
+\fi
+
+
+
+
+
+
+\toi
+何が表示されるか。
+\begin{verbatim}
+    float a=4.8, b=2.4, x;
+    int m=3, n=2;
+    x = a / b + n / m;
+    if(x > 2){
+      printf("2より大\n");
+    }else{
+      printf("2より小\n");
+    }
+\end{verbatim}
+\noindent
+解答：\ans{}{2より小}
+
+
+\toi
+何が表示されるか。
+\begin{verbatim}
+    int c[4] = {59, 12, 45, 60};
+    printf("%d %d %d\n", c[0]-1, c[1-1], c[3]);
+\end{verbatim}
+
+\noindent
+解答：\ans{}{{\ttfamily 58 59 60}}
+
+
+
+
+\toi
+for文を使って、配列{\ttfamily Value[256]}
+の全ての要素の和を計算して
+表示したい。以下のプログラムの
+下線部を埋めよ。ただし{\ttfamily Value}はすでに
+宣言され初期化されているとする。
+
+\ifnum \anss=1
+\begin{verbatim}
+int k, add=0;
+for( ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿ ){
+   add += Value[k];
+}
+printf("%d\n", add);
+\end{verbatim}
+\else
+\begin{verbatim}
+int k, add=0;
+for(k = 0; k < 256; k++){
+   add += Value[k];
+}
+printf("%d\n", add);
+\end{verbatim}
+\fi
+
+
+\toi
+何が表示されるか。
+\begin{verbatim}
+int x, y, n = 0;
+for(x = 0; x < 10; x++){
+  for(y = 0; y < 10; y++){
+    n++;
+  }
+}
+printf("n is %d\n", n);
+\end{verbatim}
+解答：\ans{＿＿＿＿＿＿＿＿＿＿}{{\ttfamily n is 100}}
+
+
+
+
+
+\toi
+配列{\ttfamily a}の要素のうち、
+{\ttfamily x}より大きいものを全て表示するプログラムの続きを、
+ループを使って書け。
+ただし{\ttfamily x}はすでに宣言され初期化されているとする。
+\ifnum \anss=1
+\begin{verbatim}
+int i, a[5] = {2, 44, 99, 35, 41};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{verbatim}
+\else
+\begin{verbatim}
+int i, a[5] = {2, 44, 99, 35, 41}, x = 40;
+i = 0;
+while(i < 5){
+  if(a[i] > x){
+  printf("%d ", a[i]);
+  }
+  i++;
+}
+または
+int i, a[5] = {2, 44, 99, 35, 41}, x = 40;
+for(i = 0; i < 5; i++){
+  if(a[i] > x){
+  printf("%d ", a[i]);
+  }
+}
+\end{verbatim}
+\fi
+
+
+\toi
+以下の代入文が上から順に実行されたとき、
+各変数の値を書け。
+\begin{verbatim}
+int x = 2, *p, y = 4;
+p = &x;
+x = 3;
+y = *p + 1;
+\end{verbatim}
+\noindent
+解答\\
+{\ttfamily  x}の値：\ans{＿＿＿}{3}　%
+{\ttfamily *p}の値：\ans{＿＿＿}{3}　%
+{\ttfamily  y}の値：\ans{＿＿＿}{4}
+
+
+\toi
+次のプログラムに対応するフローチャートを描け。
+\begin{verbatim}
+int i, n = 0;
+for(i = 7; i > -2; i--){
+  printf("%d ", n);
+  n += 2 * i + 1;
+}  
+\end{verbatim}
+
+
+\vfill\vfill\vfill\vfill\vfill\vfill\vfill\vfill
+
+
+
+\end{multicols*}
+
+
+\end{document}

@@ -1,0 +1,335 @@
+\documentclass[a4j]{jarticle}
+\usepackage{multicol}
+\raggedbottom
+\addtolength{\textwidth}{4cm}
+\addtolength{\textheight}{3.5cm}
+\addtolength{\topmargin}{-2.5cm}
+\addtolength{\evensidemargin}{-2cm}
+\addtolength{\oddsidemargin}{-2cm}
+\setlength{\columnseprule}{.5pt}
+\setlength{\columnsep}{4zw}
+
+\makeatletter
+\def\verbatim@font{\small\bfseries\ttfamily}
+\makeatother
+
+
+\include{flag}
+
+\def\ans#1#2{
+\ifnum \anss=1
+#1
+\else
+#2
+\fi
+}
+
+
+
+
+\def\ds{\displaystyle}
+
+\begin{document}
+\thispagestyle{empty}
+
+\begin{multicols*}{2}%
+
+
+\def\subst#1#2{$\ds #1$
+ \ $\longrightarrow$\ 
+ \underline{\hbox to 5cm{\ttfamily #2}}}
+
+
+
+\noindent
+\begin{tabular}[t]{|c|cccccccc|}\hline
+氏　　名 & & & & & & & & \\ \hline
+\end{tabular}\\
+\begin{tabular}[t]{|c|c|c|c|c|c|c|c|c|c|}\hline
+学籍番号 & & & & & & & & \\ \hline
+\end{tabular}\\
+学籍番号の\underline{数字の}右から一番目が{\bfseries 奇数の人は左側}の問題を
+解いて下さい。
+\vspace{-5ex}
+
+
+
+
+
+
+\subsection*{問1}
+
+以下の配列{\ttfamily a}の要素を全て表示したい。
+{\ttfamily while}を使って、そのためのプログラムの続きを書け。
+変数{\ttfamily i}を使ってよい。
+
+
+\ifnum \anss=1
+\begin{verbatim}
+int i;
+float a[5] = {1.1, 5.6, 3.4, 7.7, 3.9};
+
+
+
+
+
+
+
+\end{verbatim}
+\else
+\begin{verbatim}
+int i;
+float a[5] = {1.1, 5.6, 3.4, 7.7, 3.9};
+i = 0;
+while(i < 5){
+  printf("%f ", a[i]);
+  i = i + 1;
+}
+\end{verbatim}
+\fi
+\vspace{5cm}
+
+
+
+\subsection*{問2}
+
+二重ループを使って
+$1\times1$から$9\times9$までのかけ算（九九）の表を
+表示するプログラムを完成させよ。
+
+
+\ifnum \anss=1
+\begin{verbatim}
+
+
+
+  while(i <= 9){
+
+
+
+    while(j <= 9){
+
+
+
+
+    }
+
+
+
+
+  }
+\end{verbatim}
+\vspace{1cm}
+\else
+\begin{verbatim}
+  int i = 1, j;
+  while(i <= 9){
+    j = 1;
+    while(j <= 9){
+      printf("%d ", i*j);
+      j = j + 1;
+    }
+    i = i + 1;
+    printf("\n");
+  }
+\end{verbatim}
+\vspace{5cm}
+\fi
+
+
+
+
+%以下の配列{\ttfamily a}の、20以上の要素を全て表示したい。
+%{\ttfamily while}を使って、そのためのプログラムを書け。
+%変数{\ttfamily i}を使ってよい。
+%
+%
+%\ifnum \anss=1
+%\begin{verbatim}
+%int i, a[5] = {11, 56, 34, 77, 39};
+%
+%
+%
+%
+%
+%
+%
+%\end{verbatim}
+%\else
+%\begin{verbatim}
+%int i, a[5] = {11, 56, 34, 77, 39};
+%i = 0;
+%while(i < 5){
+%  if(a[i] >= 20){
+%    printf("%c ", a[i]);
+%  }
+%  i = i + 1;
+%}
+%\end{verbatim}
+%\fi
+%\vspace{5cm}
+
+
+
+
+
+
+
+\vfill
+
+\mbox{}
+
+%{\vbox{\vspace{1cm}}}
+
+
+
+
+\noindent
+\begin{tabular}[t]{|c|cccccccc|}\hline
+氏　　名 & & & & & & & & \\ \hline
+\end{tabular}\\
+\begin{tabular}[t]{|c|c|c|c|c|c|c|c|c|c|}\hline
+学籍番号 & & & & & & & & \\ \hline
+\end{tabular}\\
+学籍番号の\underline{数字の}右から一番目が{\bfseries 偶数の人は右側}の問題を
+解いて下さい。
+\vspace{-5ex}
+
+
+
+
+
+\subsection*{問1}
+
+以下の配列{\ttfamily b}の要素を全て表示したい。
+{\ttfamily while}を使って、そのためのプログラムの続きを書け。
+変数{\ttfamily j}を使ってよい。
+
+
+\ifnum \anss=1
+\begin{verbatim}
+int j;
+double b[5] = {0.11, 0.56, 0.34, 0.77, 0.39};
+
+
+
+
+
+
+
+\end{verbatim}
+\else
+\begin{verbatim}
+int j;
+double b[5] = {0.11, 0.56, 0.34, 0.77, 0.39};
+j = 0;
+while(j < 5){
+  printf("%f ", b[j]);
+  j = j + 1;
+}
+\end{verbatim}
+\fi
+\vspace{5cm}
+
+
+
+\subsection*{問2}
+
+
+
+二重ループを使って
+$1\times1$から$9\times9$までのかけ算（九九）の表を
+表示するプログラムを完成させよ。
+
+
+\ifnum \anss=1
+\begin{verbatim}
+
+
+
+  while(a <= 9){
+
+
+
+    while(b <= 9){
+
+
+
+
+    }
+
+
+
+
+  }
+\end{verbatim}
+\vspace{1cm}
+\else
+\begin{verbatim}
+  int a = 1, b;
+  while(a <= 9){
+    b = 1;
+    while(b <= 9){
+      printf("%d ", a*b);
+      b = b + 1;
+    }
+    a = a + 1;
+    printf("\n");
+  }
+\end{verbatim}
+\vspace{5cm}
+\fi
+
+
+
+
+%
+%以下の配列{\ttfamily b}の、40未満の要素を全て表示したい。
+%{\ttfamily while}を使って、そのためのプログラムを書け。
+%変数{\ttfamily j}を使ってよい。
+%
+%
+%\ifnum \anss=1
+%\begin{verbatim}
+%int j, b[5] = {11, 56, 34, 77, 39};
+%
+%
+%
+%
+%
+%
+%
+%\end{verbatim}
+%\else
+%\begin{verbatim}
+%int j, b[5] = {11, 56, 34, 77, 39};
+%j = 0;
+%while(j < 5){
+%  if(b[j] < 40){
+%    printf("%c ", b[j]);
+%  }
+%  j = j + 1;
+%}
+%\end{verbatim}
+%\fi
+%\vspace{5cm}
+%
+
+
+
+
+
+
+
+
+
+
+%\vfill
+
+
+
+
+\end{multicols*}
+
+
+\end{document}

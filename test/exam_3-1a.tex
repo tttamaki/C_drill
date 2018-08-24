@@ -1,0 +1,282 @@
+\documentclass[a4j]{jarticle}
+\usepackage{multicol}
+\raggedbottom
+\addtolength{\textwidth}{4cm}
+\addtolength{\textheight}{3.5cm}
+\addtolength{\topmargin}{-2.5cm}
+\addtolength{\evensidemargin}{-2cm}
+\addtolength{\oddsidemargin}{-2cm}
+\setlength{\columnseprule}{.5pt}
+\setlength{\columnsep}{4zw}
+
+\makeatletter
+\def\verbatim@font{\small\bfseries\ttfamily}
+\makeatother
+
+
+
+\include{flag}
+
+\def\ans#1#2{
+\ifnum \anss=1
+#1
+\else
+#2
+\fi
+}
+
+
+
+
+
+\def\ds{\displaystyle}
+
+\begin{document}
+\thispagestyle{empty}
+
+\begin{multicols*}{2}%
+
+
+\def\subst#1#2{$\ds #1$
+ \ $\longrightarrow$\ 
+ \underline{\hbox to 5cm{\ttfamily #2}}}
+
+
+
+\noindent
+\begin{tabular}[t]{|c|cccccccc|}\hline
+氏　　名 & & & & & & & & \\ \hline
+\end{tabular}\\
+\begin{tabular}[t]{|c|c|c|c|c|c|c|c|c|c|}\hline
+学籍番号 & & & & & & & & \\ \hline
+\end{tabular}\\
+学籍番号の\underline{数字の}右から一番目が{\bfseries 奇数の人は左側}の問題を
+解いて下さい。
+\vspace{-5ex}
+
+
+
+
+
+
+\subsection*{問1}
+
+{\ttfamily while}文を用いたプログラムに書き直せ。
+\begin{verbatim}
+int r = -4;
+printf("%d ", r);
+r = r + 2;
+printf("%d ", r);
+r = r + 2;
+printf("%d ", r);
+r = r + 2;
+printf("\n");
+\end{verbatim}
+
+\ifnum \anss=1
+\begin{verbatim}
+
+
+
+
+
+
+\end{verbatim}
+\else
+\begin{verbatim}
+int r = -4;
+while(r < 1){  または (r<2) または (r<=0)
+  printf("%d ", r);
+  r = r + 2;
+}
+printf("\n");
+\end{verbatim}
+\fi
+
+\vspace*{7cm}
+
+
+
+
+\subsection*{問2}
+
+何が表示されるか。
+
+\begin{verbatim}
+  int i = 0, j;
+  while(i < 3){
+    j = 0;
+    i = i + 1;
+    while(j < 3){
+      printf("%d ", i+j);
+      j = j + 1;
+    }
+    printf("\n");
+  }
+\end{verbatim}
+
+
+\ifnum \anss=1
+\begin{verbatim}
+
+
+
+\end{verbatim}
+\else
+\begin{verbatim}
+1 2 3
+2 3 4
+3 4 5
+\end{verbatim}
+\fi
+
+
+
+
+
+%
+%何が表示されるか。
+%\begin{verbatim}
+%int i = 0, a[6] = {11, 56, 34, 77, 39, 90};
+%while(i < 6){
+%  if(a[i] < 50){
+%     printf("** ");
+%  }else{
+%     printf("%d ", a[i]); 
+%  }
+%}
+%\end{verbatim}
+%\an{{\ttfamily ** 56 ** 77 ** 90}}
+%
+%\vspace*{5cm}
+
+
+\vfill
+
+\mbox{}
+
+%{\vbox{\vspace{1cm}}}
+
+
+
+
+\noindent
+\begin{tabular}[t]{|c|cccccccc|}\hline
+氏　　名 & & & & & & & & \\ \hline
+\end{tabular}\\
+\begin{tabular}[t]{|c|c|c|c|c|c|c|c|c|c|}\hline
+学籍番号 & & & & & & & & \\ \hline
+\end{tabular}\\
+学籍番号の\underline{数字の}右から一番目が{\bfseries 偶数の人は右側}の問題を
+解いて下さい。
+\vspace{-5ex}
+
+
+
+
+\subsection*{問1}
+
+
+{\ttfamily while}文を用いたプログラムに書き直せ。
+\begin{verbatim}
+int w = 9;
+printf("%d ", w);
+w = w - 2;
+printf("%d ", w);
+w = w - 2;
+printf("%d ", w);
+w = w - 2;
+printf("\n");
+\end{verbatim}
+
+
+\ifnum \anss=1
+\begin{verbatim}
+
+
+
+
+
+
+\end{verbatim}
+\else
+\begin{verbatim}
+int w = 9;
+while(w > 4){    または (w>3) または (w>=5)
+  printf("%d ", w);
+  w = w - 2;
+}
+printf("\n");
+\end{verbatim}
+\fi
+\vspace*{7cm}
+
+
+
+
+\subsection*{問2}
+
+
+何が表示されるか。
+
+
+
+\begin{verbatim}
+  int i = 0, j;
+  while(i < 9){
+    j = 0;
+    while(j < 3){
+      j = j + 1;
+      printf("%d ", i+j);
+      i = i + 1;
+    }
+    printf("\n");
+  }
+\end{verbatim}
+
+
+\ifnum \anss=1
+\begin{verbatim}
+
+
+
+\end{verbatim}
+\else
+\begin{verbatim}
+1 3 5
+4 6 8
+7 9 11
+\end{verbatim}
+\fi
+
+
+
+
+
+
+%\begin{verbatim}
+%int i = 0, a[6] = {11, 56, 34, 77, 39, 90};
+%while(i < 6){
+%  if(a[i] > 40){
+%     printf("%d ", a[i]);
+%  }else{
+%     printf("** ");
+%  }
+%}
+%\end{verbatim}
+%\an{{\ttfamily ** 56 ** 77 ** 90}}
+%
+
+
+
+
+
+%\vfill
+
+
+
+
+\end{multicols*}
+
+
+\end{document}

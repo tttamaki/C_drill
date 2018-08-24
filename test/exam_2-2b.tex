@@ -1,0 +1,292 @@
+\documentclass[a4j]{jarticle}
+\usepackage{multicol}
+\raggedbottom
+\addtolength{\textwidth}{4cm}
+\addtolength{\textheight}{3.5cm}
+\addtolength{\topmargin}{-2.5cm}
+\addtolength{\evensidemargin}{-2cm}
+\addtolength{\oddsidemargin}{-2cm}
+\setlength{\columnseprule}{.5pt}
+\setlength{\columnsep}{4zw}
+
+\makeatletter
+\def\verbatim@font{\small\bfseries\ttfamily}
+\makeatother
+
+
+
+\include{flag}
+
+
+\def\ans#1#2{
+\ifnum \anss=1
+#1
+\else
+#2
+\fi
+}
+
+
+
+
+
+\ifnum \anss=1
+\def\an#1{\phantom{#1}}
+\else
+\def\an#1{{#1}}
+\fi
+
+
+
+\def\ds{\displaystyle}
+
+\begin{document}
+\thispagestyle{empty}
+
+\begin{multicols*}{2}%
+
+
+\def\subst#1#2{$\ds #1$
+ \ $\longrightarrow$\ 
+ \underline{\hbox to 5cm{\ttfamily #2}}}
+
+
+
+\noindent
+\begin{tabular}[t]{|c|cccccccc|}\hline
+氏　　名 & & & & & & & & \\ \hline
+\end{tabular}\\
+\begin{tabular}[t]{|c|c|c|c|c|c|c|c|c|c|}\hline
+学籍番号 & & & & & & & & \\ \hline
+\end{tabular}\\
+学籍番号の\underline{数字の}右から一番目が{\bfseries 奇数の人は左側}の問題を
+解いて下さい。
+\vspace{-5ex}
+
+
+\subsection*{問1}
+
+
+1.　float型はdouble型より広い範囲の実数を
+扱うことが[できない・できる]。
+
+\ifnum \anss=1
+\mbox{}
+\else
+できない
+\fi
+
+
+2.　{\ttfamily 2/5*10}の評価結果は　　\ifnum \anss=1\else 0 \fi　　である。
+
+
+
+\subsection*{問2}
+
+何が表示されるか。
+\begin{verbatim}
+char what = 'm';
+printf("%c%c%c\n", what, what + 1, what + 2);
+\end{verbatim}
+
+\ifnum \anss=1\else {\ttfamily mno} \fi
+
+
+\subsection*{問3}
+
+
+C言語の式として正しければ○を、間違っていれば×を書け。\\
+\verb@5-5*y+x^2       @\underline{\an{　　×　　}}\\
+\verb@2*LastState-5   @\underline{\an{　　○　　}}\\
+\verb@Σ*x+2          @\underline{\an{　　×　　}}\\
+
+
+
+
+\subsection*{問4}
+
+何が表示されるか。
+\begin{verbatim}
+int r = -4;
+printf("%d ", r);
+r = r + 2;
+printf("%d ", r);
+r = r + 2;
+printf("%d ", r);
+r = r + 2;
+printf("\n");
+\end{verbatim}
+\an{\ttfamily -4 -2 0}
+
+
+
+\subsection*{問5}
+
+
+実数型の変数{\ttfamily x}と
+整数型の変数{\ttfamily c}を宣言し、
+それぞれ{\ttfamily 1.2}と{\ttfamily 33}で初期化して、
+{\ttfamily printf}文によって二つの変数の値を
+表示するためのプログラムを書け。
+
+\ifnum \anss=1
+\begin{verbatim}
+
+
+
+
+
+
+\end{verbatim}
+\else
+\begin{verbatim}
+例：
+float x = 1.2;       doubleでも可
+int c = 33;          (un)singed/long/shortでも可
+printf("%f %d", x, c);
+
+
+\end{verbatim}
+\fi
+
+
+%当てはまるものにチェックを付けよ。
+%
+%\begin{itemize}
+% \itemsep=-3pt
+% \item 配列は： □よく分からない。□理解した。
+% \item 実数型と整数型の違いは：\\ □よく分からない。□理解した。
+% \item {\ttfamily printf}関数の使いかたは：\\ □よく分からない。□理解した。
+%\end{itemize}
+
+
+
+
+
+
+\vfill
+
+%\mbox{}
+
+%{\vbox{\vspace{1cm}}}
+
+
+
+
+\noindent
+\begin{tabular}[t]{|c|cccccccc|}\hline
+氏　　名 & & & & & & & & \\ \hline
+\end{tabular}\\
+\begin{tabular}[t]{|c|c|c|c|c|c|c|c|c|c|}\hline
+学籍番号 & & & & & & & & \\ \hline
+\end{tabular}\\
+学籍番号の\underline{数字の}右から一番目が{\bfseries 偶数の人は右側}の問題を
+解いて下さい。
+\vspace{-5ex}
+
+
+
+
+
+\subsection*{問1}
+
+1.　unsigned int型で{\ttfamily -4}は[表せる・表せない]。\\
+
+\an{表せない}
+
+
+2.　{\ttfamily 10*2/5}の評価結果は　　\an{4}　　である。
+
+
+
+\subsection*{問2}
+
+何が表示されるか。
+\begin{verbatim}
+char hey = 'u';
+printf("%c%c%c\n", hey - 1, hey, hey + 1);
+\end{verbatim}
+\an{{\ttfamily tuv}}
+
+
+
+\subsection*{問3}
+
+
+C言語の式として正しければ○を、間違っていれば×を書け。\\
+\verb@2*sigma\c           @\underline{\an{　　×　　}}\\
+\verb@OutputResult*2-x     @\underline{\an{　　○　　}}\\
+\verb@33+5*x*π            @\underline{\an{　　×　　}}\\
+
+
+
+\subsection*{問4}
+
+何が表示されるか。
+\begin{verbatim}
+int w = 9;
+printf("%d ", w);
+w = w - 2;
+printf("%d ", w);
+w = w - 2;
+printf("%d ", w);
+w = w - 2;
+printf("\n");
+\end{verbatim}
+\an{{\ttfamily 9 7 5}}
+
+
+
+\subsection*{問5}
+
+
+
+実数型の変数{\ttfamily z}と
+文字型の変数{\ttfamily d}を宣言し、
+それぞれ{\ttfamily 0.23}と{\ttfamily 'T'}で初期化して、
+{\ttfamily printf}文によって二つの変数の値を
+表示するためのプログラムを書け。
+
+\ifnum \anss=1
+\begin{verbatim}
+
+
+
+
+
+
+\end{verbatim}
+\else
+\begin{verbatim}
+例：
+float z = 0.23;    doubleでも可
+char d = 'T';      (un)singedでも可
+printf("%f %c", z, d);  "%f %d"でも可
+
+
+\end{verbatim}
+\fi
+%
+%
+%当てはまるものにチェックを付けよ。
+%
+%\begin{itemize}
+% \itemsep=-3pt
+% \item 配列は： □理解した。□よく分からない。
+% \item 実数型と整数型の違いは：\\ □理解した。□よく分からない。
+% \item {\ttfamily printf}関数の使いかたは：\\ □理解した。□よく分からない。
+%\end{itemize}
+%
+
+
+
+
+%\vfill
+
+
+
+
+\end{multicols*}
+
+
+\end{document}

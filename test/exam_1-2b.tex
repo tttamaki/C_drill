@@ -1,0 +1,261 @@
+\documentclass[a4j]{jarticle}
+\usepackage{multicol}
+\raggedbottom
+\addtolength{\textwidth}{4cm}
+\addtolength{\textheight}{3.5cm}
+\addtolength{\topmargin}{-2.5cm}
+\addtolength{\evensidemargin}{-2cm}
+\addtolength{\oddsidemargin}{-2cm}
+\setlength{\columnseprule}{.5pt}
+\setlength{\columnsep}{4zw}
+
+\makeatletter
+\def\verbatim@font{\small\bfseries\ttfamily}
+\makeatother
+
+
+\include{flag}
+
+
+\def\ds{\displaystyle}
+
+\begin{document}
+\thispagestyle{empty}
+
+\begin{multicols*}{2}%
+
+
+\def\subst#1#2{$\ds #1$
+ \ $\longrightarrow$\ 
+ \underline{\hbox to 5cm{\ttfamily #2}}}
+
+
+
+\noindent
+\begin{tabular}[t]{|c|cccccccc|}\hline
+氏　　名 & & & & & & & & \\ \hline
+\end{tabular}\\
+\begin{tabular}[t]{|c|c|c|c|c|c|c|c|c|c|}\hline
+学籍番号 & & & & & & & & \\ \hline
+\end{tabular}\\
+学籍番号の\underline{数字の}右から一番目が{\bfseries 奇数の人は左側}の問題を
+解いて下さい。
+\vspace{-5ex}
+
+
+\subsection*{問1}
+
+以下の代入文が上から順番に実行されるとき、全ての代入文の
+実行が終わった時点での各変数の値を書け。
+
+\begin{verbatim}
+y = 2;
+x = 3;
+x = y;
+z = x + 2;
+y = x;
+\end{verbatim}
+
+
+{\ttfamily x}の値:\an{\quad 2}\\
+
+{\ttfamily y}の値:\an{\quad 2}\\
+
+{\ttfamily z}の値:\an{\quad 4}\\
+
+
+\subsection*{問2}
+
+すでに変数{\ttfamily x, y}に何かの値が代入されているとき、
+変数{\ttfamily x, y}の値を入れ換えるための
+代入文の組を（変数{\ttfamily z}を使って）書け。
+
+
+
+
+\ifnum \anss=1
+\vspace*{2cm}
+\else
+\begin{verbatim}
+z = x;
+x = y;
+y = z;
+\end{verbatim}%\vspace*{1cm}
+\fi
+
+
+\subsection*{問3}
+C言語の変数にはアルファベット（大文字、小文字）とアンダーバー（＿）
+しか使えない。
+次の数学の数式をC言語の式に書き直せ。\\
+
+$2\alpha+\frac{\pi}{2}$
+\an{\quad {\ttfamily 2*alpha+pi/2}}
+
+$x^2+(x+1)^{10}$
+\an{\quad {\ttfamily x*x+pow(x+1,10)}}
+
+$\frac{\sqrt{2}+y}{\frac{2}{x-5}+z}$
+\an{\quad {\ttfamily (sqrt(2)+y)/(2/(x-5)+z)}}
+
+
+
+
+\subsection*{問4}
+
+
+1.　実数型({\ttfamily double})の変数{\ttfamily Sigma\_1}と
+符号無し整数({\ttfamily long})の変数
+{\ttfamily count0}の変数宣言を書け。\\
+\an{{\ttfamily double Sigma\_1;}}\\
+\an{{\ttfamily unsigned long int count0;}}\\
+
+
+2.　{\ttfamily 1/5}の評価結果は　　\an{0}　　である。
+
+
+%
+%
+%当てはまるものにチェックを付けよ。
+%
+%\begin{itemize}
+% \itemsep=-3pt
+% \item 「代入」は： □よく分からない。□理解した。
+% \item 評価順序は： □よく分からない。□理解した。
+%\end{itemize}
+
+\ifnum \anss=1
+\else
+\vspace{2cm}
+\fi
+
+%\vfill
+
+%\mbox{}
+
+
+
+%{\vbox{\vspace{1cm}}}
+
+
+
+
+\noindent
+\begin{tabular}[t]{|c|cccccccc|}\hline
+氏　　名 & & & & & & & & \\ \hline
+\end{tabular}\\
+\begin{tabular}[t]{|c|c|c|c|c|c|c|c|c|c|}\hline
+学籍番号 & & & & & & & & \\ \hline
+\end{tabular}\\
+学籍番号の\underline{数字の}右から一番目が{\bfseries 偶数の人は右側}の問題を
+解いて下さい。
+\vspace{-5ex}
+
+
+
+
+\subsection*{問1}
+
+
+すでに変数{\ttfamily a, b}に何かの値が代入されているとき、
+変数{\ttfamily a, b}の値を入れ換えるための
+代入文の組を（変数{\ttfamily c}を使って）書け。
+
+
+
+
+\ifnum \anss=1
+\vspace*{2cm}
+\else
+\begin{verbatim}
+c = a;
+a = b;
+b = c;
+\end{verbatim}\vspace*{1cm}
+\fi
+
+
+
+\subsection*{問2}
+
+以下の代入文が上から順番に実行されるとき、全ての代入文の
+実行が終わった時点での各変数の値を書け。
+
+\begin{verbatim}
+y = 2;
+x = 3;
+y = x;
+z = x + 2;
+x = y;
+\end{verbatim}
+
+
+{\ttfamily x}の値:\an{\quad 3}\\
+
+{\ttfamily y}の値:\an{\quad 3}\\
+
+{\ttfamily z}の値:\an{\quad 5}\\
+
+
+
+
+\subsection*{問3}
+C言語の変数にはアルファベット（大文字、小文字）とアンダーバー（＿）
+のみ使うことができる。
+次の数学の数式をC言語の式に書き直せ。\\
+
+$2\theta+\frac{\beta}{2}$
+\an{\quad {\ttfamily 2*theta+beta/2}}
+
+$\sqrt{x}+a^p$
+\an{\quad {\ttfamily sqrt(x)+pow(a,p)}}
+
+$\frac{-z+\frac{x-5}{2}}{2+y}$
+\an{\quad {\ttfamily (-z+(x-5)/2)/(2+y)}}
+
+
+
+
+\subsection*{問4}
+
+
+
+1.　実数型({\ttfamily float})の変数{\ttfamily Sigma\_0}と
+符号付き整数({\ttfamily short})の変数
+{\ttfamily count1}の変数宣言を書け。\\
+\an{{\ttfamily float Sigma\_0;}}\\
+\an{{\ttfamily signed short int count1;}}\\
+
+
+2.　{\ttfamily 5/2}の評価結果は　　\an{2}　　である。
+
+
+%当てはまるものにチェックを付けよ。
+%
+%\begin{itemize}
+% \itemsep=-3pt
+% \item 「代入」は： □理解した。□よく分からない。
+% \item 評価順序は： □理解した。□よく分からない。
+%\end{itemize}
+
+
+
+%\vspace{2cm}
+
+%\vfill
+
+
+
+
+
+
+
+
+
+
+
+
+\end{multicols*}
+
+
+\end{document}

@@ -1,0 +1,263 @@
+\documentclass[a4j]{jarticle}
+\usepackage{multicol}
+\raggedbottom
+\addtolength{\textwidth}{4cm}
+\addtolength{\textheight}{3.5cm}
+\addtolength{\topmargin}{-2.5cm}
+\addtolength{\evensidemargin}{-2cm}
+\addtolength{\oddsidemargin}{-2cm}
+\setlength{\columnseprule}{.5pt}
+\setlength{\columnsep}{4zw}
+
+\makeatletter
+\def\verbatim@font{\small\bfseries\ttfamily}
+\makeatother
+
+
+\include{flag}
+
+
+\def\ds{\displaystyle}
+
+\begin{document}
+\thispagestyle{empty}
+
+\begin{multicols*}{2}%
+
+
+\def\subst#1#2{$\ds #1$
+ \ $\longrightarrow$\ 
+ \underline{\hbox to 5cm{\ttfamily #2}}}
+
+
+
+\noindent
+\begin{tabular}[t]{|c|cccccccc|}\hline
+氏　　名 & & & & & & & & \\ \hline
+\end{tabular}\\
+\begin{tabular}[t]{|c|c|c|c|c|c|c|c|c|c|}\hline
+学籍番号 & & & & & & & & \\ \hline
+\end{tabular}\\
+学籍番号の\underline{数字の}右から一番目が{\bfseries 奇数の人は左側}の問題を
+解いて下さい。
+\vspace{-5ex}
+
+
+\subsection*{問1}
+%
+%1.　実数型({\ttfamily double})の変数{\ttfamily Sigma\_1}と
+%符号無し整数({\ttfamily long})の変数
+%{\ttfamily count0}の変数宣言を書け。\\
+%\an{{\ttfamily double Sigma\_1;}}\\
+%\an{{\ttfamily unsigned long int count0;}}\\
+%
+%
+%2.　{\ttfamily 5/2}の評価結果は　　\an{2}　　である。
+
+
+
+
+1.　実数型({\ttfamily float})の変数{\ttfamily Sigma\_0}と
+符号付き整数({\ttfamily short})の変数
+{\ttfamily count1}の変数宣言を書け。\\
+\an{{\ttfamily float Sigma\_0;}}\\
+\an{{\ttfamily signed short int count1;}}\\
+
+
+2.　{\ttfamily 5/2}の評価結果は　　\an{2}　　である。
+
+
+
+
+
+\subsection*{問2}
+
+次のプログラム終了時には何が表示されるか。
+\begin{verbatim}
+int a[3] = {1, 2, 3};
+char b[3] = {'e', 'f', 'g'};
+b[0] = b[0] + a[0];
+b[1] = b[1] + a[1];
+b[2] = b[2] + a[2];
+printf("%c %c %c\n", b[0], b[1], b[2]);
+\end{verbatim}
+
+\ifnum \anss=1
+\vspace*{1cm}
+\else
+\begin{verbatim}
+f h j
+\end{verbatim}
+\fi
+
+
+
+
+
+
+
+\subsection*{問3}
+
+次のプログラム終了時には{\ttfamily a)}から{\ttfamily f)}のどれ
+が表示されるか。\an{答：{\ttfamily c)}}
+\begin{verbatim}
+int i = -3;
+printf("%d ", i);
+i = i + 3;
+printf("%d\n", i);
+i = i + 3;
+printf("%d ", i);
+i = i + 3;
+printf("\n");
+\end{verbatim}
+
+\begin{verbatim}
+a)      -3 0 3
+
+b)      -3 0 3 6
+
+c)      -3 0
+        3
+
+d)      -3 0
+        3 6
+
+e)      -3
+        0
+        3
+        6
+
+f)      -3
+        0
+        3
+\end{verbatim}
+
+
+
+
+\vfill
+
+\mbox{}
+
+%{\vbox{\vspace{1cm}}}
+
+
+
+
+\noindent
+\begin{tabular}[t]{|c|cccccccc|}\hline
+氏　　名 & & & & & & & & \\ \hline
+\end{tabular}\\
+\begin{tabular}[t]{|c|c|c|c|c|c|c|c|c|c|}\hline
+学籍番号 & & & & & & & & \\ \hline
+\end{tabular}\\
+学籍番号の\underline{数字の}右から一番目が{\bfseries 偶数の人は右側}の問題を
+解いて下さい。
+\vspace{-5ex}
+
+
+
+
+
+\subsection*{問1}
+
+%1.　符号付き文字型の変数{\ttfamily Name}と
+%実数型({\ttfamily float})の変数{\ttfamily Value}
+%の変数宣言を書け。\\
+%\an{{\ttfamily signed char Name;}}\\
+%\an{{\ttfamily float Value;}}\\
+%
+%
+%2.　{\ttfamily 1/5}の評価結果は　　\an{0}　　である。
+
+
+
+1.　実数型({\ttfamily double})の変数{\ttfamily Sigma\_1}と
+符号無し整数({\ttfamily long})の変数
+{\ttfamily count0}の変数宣言を書け。\\
+\an{{\ttfamily double Sigma\_1;}}\\
+\an{{\ttfamily unsigned long int count0;}}\\
+
+
+2.　{\ttfamily 2/3}の評価結果は　　\an{0}　　である。
+
+
+
+
+
+
+
+\subsection*{問2}
+
+次のプログラム終了時には何が表示されるか。
+\begin{verbatim}
+char a[3], b[3] = {'0', '1', '2'};
+a[0] = b[0] + 1;
+a[1] = b[1] + 1;
+a[2] = b[2] + 1;
+printf("%c %c %c\n", a[0]+1, a[1]+2, a[2]+3);
+\end{verbatim}
+
+
+\ifnum \anss=1
+\vspace*{1cm}
+\else
+\begin{verbatim}
+2 4 6
+\end{verbatim}
+\fi
+
+
+
+
+
+
+\subsection*{問3}
+
+
+
+次のプログラム終了時には{\ttfamily a)}から{\ttfamily f)}のどれ
+が表示されるか。\an{答：{\ttfamily d)}}
+\begin{verbatim}
+int i = 9;
+printf("%d\n", i);
+i = i - 4;
+printf("%d ", i);
+i = i - 4;
+printf("%d ", i);
+i = i - 4;
+printf("\n");
+\end{verbatim}
+
+\begin{verbatim}
+a)      9 5 1
+
+b)      9 5 1 -3
+
+c)      9
+        5 1 -3
+
+d)      9
+        5 1
+
+e)      9
+        5
+        1
+        -3
+
+f)      9
+        5
+        1
+\end{verbatim}
+
+
+
+%\vfill
+
+
+
+
+\end{multicols*}
+
+
+\end{document}

@@ -1,0 +1,232 @@
+\documentclass[a4j]{jarticle}
+\usepackage{multicol}
+\raggedbottom
+\addtolength{\textwidth}{4cm}
+\addtolength{\textheight}{3.5cm}
+\addtolength{\topmargin}{-2.5cm}
+\addtolength{\evensidemargin}{-2cm}
+\addtolength{\oddsidemargin}{-2cm}
+\setlength{\columnseprule}{.5pt}
+\setlength{\columnsep}{4zw}
+
+\makeatletter
+\def\verbatim@font{\small\bfseries\ttfamily}
+\makeatother
+
+
+\include{flag}
+
+\def\ds{\displaystyle}
+
+\begin{document}
+\thispagestyle{empty}
+
+\begin{multicols*}{2}%
+
+
+\def\subst#1#2{$\ds #1$
+ \ $\longrightarrow$\ 
+ \underline{\hbox to 5cm{\ttfamily #2}}}
+
+
+
+\noindent
+\begin{tabular}[t]{|c|cccccccc|}\hline
+氏　　名 & & & & & & & & \\ \hline
+\end{tabular}\\
+\begin{tabular}[t]{|c|c|c|c|c|c|c|c|c|c|}\hline
+学籍番号 & & & & & & & & \\ \hline
+\end{tabular}\\
+学籍番号の\underline{数字の}右から一番目が{\bfseries 奇数の人は左側}の問題を
+解いて下さい。
+\vspace{-5ex}
+
+
+\subsection*{問1}
+
+次のC言語の式を評価せよ。
+\begin{center}
+ \begin{tabular}{|l|c|}\hline
+ 式 & 評価結果 \\\hline\hline
+ \verb;20 / 5*2; & \an{8} \\\hline
+ \verb;27/9!=5-2;& \an{0} \\\hline
+ \verb;(5*2+4*2)/(2+1)*4;& \an{24}\\\hline
+ \verb;((0<1)||(2>4))&&((6-3)/3);& \an{1} \\\hline
+ \end{tabular}
+\end{center}
+
+
+\subsection*{問2}
+
+次の数式をC言語の式に書き直せ。
+ただし$e$は指数とする。
+
+\begin{itemize}
+% \itemsep=12ex
+ \item $\ds 1+\frac{-\frac{3-2}{8}-11}{-55-1}-4$
+
+      \quad \rule[-3ex]{0pt}{6ex}
+       \an{{\ttfamily
+       1+(-(3-2)/8-11)/(-55-1)-4
+       }}
+
+ \item $\frac{1}{2\pi|\sigma|}
+       \ e^{-x^2}$
+
+       \quad \rule[-3ex]{0pt}{6ex}
+       \quad \an{{\ttfamily 1/(2*pi*fabs(sigma))*exp(-x*x)}}
+
+       \quad \rule[-3ex]{0pt}{6ex}
+
+
+
+ \item $\ds\frac{x^n-1}{(x-1)^2}$
+
+      \quad \rule[-3ex]{0pt}{6ex}
+       \an{{\ttfamily
+       (pow(x,n)-1)/((x-1)*(x-1))
+       }}
+
+\end{itemize}
+
+
+
+
+
+\subsection*{問3}
+
+以下の代入文が上から順番に実行されるとき、全ての代入文の
+実行が終わった時点での各変数の値を書け。
+
+\begin{verbatim}
+x = 3;
+y = 2;
+x = y + 6;
+y = x / 2;
+x = x + 4;
+y = (x > 1) * 2 + z * 4 + (x < 10);
+z = x / 6;
+\end{verbatim}
+
+
+{\ttfamily x}の値:\an{\quad 12}\\
+
+{\ttfamily y}の値:\an{\quad 未定}\\
+
+{\ttfamily z}の値:\an{\quad 2}\\
+
+
+
+
+
+\vfill
+
+
+
+%{\vbox{\vspace{1cm}}}
+
+
+
+
+\noindent
+\begin{tabular}[t]{|c|cccccccc|}\hline
+氏　　名 & & & & & & & & \\ \hline
+\end{tabular}\\
+\begin{tabular}[t]{|c|c|c|c|c|c|c|c|c|c|}\hline
+学籍番号 & & & & & & & & \\ \hline
+\end{tabular}\\
+学籍番号の\underline{数字の}右から一番目が{\bfseries 偶数の人は右側}の問題を
+解いて下さい。
+\vspace{-5ex}
+
+
+
+
+
+\subsection*{問1}
+
+次のC言語の式を評価せよ。
+\begin{center}
+ \begin{tabular}{|l|c|}\hline
+ 式 & 評価結果 \\\hline\hline
+ \verb;36 / 9/2;& \an{2} \\\hline
+ \verb;256/2<=+120-5;& \an{0}  \\\hline
+ \verb;!(8<8)*3;& \an{3} \\\hline
+ \verb;((0<1)&&(2>4))||((6-3)/3);& \an{1}\\\hline
+ \end{tabular}
+\end{center}
+
+
+\subsection*{問2}
+
+次の数式をC言語の式に書き直せ。
+ただし$e$は指数とする。
+
+\begin{itemize}
+
+ \item $\ds \frac{-4+11}{\frac{-5}{-3-33}+1}-2$
+
+       \quad \rule[-3ex]{0pt}{6ex}
+       \an{{\ttfamily
+       (-4+11)/(-5/(-3-33)+1)-2
+       }}
+
+ \item $\sin\alpha\cos\beta+\cos\alpha\sin\beta$
+
+       \quad \rule[-3ex]{0pt}{6ex}
+       \an{{\ttfamily
+       sin(alpha)*cos(beta)+cos(alpha)*sin(beta)
+       }}
+       \quad \rule[-3ex]{0pt}{6ex}
+
+ \item $\ds\frac{a^p}{a^q}-a^{p-q}$
+
+       \quad \rule[-3ex]{0pt}{6ex}
+       \an{{\ttfamily
+       pow(a,p)/pow(a,q)-pow(a,p-q)
+       }}
+
+
+
+\end{itemize}
+
+
+
+
+
+\subsection*{問3}
+
+以下の代入文が上から順番に実行されるとき、全ての代入文の
+実行が終わった時点での各変数の値を書け。
+
+\begin{verbatim}
+x = (y = 3) + 1;
+y = y + 2;
+x = y + 7;
+y = x / 2;
+x = x + 4;
+y = (x > 1) * 2 + z * 4 + (x < 10);
+z = x * 2;
+\end{verbatim}
+
+
+{\ttfamily x}の値:\an{\quad 16}\\
+
+{\ttfamily y}の値:\an{\quad 未定}\\
+
+{\ttfamily z}の値:\an{\quad 32}\\
+
+
+
+
+
+
+\vfill
+
+
+
+
+\end{multicols*}
+
+
+\end{document}

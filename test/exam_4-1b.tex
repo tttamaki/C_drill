@@ -1,0 +1,425 @@
+\documentclass[a4j]{jarticle}
+\usepackage{multicol}
+\raggedbottom
+\addtolength{\textwidth}{4cm}
+\addtolength{\textheight}{3.5cm}
+\addtolength{\topmargin}{-2.5cm}
+\addtolength{\evensidemargin}{-2cm}
+\addtolength{\oddsidemargin}{-2cm}
+%\setlength{\columnseprule}{.5pt}
+\setlength{\columnsep}{4zw}
+
+\makeatletter
+\def\verbatim@font{\small\bfseries\ttfamily}
+\makeatother
+
+
+
+\include{flag}
+
+
+\def\ans#1#2{
+\ifnum \anss=1
+#1
+\else
+#2
+\fi
+}
+
+
+
+
+\def\ds{\displaystyle}
+
+\begin{document}
+\thispagestyle{empty}
+
+\begin{multicols*}{2}%
+
+
+\def\subst#1#2{$\ds #1$
+ \ $\longrightarrow$\ 
+ \underline{\hbox to 5cm{\ttfamily #2}}}
+
+
+
+\noindent
+\begin{tabular}[t]{|c|cccccccc|}\hline
+氏　　名 & & & & & & & & \\ \hline
+\end{tabular}\\
+\begin{tabular}[t]{|c|c|c|c|c|c|c|c|c|c|}\hline
+学籍番号 & & & & & & & & \\ \hline
+\end{tabular}\\
+学籍番号の\underline{数字の}右から一番目が{\bfseries 奇数の人は左側}の問題を
+解いて下さい。
+\vspace{-5ex}
+
+
+
+
+
+
+
+\subsection*{問1}
+
+
+{\ttfamily int型変数a,b}を使って、二重ループを用いて
+$10\times80$から$99\times89$のかけ算{\ttfamily a*b}を表示するプログラムを書け。
+
+\ifnum \anss=1
+\begin{verbatim}
+int a = 10, b;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{verbatim}
+\else
+\begin{verbatim}
+  int a = 10, b;
+  while(a <= 99){
+    b = 80;
+    while(b <= 89){
+      printf("%d\n", a * b);
+      b++;
+    }
+    a++;
+  }
+\end{verbatim}
+\vspace{2cm}
+\fi
+
+
+
+\subsection*{問2}
+
+前問の$10\times80$から$99\times89$のかけ算{\ttfamily a*b}のうち、
+{\ttfamily aとb}の積が4桁で、かつ
+{\ttfamily aと8}の積が2桁で、かつ
+{\ttfamily aとb-80}の積が3桁である場合にのみ
+{\ttfamily a*b}の結果を表示するプログラムを（二重ループと{\ttfamily if}
+を用いて）書け。
+
+
+\ifnum \anss=1
+\begin{verbatim}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{verbatim}
+\else
+\begin{verbatim}
+int a = 10, b;
+while(a <= 99){
+  b = 80;
+  while(b <= 89){
+    if(a*b >= 1000 && a*b < 10000){
+        if(a*8 >= 10 && a*8 < 100){
+          if(a*(b-80) >= 100 && a*(b-80) < 1000){
+            printf("  %d\n", a);
+            printf("x %d\n", b);
+            printf("-------\n");
+            printf(" %d\n", a*(b-80));
+            printf(" %d\n", a*8);
+            printf("-------\n");
+            printf("%d\n", a*b);
+          }}}
+    b++;
+  }
+  a++;
+}
+
+虫食算      正解
+  ??          12   
+x 8?        x 89   
+-------     -------
+ ???         108   
+ ??          96    
+-------     -------
+????        1068   
+\end{verbatim}
+\vfill
+\mbox{}
+\fi
+
+
+
+
+
+
+%以下の配列{\ttfamily a}の、20以上の要素を全て表示したい。
+%{\ttfamily for}を使って、そのためのプログラムを書け。
+%変数{\ttfamily i}を使ってよい。
+%
+%
+%\ifnum \anss=1
+%\begin{verbatim}
+%int i, a[5] = {11, 56, 34, 77, 39};
+%
+%
+%
+%
+%
+%\end{verbatim}
+%\else
+%\begin{verbatim}
+%int i, a[5] = {11, 56, 34, 77, 39};
+%for(i = 0, i < 5, i++){
+%  if(a[i] >= 20){
+%    printf("%c ", a[i]);
+%  }
+%}
+%\end{verbatim}
+%\fi
+%\vspace{5cm}
+%
+%
+%
+%\subsection*{問2}
+%
+%問1のプログラムのフローチャートを描け。
+%
+%\vspace{10cm}
+%
+%
+%
+
+
+
+
+%\vfill
+
+%\mbox{}
+
+%{\vbox{\vspace{1cm}}}
+
+
+
+
+\noindent
+\begin{tabular}[t]{|c|cccccccc|}\hline
+氏　　名 & & & & & & & & \\ \hline
+\end{tabular}\\
+\begin{tabular}[t]{|c|c|c|c|c|c|c|c|c|c|}\hline
+学籍番号 & & & & & & & & \\ \hline
+\end{tabular}\\
+学籍番号の\underline{数字の}右から一番目が{\bfseries 偶数の人は右側}の問題を
+解いて下さい。
+\vspace{-5ex}
+
+
+
+
+
+\subsection*{問1}
+
+
+
+
+{\ttfamily int型変数a,b}を使って、二重ループを用いて
+$100\times80$から$999\times89$のかけ算{\ttfamily a*b}を表示するプログラムを書け。
+
+\ifnum \anss=1
+\begin{verbatim}
+int a = 100, b;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{verbatim}
+\else
+\begin{verbatim}
+  int a = 100, b;
+  while(a <= 999){
+    b = 80;
+    while(b <= 89){
+      printf("%d\n", a * b);
+      b++;
+    }
+    a++;
+  }
+\end{verbatim}
+\vspace{2cm}
+\fi
+
+
+
+\subsection*{問2}
+
+前問の$100\times80$から$999\times89$のかけ算{\ttfamily a*b}のうち、
+{\ttfamily aとb}の積が4桁で、かつ
+{\ttfamily aと8}の積が3桁で、かつ
+{\ttfamily aとb-80}の積が4桁である場合にのみ
+{\ttfamily a*b}の結果を表示するプログラムを（二重ループと{\ttfamily if}
+を用いて）書け。
+
+
+
+\ifnum \anss=1
+\begin{verbatim}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{verbatim}
+\else
+\begin{verbatim}
+int a = 100, b;
+while(a <= 999){
+  b = 80;
+  while(b <= 89){
+    if(a*b >= 1000 && a*b < 10000){
+      if(a*8 >= 100 && a*8 < 1000){
+        if(a*(b-80) >= 1000 && a*(b-80) < 10000){
+          printf(" %d\n", a);
+          printf("x %d\n", b);
+          printf("-------\n");
+          printf("%d\n", a*(b-80));
+          printf("%d\n", a*8);
+          printf("-------\n");
+          printf("%d\n", a*b);
+        }}}
+    b++;
+  }
+  a++;
+}
+
+虫食算      正解
+ ???         112  
+x 8?        x 89  
+-------     -------
+????        1008  
+???         896   
+-------     -------
+????        9968   
+\end{verbatim}
+\fi
+
+
+
+
+
+
+
+
+
+%
+%以下の配列{\ttfamily b}の、40未満の要素を全て表示したい。
+%{\ttfamily for}を使って、そのためのプログラムを書け。
+%変数{\ttfamily j}を使ってよい。
+%
+%
+%\ifnum \anss=1
+%\begin{verbatim}
+%int j, b[5] = {11, 56, 34, 77, 39};
+%
+%
+%
+%
+%
+%\end{verbatim}
+%\else
+%\begin{verbatim}
+%int j, b[5] = {11, 56, 34, 77, 39};
+%for(j = 0, j < 5, j++){
+%  if(b[j] < 40){
+%    printf("%c ", b[j]);
+%  }
+%}
+%\end{verbatim}
+%\fi
+%\vspace{5cm}
+%
+%
+%
+%\subsection*{問2}
+%
+%問1のプログラムのフローチャートを描け。
+%
+%\vspace{10cm}
+%
+
+
+
+
+
+
+
+
+
+%\vfill
+
+
+
+
+\end{multicols*}
+
+
+\end{document}

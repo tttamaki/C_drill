@@ -1,0 +1,13 @@
+%
+% 1か2を指定する。
+%
+\def\anss{1} % 1 : Question mode 学生に解かせるとき
+             % 2 : Answer mode   回答例
+
+
+
+\ifnum \anss=1
+\def\an#1{\phantom{#1}} % Question mode
+\else
+\def\an#1{{#1}}  % Answer mode
+\fi

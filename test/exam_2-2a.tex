@@ -1,0 +1,304 @@
+\documentclass[a4j]{jarticle}
+\usepackage{multicol}
+\raggedbottom
+\addtolength{\textwidth}{4cm}
+\addtolength{\textheight}{3.5cm}
+\addtolength{\topmargin}{-2.5cm}
+\addtolength{\evensidemargin}{-2cm}
+\addtolength{\oddsidemargin}{-2cm}
+\setlength{\columnseprule}{.5pt}
+\setlength{\columnsep}{4zw}
+
+\makeatletter
+\def\verbatim@font{\small\bfseries\ttfamily}
+\makeatother
+
+
+\include{flag}
+
+
+\def\ans#1#2{
+\ifnum \anss=1
+#1
+\else
+#2
+\fi
+}
+
+
+
+\def\ds{\displaystyle}
+
+\begin{document}
+\thispagestyle{empty}
+
+\begin{multicols*}{2}%
+
+
+\def\subst#1#2{$\ds #1$
+ \ $\longrightarrow$\ 
+ \underline{\hbox to 5cm{\ttfamily #2}}}
+
+
+
+\noindent
+\begin{tabular}[t]{|c|cccccccc|}\hline
+氏　　名 & & & & & & & & \\ \hline
+\end{tabular}\\
+\begin{tabular}[t]{|c|c|c|c|c|c|c|c|c|c|}\hline
+学籍番号 & & & & & & & & \\ \hline
+\end{tabular}\\
+学籍番号の\underline{数字の}右から一番目が{\bfseries 奇数の人は左側}の問題を
+解いて下さい。
+\vspace{-5ex}
+
+
+
+\subsection*{問1}
+
+
+1.　文字型の変数{\ttfamily x}と実数型の変数{\ttfamily c}
+の変数を宣言し、それぞれ{\ttfamily 'j'と1.2}を代入して、
+それらの値を{\ttfamily printf}文で表示するプログラムを書け。
+
+
+\ifnum \anss=1
+\begin{verbatim}
+
+
+
+
+
+
+
+
+\end{verbatim}
+\else
+\begin{verbatim}
+例：
+char x = 'j';
+float c = 1.2;
+printf("%c %f", x, c);
+
+
+
+
+
+
+\end{verbatim}
+\fi
+
+
+
+2.　{\ttfamily 2*5*11*(6/7)*10*4*9}\\
+\hfill の評価結果は\ans{＿＿＿＿}{　　0　　}である。
+
+
+
+3.　\verb@y*8-5*θ@はC言語の式として\\
+\hfill[\ans{正しい・間違っている}{正しい・\underline{間違っている}}]。
+
+4.　\verb@xy-4*YouAre_Japanese@はC言語の式として\\
+\hfill[\ans{正しい・間違っている}{\underline{正しい}・間違っている}]。
+
+
+
+
+\subsection*{問2}
+
+次の文章を表示したい。
+\begin{verbatim}
+How are
+you, John?
+\end{verbatim}
+
+以下のプログラム中の下線部を埋めよ。
+
+\ifnum \anss=1
+\begin{verbatim}
+printf(＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿);
+\end{verbatim}
+\else
+\begin{verbatim}
+printf("How are\nyou, John?");
+\end{verbatim}
+\fi
+
+
+
+
+
+
+
+
+
+\subsection*{問4}
+
+何が表示されるか。
+\begin{verbatim}
+int r = 1, a[5] = {5, 2, 6, 9, 8};
+printf("%d ", a[r]);
+r = r + 2;
+printf("%d ", a[r]);
+r = r + 2;
+printf("\n");
+\end{verbatim}
+
+\ans{\mbox{}}{{\ttfamily 2 9}}
+
+
+%
+%\subsection*{問5}
+%
+%当てはまるものにチェックを付けよ。
+%
+%\begin{itemize}
+% \itemsep=-3pt
+% \item 配列は： □よく分からない。□理解した。
+% \item 実数型と整数型の違いは：\\ □よく分からない。□理解した。
+% \item {\ttfamily printf}関数の使いかたは：\\ □よく分からない。□理解した。
+%\end{itemize}
+%
+
+
+
+\vspace*{3cm}
+
+\vfill
+
+\mbox{}
+
+%{\vbox{\vspace{1cm}}}
+
+
+
+
+\noindent
+\begin{tabular}[t]{|c|cccccccc|}\hline
+氏　　名 & & & & & & & & \\ \hline
+\end{tabular}\\
+\begin{tabular}[t]{|c|c|c|c|c|c|c|c|c|c|}\hline
+学籍番号 & & & & & & & & \\ \hline
+\end{tabular}\\
+学籍番号の\underline{数字の}右から一番目が{\bfseries 偶数の人は右側}の問題を
+解いて下さい。
+\vspace{-5ex}
+
+
+
+
+
+\subsection*{問1}
+
+
+1.　整数型の変数{\ttfamily y}と実数型の変数{\ttfamily z}
+の変数を宣言し、それぞれ{\ttfamily 2と22.4}を代入して、
+それらの値を{\ttfamily printf}文で表示するプログラムを書け。
+
+\ifnum \anss=1
+\begin{verbatim}
+
+
+
+
+
+
+
+
+\end{verbatim}
+\else
+\begin{verbatim}
+例：
+int y = 2;
+double z = 22.4;
+printf("%d %f", y, z);
+
+
+
+
+
+
+\end{verbatim}
+\fi
+
+
+
+2.　{\ttfamily 3/9*2*5*11*4*9}の\\
+\hfill 評価結果は\ans{＿＿＿＿}{　　0　　}である。
+
+
+
+3.　\verb@3*π+2*x@はC言語の式として\\
+\hfill[\ans{正しい・間違っている}{正しい・\underline{間違っている}}]。
+
+
+4.　\verb@ax+2*This_Is_A_Test@はC言語の式として\\
+\hfill[\ans{正しい・間違っている}{\underline{正しい}・間違っている}]。
+
+
+
+
+
+\subsection*{問2}
+
+次の文章を表示したい。
+\begin{verbatim}
+Today is
+very fine.
+\end{verbatim}
+
+以下のプログラム中の下線部を埋めよ。
+
+\ifnum \anss=1
+\begin{verbatim}
+printf(＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿);
+\end{verbatim}
+\else
+\begin{verbatim}
+printf("Today is\nvery fine.");
+\end{verbatim}
+\fi
+
+
+
+
+\subsection*{問4}
+
+何が表示されるか。
+\begin{verbatim}
+int w = 3, a[4] = {0, 9, 2, 8};
+printf("%d ", a[w]);
+w = w - 2;
+printf("%d ", a[w]);
+w = w - 2;
+printf("\n");
+\end{verbatim}
+
+\ans{\mbox{}}{{\ttfamily 8 9}}
+
+
+%
+%\subsection*{問5}
+%
+%当てはまるものにチェックを付けよ。
+%
+%\begin{itemize}
+% \itemsep=-3pt
+% \item 配列は： □理解した。□よく分からない。
+% \item 実数型と整数型の違いは：\\ □理解した。□よく分からない。
+% \item {\ttfamily printf}関数の使いかたは：\\ □理解した。□よく分からない。
+%\end{itemize}
+%
+
+
+
+
+%\vfill
+
+
+
+
+\end{multicols*}
+
+
+\end{document}

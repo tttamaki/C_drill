@@ -1,0 +1,381 @@
+\documentclass[a4j]{jarticle}
+\usepackage{multicol}
+\usepackage{fancybox}
+
+\raggedbottom
+\addtolength{\textwidth}{4cm}
+\addtolength{\textheight}{4cm}
+\addtolength{\topmargin}{-2.5cm}
+%\addtolength{\topmargin}{-1.5cm}
+\addtolength{\evensidemargin}{-2cm}
+\addtolength{\oddsidemargin}{-2cm}
+\setlength{\columnseprule}{.5pt}
+\setlength{\columnsep}{4zw}
+
+\makeatletter
+\def\verbatim@font{%\small
+\bfseries\ttfamily}
+\makeatother
+
+
+
+\include{flag}
+
+\def\ans#1#2{
+\ifnum \anss=1
+#1
+\else
+#2
+\fi
+}
+
+\newcounter{toi}
+\setcounter{toi}{1}
+\def\toi{%
+%\subsubsection*{問\thetoi}
+\bigskip\bigskip\noindent
+\raisebox{-1.2ex}{
+\shadowbox{\bfseries\large 問題\thetoi}
+}
+%\addcontentsline{toc}{subsubsection}{問\thetoi}
+\addtocounter{toi}{1}
+%\nopagebreak[4]\bigskip\nopagebreak[4]
+}
+
+
+\setlength{\topsep}{0pt}
+
+
+
+\def\ds{\displaystyle}
+
+\begin{document}
+\thispagestyle{empty}
+\pagestyle{empty}
+
+\begin{multicols*}{2}%
+
+
+\def\subst#1#2{$\ds #1$
+ \ $\longrightarrow$\ 
+ \underline{\hbox to 5cm{\ttfamily #2}}}
+
+
+
+\noindent
+\begin{tabular}[t]{|c|cccccccc|}\hline
+氏　　名 & & & & & & & & \\ \hline
+\end{tabular}\\
+\begin{tabular}[t]{|c|c|c|c|c|c|c|c|c|c|}\hline
+学籍番号 & & & & & & & & \\ \hline
+\end{tabular}\\
+
+
+
+\toi
+次のC言語の式を評価せよ。
+\begin{itemize}
+ \item \verb@1+5*3/6@ 　解答：\ans{＿＿＿＿＿}{3}
+ \item \verb@(-1<4)||(7>8)@ 　解答：\ans{＿＿＿＿＿}{0}
+ \item \verb@4<5>3@ 　解答：\ans{＿＿＿＿＿}{0}
+\end{itemize}
+
+
+\toi
+次の数学の式をC言語の式に書き直せ。
+\begin{itemize}
+ \item $\ds\frac{2-1}{1-\ds\frac{4}{3+1}}-3$\\[2ex]
+       解答：\ans{}{{\ttfamily\small
+       (2-1)/(1-4/(3+1))-3
+       }}\\
+ \item $\cos\frac{2x^2+2xy+1}{\sqrt{2}}$\\[2ex]
+       解答：\ans{}{{\ttfamily\small
+       cos((2*x*x+2*x*y+1)/sqrt(2))}}
+\end{itemize}
+
+
+\toi
+次の数式を代入文で書こうとしたが、間違っている。
+訂正せよ。
+\begin{itemize}
+ \itemsep=5ex
+ \item $x=\ds\frac{a+b}{-\frac{c+2}{d}-e}$
+      $\quad\longrightarrow\quad$
+      \ans{\ttfamily x=(a+b)/[-\{c+2\}d-e];}
+      {\ttfamily x=(a+b)/(-(c+2)/d-e);}
+\end{itemize}
+
+
+
+%
+%
+%\toi
+%15と12の最大公約数と最小公倍数を求めよ。\\
+%最大公約数：\ans{＿＿＿＿＿}{5}, \quad 最小公倍数：\ans{＿＿＿＿＿}{60}
+%
+
+
+\toi
+何が表示されるか。
+\begin{verbatim}
+    int a, b, c;
+    a = 3;
+    b = 2;
+    b = b - 5;
+    a++;
+    b += a;
+    c = a + b; 
+    printf("%d %d %d\n", a, c, b);
+
+\end{verbatim}
+\noindent
+解答：\ans{＿＿＿＿＿＿＿＿＿＿＿＿}{4 5 1}
+
+
+
+
+
+\toi
+実数型の変数{\ttfamily ax}と、
+符号付き整数型の変数{\ttfamily by}
+の変数宣言を書け。
+{\footnotesize （詳しく指定しない。
+当てはまるものを書け）}
+
+\ifnum \anss=1
+\begin{verbatim}
+
+
+
+\end{verbatim}
+\else
+\begin{verbatim}
+    float ax;  or double ax;
+
+    int by; or signed int/short/long by;
+\end{verbatim}
+\fi
+
+
+
+
+
+
+\toi
+何が表示されるか。
+\begin{verbatim}
+    float a=4.8, b=2.4, x;
+    int m=5, n=2;
+    x = a / b + m / n;
+    if(x <= 4){
+      printf("4以下\n");
+    }else{
+      printf("4より大\n");
+    }
+\end{verbatim}
+\noindent
+解答：\ans{}{4以下}
+
+
+
+\input{questionarry2.tex}
+
+
+%
+%
+%\toi
+%以下の質問に解答せよ。\\
+%・{\bfseries\small
+%問題集でやったことが課題を解く時に役に立ったことが}
+%[{\scriptsize ある／ない}]\\
+%{\scriptsize 自由記述欄：}
+%＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿\\
+%・{\bfseries\small
+% 問題集をやった期間
+%{\scriptsize （4週間）}は}
+%[{\scriptsize 長かった／短かかった}]\\
+%{\scriptsize 自由記述欄：}
+%＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿\\
+%・{\bfseries\small 問題の量は}
+%[{\scriptsize 多い／少ない}]\\
+%{\scriptsize 自由記述欄：}
+%＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿\\
+%・{\bfseries\small 問題の出題分野は}
+%[{\scriptsize 広い・十分／狭い・足りない}]\\
+%{\scriptsize 自由記述欄：}
+%＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿\\
+%・{\bfseries 問題を追加・削除した方がいい分野は？}\\
+%{\scriptsize 自由記述欄：}
+%＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿\\
+%
+%
+
+
+
+
+
+
+
+
+
+%
+%\toi\\
+%以下の質問に答えよ。
+%{\footnotesize （分野は問題4から選んでもよい）}\\
+%・難しかったのはどの分野ですか？{\footnotesize （複数回答可）}\\
+%＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿\\
+%・理解できなかったのはどの分野ですか？{\footnotesize （複数回答可）}\\
+%＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿\\
+%・実習以前のプログラミング経験は？
+%{\footnotesize （何年程度か、言語は）}\\
+%＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿\\
+%・今後、他教科で出題されたレポート課題において、
+%自分でプログラムを作れると[思う・思わない]、また
+%作ってやってみようと[思う・思わない]。
+%
+
+
+
+\toi
+for文を使って、配列{\ttfamily Name[912]}
+の全ての要素の和を計算して
+表示したい。以下のプログラムの
+下線部を埋めよ。ただし{\ttfamily Name}はすでに
+宣言され初期化されているとする。
+
+\ifnum \anss=1
+\begin{verbatim}
+int h, number=0;
+for( ＿＿＿＿＿＿ ; ＿＿＿＿＿ ; ＿＿＿＿＿ ){
+   number += Name[h];
+}
+printf("%d\n", number);
+\end{verbatim}
+\else
+\begin{verbatim}
+int h, number=0;
+for(h = 0; h < 912; h++){
+   number += Name[h];
+}
+printf("%d\n", number);
+\end{verbatim}
+\fi
+
+
+
+
+
+
+
+\toi
+何が表示されるか。
+\begin{verbatim}
+int x, y, n = 0;
+for(x = 0; x < 10; x++){
+  for(y = 0; y < 10; y++){
+  };
+  n++;
+}
+printf("n is %d\n", n);
+
+\end{verbatim}
+解答：\ans{＿＿＿＿＿＿＿＿＿＿}{{\ttfamily n is 10}}
+
+
+
+\pagebreak
+
+\input{questionarry.tex}
+
+
+
+\toi
+配列{\ttfamily b}の要素のうち、
+ある変数{\ttfamily y}より大きいものを全て表示するプログラムを、
+ループを使って書け。次がその一行目とする。
+ただし{\ttfamily y}がどのような値であっても
+通用するように書くこと。
+\ifnum \anss=1
+\begin{verbatim}
+int j, b[5] = {2, 44, 99, 35, 41}, y = 38;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{verbatim}
+\else
+\begin{verbatim}
+int j, b[5] = {2, 44, 99, 35, 41}, y = 38;
+j = 0;
+while(j < 5){
+  if(b[j] > y){
+  printf("%d ", b[j]);
+  }
+  j++;
+}
+または
+int j, b[5] = {2, 44, 99, 35, 41}, y = 38;
+for(j = 0; j < 5; j++){
+  if(b[j] > y){
+  printf("%d ", b[j]);
+  }
+}
+\end{verbatim}
+\fi
+
+
+
+
+
+\toi
+以下の代入文が上から順に実行されたとき、
+各変数の値を書け。
+\begin{verbatim}
+int x = 1, *p, y = 5;
+p = &y;
+y = 3;
+x = *p + 1;
+\end{verbatim}
+\noindent
+解答\\
+{\ttfamily  x}の値：\ans{＿＿＿}{4}　%
+{\ttfamily *p}の値：\ans{＿＿＿}{3}　%
+{\ttfamily  y}の値：\ans{＿＿＿}{3}
+
+
+
+
+
+
+
+\toi
+次のプログラムに対応するフローチャートを描け。
+\begin{verbatim}
+int i, n = 0;
+for(i = 12; i > -121; i -= 2){
+  n += 3 * i - 1;
+  printf("%d ", n);
+}  
+\end{verbatim}
+
+
+%
+%\vfill\vfill\vfill\vfill\vfill\vfill
+%\toi
+%問題集と課題について感想を述べよ。
+
+
+\end{multicols*}
+
+
+\end{document}

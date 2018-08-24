@@ -1,0 +1,229 @@
+\documentclass[a4j]{jarticle}
+\usepackage{multicol}
+\raggedbottom
+\addtolength{\textwidth}{4cm}
+\addtolength{\textheight}{3.5cm}
+\addtolength{\topmargin}{-2.5cm}
+\addtolength{\evensidemargin}{-2cm}
+\addtolength{\oddsidemargin}{-2cm}
+%\setlength{\columnseprule}{.5pt}
+\setlength{\columnsep}{4zw}
+
+\makeatletter
+\def\verbatim@font{\small\bfseries\ttfamily}
+\makeatother
+
+
+
+\include{flag}
+
+\def\ans#1#2{
+\ifnum \anss=1
+#1
+\else
+#2
+\fi
+}
+
+
+
+
+\def\ds{\displaystyle}
+
+\begin{document}
+\thispagestyle{empty}
+
+\begin{multicols*}{2}%
+
+
+\def\subst#1#2{$\ds #1$
+ \ $\longrightarrow$\ 
+ \underline{\hbox to 5cm{\ttfamily #2}}}
+
+
+
+\noindent
+\begin{tabular}[t]{|c|cccccccc|}\hline
+氏　　名 & & & & & & & & \\ \hline
+\end{tabular}\\
+\begin{tabular}[t]{|c|c|c|c|c|c|c|c|c|c|}\hline
+学籍番号 & & & & & & & & \\ \hline
+\end{tabular}\\
+学籍番号の\underline{数字の}右から一番目が{\bfseries 奇数の人は左側}の問題を
+解いて下さい。
+\vspace{-5ex}
+
+
+
+
+
+
+
+\subsection*{問1}
+
+次の虫食い算を解くプログラムを（二重ループと{\ttfamily if}
+と剰余を用いて）書け。
+\begin{verbatim}
+　１□□
+×　１□
+────
+□□□１
+□□□
+────
+□１１□
+\end{verbatim}
+つまり、$100\times10$から$199\times19$のかけ算{\ttfamily a*b}の
+二重ループを考え、
+その{\ttfamily aとb}の組が筆算の{\bfseries □}の条件を満たすかどうか（一桁目が1かど
+うか、など）を
+{\ttfamily if}文で判定し、
+筆算の計算結果を{\ttfamily printf}で表示する。
+
+
+\ifnum \anss=1
+\begin{verbatim}
+
+\end{verbatim}
+\vspace{14cm}
+\vfill
+\mbox{}\\
+\else
+\begin{verbatim}
+int a = 100, b;
+while(a <= 199){
+  b = 10;
+  while(b <= 19){
+    if( ((b-10)*a) % 10 == 1 &&
+        1000 <= ((b-10)*a) && ((b-10)*a) < 10000 &&
+        ((a*b)/10) % 100 == 11 &&
+        1000 <= b*a && b*a < 10000
+        ){
+
+      printf(" %d\n", a);
+      printf("x %d\n", b);
+      printf("----\n");
+      printf("%d\n", (b-10)*a);
+      printf("%d\n",  a);
+      printf("----\n");
+      printf("%d\n",  a*b);
+    }
+    b = b + 1;
+  }
+  a = a + 1;
+}
+
+
+正解  まちがい
+ 183   101
+x 17  x 11
+----  ----
+1281   101
+183   101
+----  ----
+3111  1111
+\end{verbatim}
+\vspace{3cm}
+\mbox{}
+\fi
+
+
+
+
+
+
+
+
+\noindent
+\begin{tabular}[t]{|c|cccccccc|}\hline
+氏　　名 & & & & & & & & \\ \hline
+\end{tabular}\\
+\begin{tabular}[t]{|c|c|c|c|c|c|c|c|c|c|}\hline
+学籍番号 & & & & & & & & \\ \hline
+\end{tabular}\\
+学籍番号の\underline{数字の}右から一番目が{\bfseries 偶数の人は右側}の問題を
+解いて下さい。
+\vspace{-5ex}
+
+
+
+
+
+
+
+
+
+\subsection*{問1}
+
+次の虫食い算を解くプログラムを（二重ループと{\ttfamily if}
+と剰余を用いて）書け。
+\begin{verbatim}
+　２□□
+×　２□
+────
+２□□２
+□２□
+────
+□□□□
+\end{verbatim}
+つまり、$200\times20$から$299\times29$のかけ算{\ttfamily a*b}の
+二重ループを考え、
+その{\ttfamily aとb}の組が筆算の{\bfseries □}の条件を満たすかどうか（二桁目が2かど
+うか、など）を
+{\ttfamily if}文で判定し、
+筆算の計算結果を{\ttfamily printf}で表示する。
+
+
+\ifnum \anss=1
+\begin{verbatim}
+
+\end{verbatim}
+\vspace{5cm}
+\else
+\begin{verbatim}
+int a = 200, b;
+while(a <= 299){
+  b = 20;
+  while(b <= 29){
+    if( ((b-20)*a) % 10 == 2 &&
+        2000 <= ((b-20)*a) && ((b-20)*a) < 3000 &&
+        ((a*2)/10) % 10 == 2 &&
+        1000 <= b*a && b*a < 10000
+        ){
+
+      printf(" %d\n", a);
+      printf("x %d\n", b);
+      printf("----\n");
+      printf("%d\n", (b-20)*a);
+      printf("%d\n",  a*2);
+      printf("----\n");
+      printf("%d\n\n",  a*b);
+    }
+    b = b + 1;
+  }
+  a = a + 1;
+}
+
+
+正解
+ 264
+x 28
+----
+2112
+528
+----
+7392
+\end{verbatim}
+\fi
+
+
+
+
+
+
+
+
+
+\end{multicols*}
+
+
+\end{document}
